@@ -1,9 +1,11 @@
-form { max-width: 420px; margin :50px auto; }
+form {
+    max-width: 420px;
+    margin :  40px auto;
+}
 
 .formTitle h1 {
     text-align: center;
     line-height: 1;
-    margin-bottom: 20px;
     font-size: 2.3rem;
 }
 
