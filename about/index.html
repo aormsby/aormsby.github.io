@@ -142,9 +142,10 @@
 
 <form>
     <h1 style="text-align:center">Chat with me!</h1>
-    <input name="name" type="text" class="feedback-input" placeholder="Name" />   
-    <input name="email" type="text" class="feedback-input" placeholder="Email" />
-    <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
+    <input name="name" type="text" class="feedback-input" placeholder="Name" required/>   
+    <input name="email" type="text" class="feedback-input" placeholder="Email" required/>
+    <input type="text" name="_gotcha" style="display:none">
+    <textarea name="text" class="feedback-input" placeholder="Comment"required></textarea>
     <input type="submit" value="Submit"/>
 </form>
 

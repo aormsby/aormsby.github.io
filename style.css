@@ -49,3 +49,9 @@ textarea {
     /* font-weight: 700; */
 }
 [type="submit"]:hover { background:#CC4949; }
+
+/* ###### */
+
+.posts {
+    width: 100%;
+}
