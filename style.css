@@ -16,10 +16,10 @@ form {
 }
 
 .feedback-input {
-    /* color:white; */
     font-family: inherit;
-    /* font-weight: inherit; */
+    font-weight: inherit;
     font-size: inherit;
+    color: inherit;
     border-radius: 5px;
     line-height: 22px;
     background-color: transparent;
@@ -37,6 +37,11 @@ form {
     .dark-theme & {
         border-color: var(--light-border-color);
     }
+}
+
+::placeholder {
+    color: gray;
+    
 }
 
 .feedback-input:focus { border:2px solid #CC4949; }
