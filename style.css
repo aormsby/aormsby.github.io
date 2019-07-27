@@ -74,3 +74,8 @@ textarea {
 .posts {
     width: 100%;
 }
+
+.logo__cursor {
+    animation: cursor 1.3s infinite;
+    /* background: #CC4949; */
+}
