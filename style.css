@@ -79,3 +79,9 @@ textarea {
     animation: cursor 1.3s infinite;
     /* background: #CC4949; */
 }
+
+.honeypot {
+    display: none;
+  }
+
+  /*temp comment*/
