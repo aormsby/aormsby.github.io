@@ -13,7 +13,7 @@
   </url>
   
   <url>
-    <loc>https://aormsby.github.io/posts/test/test/</loc>
+    <loc>https://aormsby.github.io/posts/test/</loc>
     <lastmod>2019-07-24T13:25:51+07:00</lastmod>
   </url>
   
@@ -47,6 +47,10 @@
   
   <url>
     <loc>https://aormsby.github.io/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://aormsby.github.io/posts/testing-cover-image/</loc>
   </url>
   
 </urlset>
