@@ -86,3 +86,9 @@ textarea {
     animation: cursor 1.3s infinite;
     /* background: #CC4949; */
 }
+
+/* ###### */
+
+.post-date {
+    margin-right: 30px;
+}
