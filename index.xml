@@ -6,19 +6,10 @@
     <description>Recent content on Adam Ormsby</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Nov 2019 21:26:46 +0700</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 00:00:01 +0700</lastBuildDate>
     
 	<atom:link href="https://aormsby.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>FEED ME 3</title>
-      <link>https://aormsby.github.io/posts/twitterimgtest/</link>
-      <pubDate>Sun, 03 Nov 2019 21:26:46 +0700</pubDate>
-      
-      <guid>https://aormsby.github.io/posts/twitterimgtest/</guid>
-      <description>Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.</description>
-    </item>
     
     <item>
       <title>My Second Post</title>
@@ -65,6 +56,15 @@ Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec int
       
       <guid>https://aormsby.github.io/archive/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>FEED ME ------ the post title!</title>
+      <link>https://aormsby.github.io/posts/twitterimgtest/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://aormsby.github.io/posts/twitterimgtest/</guid>
+      <description>Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.</description>
     </item>
     
     <item>
