@@ -39,21 +39,12 @@
     </item>
     
     <item>
-      <title>Lastmodtest</title>
-      <link>https://aormsby.github.io/posts/lastmodtest/</link>
+      <title>Lastmodmaketest</title>
+      <link>https://aormsby.github.io/posts/lastmodmaketest/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://aormsby.github.io/posts/lastmodtest/</guid>
-      <description>This is a post to test last modification. I&amp;rsquo;m removing the front matter date in order to see if git info matches on build and then if it appears based on my Go layout modifications.</description>
-    </item>
-    
-    <item>
-      <title>testing cover image</title>
-      <link>https://aormsby.github.io/posts/testing-cover-image/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://aormsby.github.io/posts/testing-cover-image/</guid>
-      <description>This is a test using the front matter template on forestry.</description>
+      <guid>https://aormsby.github.io/posts/lastmodmaketest/</guid>
+      <description></description>
     </item>
     
   </channel>

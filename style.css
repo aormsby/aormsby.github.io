@@ -89,6 +89,7 @@ textarea {
 
 /* ###### */
 
-.post-date {
-    margin-right: 30px;
+.post-mod-date {
+    /* margin-left: 30px; */
+    float: right;
 }
