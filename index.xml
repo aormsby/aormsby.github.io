@@ -26,27 +26,7 @@
       <pubDate>Tue, 23 Jul 2019 21:51:05 +0700</pubDate>
       
       <guid>https://aormsby.github.io/posts/my-first-post/</guid>
-      <description>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&amp;rsquo;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://aormsby.github.io/about/</link>
-      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://aormsby.github.io/about/</guid>
-      <description>Page Plan Write a short bio, express interest in freelance and cooperative work, link to current/favorite projects/profiles, and give credit to theme creator panr. Social/Contact icons on this page - below or above About?
- light/dark mode, depending on your preferences great reading experience thanks to Inter UI font, made by Rasmus Andersson nice code highlighting thanks to PrismJS  Say hello!  (A new tab will open to confirm your submission.</description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>https://aormsby.github.io/projects/</link>
-      <pubDate>Fri, 18 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://aormsby.github.io/projects/</guid>
-      <description>Page Plan To begin, just use basic markup to create a page of scrollable projects with at least one main image and links to more detailed descriptions. If possible, host those files in a folder /content/projects.
-Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante.</description>
+      <description>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</description>
     </item>
     
     <item>
@@ -55,24 +35,6 @@ Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec int
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://aormsby.github.io/archive/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>FEED ME ------ the post title!</title>
-      <link>https://aormsby.github.io/posts/twitterimgtest/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://aormsby.github.io/posts/twitterimgtest/</guid>
-      <description>Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.</description>
-    </item>
-    
-    <item>
-      <title>Lastmodmaketest</title>
-      <link>https://aormsby.github.io/posts/lastmodmaketest/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://aormsby.github.io/posts/lastmodmaketest/</guid>
       <description></description>
     </item>
     
