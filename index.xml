@@ -30,12 +30,32 @@
     </item>
     
     <item>
+      <title>About</title>
+      <link>https://aormsby.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://aormsby.github.io/about/</guid>
+      <description>Page Plan Write a short bio, express interest in freelance and cooperative work, link to current/favorite projects/profiles, and give credit to theme creator panr. Social/Contact icons on this page - below or above About?
+  light/dark mode, depending on your preferences great reading experience thanks to Inter UI font, made by Rasmus Andersson nice code highlighting thanks to PrismJS   </description>
+    </item>
+    
+    <item>
       <title>Archive</title>
       <link>https://aormsby.github.io/archive/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://aormsby.github.io/archive/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://aormsby.github.io/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://aormsby.github.io/projects/</guid>
+      <description>Page Plan To begin, just use basic markup to create a page of scrollable projects with at least one main image and links to more detailed descriptions. If possible, host those files in a folder /content/projects.
+ Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante.</description>
     </item>
     
   </channel>
