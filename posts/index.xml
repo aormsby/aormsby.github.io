@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Adam Ormsby</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 Dec 2019 15:38:43 +0700</lastBuildDate>
+    <lastBuildDate>Tue, 24 Dec 2019 15:45:00 +0700</lastBuildDate>
     
 	<atom:link href="https://aormsby.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rss Test 2</title>
+      <link>https://aormsby.github.io/posts/rss2/</link>
+      <pubDate>Tue, 24 Dec 2019 15:45:00 +0700</pubDate>
+      
+      <guid>https://aormsby.github.io/posts/rss2/</guid>
+      <description>SING, O GODDESS, the anger of Achilles son of Peleus, that brought countless ills upon the Achaeans. Many a brave soul did it send hurrying down to Hades, and many a hero did it yield a prey to dogs and vultures, for so were the counsels of Jove fulfilled from the day on which the son of Atreus, king of men, and great Achilles, first fell out with one another.</description>
+    </item>
     
     <item>
       <title>RssTest</title>
