@@ -181,29 +181,40 @@ window.&lt;span style=&#34;color:#a6e22e&#34;&gt;addEventListener&lt;/span&gt;(&
     </item>
     
     <item>
-      <title>About</title>
+      <title>About Me</title>
       <link>https://aormsby.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://aormsby.github.io/about/</guid>
-      <description>&lt;h1 id=&#34;page-plan&#34;&gt;Page Plan&lt;/h1&gt;
-&lt;p&gt;Write a short bio, express interest in freelance and cooperative work, link to current/favorite projects/profiles, and give credit to theme creator panr. Social/Contact icons on this page - below or above About?&lt;/p&gt;
-&lt;hr&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;light/dark mode&lt;/strong&gt;, depending on your preferences&lt;/li&gt;
-&lt;li&gt;great reading experience thanks to &lt;a href=&#34;https://rsms.me/inter/&#34;&gt;&lt;strong&gt;Inter UI font&lt;/strong&gt;&lt;/a&gt;, made by &lt;a href=&#34;https://rsms.me/about/&#34;&gt;Rasmus Andersson&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;nice code highlighting thanks to &lt;a href=&#34;https://prismjs.com&#34;&gt;&lt;strong&gt;PrismJS&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
+      <description>&lt;h2 id=&#34;hi-im-adam&#34;&gt;Hi, I&#39;m Adam!&lt;/h2&gt;
+&lt;p&gt;I&#39;m a software developer currently making mobile apps with Xamarin and C#, and I&#39;m learning languages like Python and Go through smaller projects (including this website!). I started this blog to share my work and provide insight into the roadblocks I&#39;ve encountered as a developer - both on &lt;em&gt;and&lt;/em&gt; off the computer. I&#39;m a big fan of open source, and I believe that sharing our experiences is an important part of that ideal. I hope we can learn a lot from each other.&lt;/p&gt;
+&lt;h2 id=&#34;im-a-freelancer&#34;&gt;I&#39;m a Freelancer.&lt;/h2&gt;
+&lt;p&gt;If you need a helping hand, I may be the developer you&#39;re looking for. I&#39;m always adding to my skill set, and I enjoy working with active teams on projects they care about. Most recently, I&#39;ve been interested in mobile applications and &amp;lsquo;small impact&amp;rsquo; projects to benefit everyday users, but I&#39;m open to work of any type. As a remote developer, I&#39;m available to work with you and your friends anywhere in the world, and I&#39;m happy to discuss on-site work if it&#39;s what you need.&lt;/p&gt;
+&lt;h2 id=&#34;get-in-touch&#34;&gt;Get in touch!&lt;/h2&gt;
+&lt;p&gt;
+  &lt;span class=&#34;icon-link&#34;&gt;
+    &lt;a href=&#34;#mailgo&#34; data-address=&#34;ormsbyadam&#34; data-domain=&#34;gmail.com&#34; &gt;
+      &lt;img src=&#34;https://aormsby.github.io/icon/mailgo.png&#34; alt=&#34;mailgo&#34;  height=&#34;100&#34;  /&gt;
+    &lt;/a&gt;
+    
+    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.2/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
+  &lt;/span&gt;
 
-  &lt;a href=&#34;#mailgo&#34; data-address=&#34;ormsbyadam&#34; data-domain=&#34;gmail.com&#34;&gt;
-    &lt;img src=&#34;https://aormsby.github.io/icon/mailgo.png&#34;  height=&#34;100&#34; /&gt;
-  &lt;/a&gt;
-  
-  &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.2/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
 
+  &lt;span class=&#34;icon-link&#34;&gt;
+    &lt;a href=&#34;https://linkedin.com/in/adamormsby&#34; target=&#34;_blank&#34; &gt;
+      &lt;img src=&#34;https://aormsby.github.io/icon/linkedin.png&#34; alt=&#34;LinkedIn&#34;  height=100  /&gt;
+    &lt;/a&gt;
+  &lt;/span&gt;
+
+
+  &lt;span class=&#34;icon-link&#34;&gt;
+    &lt;a href=&#34;https://github.com/aormsby&#34; target=&#34;_blank&#34; &gt;
+      &lt;img src=&#34;https://aormsby.github.io/icon/github.png&#34; alt=&#34;Github&#34;  height=100  /&gt;
+    &lt;/a&gt;
+  &lt;/span&gt;
+
+&lt;/p&gt;
 </description>
     </item>
     
