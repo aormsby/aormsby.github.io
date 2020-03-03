@@ -33,9 +33,8 @@ ___|___| img/&lt;br&gt;
 ___|___| project-page.md&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&#34;shortcodes&#34;&gt;Shortcodes!&lt;/h4&gt;
-&lt;p&gt;Hugo shortcodes are awesome, and I&amp;rsquo;ve built a few to quickly display various items throughout my site. Here are some examples in action. (I intend to host these on a Github repo in the future!)&lt;/p&gt;
-&lt;p&gt;Some quick inline links &amp;ndash;&lt;/p&gt;
-&lt;p&gt;
+&lt;p&gt;Hugo shortcodes are awesome, and I&amp;rsquo;ve built a few to quickly display various items throughout my site. Here are some of the smaller ones I&amp;rsquo;ve built with the Go template code beneath. (I intend to host these on a Github repo in the future!)&lt;/p&gt;
+
   &lt;span class=&#34;icon-link&#34;&gt;
     &lt;a href=&#34;#mailgo&#34; data-address=&#34;ormsbyadam&#34; data-domain=&#34;gmail.com&#34; &gt;
       &lt;img src=&#34;https://www.adamormsby.com/icon/mailgo.png&#34; alt=&#34;mailgo&#34;  height=&#34;100&#34;  /&gt;
@@ -44,33 +43,40 @@ ___|___| project-page.md&lt;/p&gt;
     &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.3/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
   &lt;/span&gt;
 
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;{{ if .Get 1 }}
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;icon-link&amp;#34;&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#mailgo&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data-address&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ .Get 0 }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data-domain&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ .Get 1 }}&amp;#34;&lt;/span&gt; &amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;img&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/icon/mailgo.png&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;alt&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mailgo&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;{{&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;with&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Get&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;height&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ . }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;{{&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}&lt;/span&gt; /&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&amp;gt;
+    
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.3/dist/mailgo.min.js&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+{{ else }}
+  {{ errorf &amp;#34;missing email params&amp;#34; }}
+{{ end }}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
   &lt;span class=&#34;icon-link&#34;&gt;
     &lt;a href=&#34;https://linkedin.com/in/adamormsby&#34; target=&#34;_blank&#34; &gt;
       &lt;img src=&#34;https://www.adamormsby.com/icon/linkedinmix.png&#34; alt=&#34;LinkedIn&#34;  height=100  /&gt;
     &lt;/a&gt;
   &lt;/span&gt;
 
-
-  &lt;span class=&#34;icon-link&#34;&gt;
-    &lt;a href=&#34;https://github.com/aormsby&#34; target=&#34;_blank&#34; &gt;
-      &lt;img id=&#34;github-icon&#34; src=&#34;https://www.adamormsby.com/icon/githubmix.png&#34; alt=&#34;Github&#34;  height=100  /&gt;
-    &lt;/a&gt;
-  &lt;/span&gt;
-
-
-
-  &lt;span class=&#34;icon-link&#34;&gt;
-    &lt;a href=&#34;https://ko-fi.com/aormsby&#34; target=&#34;_blank&#34; &gt;
-      &lt;img src=&#34;https://www.adamormsby.com/icon/kofi.png&#34; alt=&#34;Buy Me a Coffee at ko-fi.com&#34;  height=100  /&gt;
-    &lt;/a&gt;
-  &lt;/span&gt;
-&lt;/p&gt;
-&lt;p&gt;A functional display of a Google My Map &amp;ndash;&lt;/p&gt;
-&lt;div class=&#34;gmap&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;{{ if .Get 0 }}
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;icon-link&amp;#34;&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://linkedin.com/in/{{ .Get 0 }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;target&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;_blank&amp;#34;&lt;/span&gt; &amp;gt;
+      &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;img&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/icon/linkedinmix.png&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;alt&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;LinkedIn&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;{{&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;with&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Get&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;height&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{{&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;{{&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}&lt;/span&gt; /&amp;gt;
+    &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+{{ else }}
+  {{ errorf &amp;#34;missing public profile URL ending&amp;#34; }}
+{{ end }}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;gmap&#34;&gt;
 	&lt;iframe src=&#34;https://www.google.com/maps/d/embed?mid=1wj0ZawLLSjKgn8J3xES0NFpFsQc&#34; width=&#34;100%&#34; height=&#39;480&#39; frameborder=&#34;0&#34; style=&#34;border-radius: 8px;&#34;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
-</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gmap&amp;#34;&lt;/span&gt;&amp;gt;
+	&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;iframe&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://www.google.com/maps/d/embed?mid={{ with .Get &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}{{&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}{{&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;end&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;width&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;100%&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;height&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{{ with .Get &amp;#34;height&amp;#34; }}{{.}}{{else}}480{{end}}&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;frameborder&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;style&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;border-radius: 8px;&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;iframe&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -641,7 +647,7 @@ ___|___| project-page.md&lt;/p&gt;
 &lt;div class=&#34;webgl-content&#34; style=&#34;all: inherit; margin: 25px auto; position: relative; width: 100%; padding-top: 62.5%;&#34;&gt;
     &lt;div id=&#34;unityContainer&#34; style=&#34;position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: calc(100% - 38px);&#34;&gt;
         &lt;div style=&#34;display: flex; justify-content: center; height: 100%; background-color: rgba(30, 144,255, 0.5);&#34;&gt;
-            &lt;button onclick=&#34;LoadUnity()&#34; style=&#34;width: 40%; height: 30%; margin: auto; font-size: 2em&#34;&gt;Load Unity Player&lt;/button&gt;
+            &lt;button onclick=&#34;LoadUnity()&#34; style=&#34;width: 40%; height: 30%; margin: auto; font-size: 2em&#34;&gt;Click to Load Unity Web Player&lt;/button&gt;
             &lt;div id=device-error style=&#34;display: none; margin: auto&#34;&gt;&lt;span style=&#34;font-size: 2em&#34;&gt;Sorry, device not supported.&lt;/span&gt;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -650,6 +656,9 @@ ___|___| project-page.md&lt;/p&gt;
         &lt;div class=&#34;fullscreen&#34; id=&#34;unity-fullscreen&#34;&gt;&lt;/div&gt; 
         &lt;div class=&#34;title&#34;&gt;
             
+                
+                    ArmyDillos!
+                
             
         &lt;/div&gt;
     &lt;/div&gt;
