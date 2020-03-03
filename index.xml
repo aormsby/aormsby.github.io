@@ -596,6 +596,69 @@ ___|___| project-page.md&lt;/p&gt;
     </item>
     
     <item>
+      <title>ArmyDillos!</title>
+      <link>https://www.adamormsby.com/projects/armydillos/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.adamormsby.com/projects/armydillos/</guid>
+      <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;ArmyDillos!&lt;/em&gt; was made by a team of friends during a 48-hour game jam while surrounded a hellishly cold Chicago winter. It has never stopped being fun to play!&lt;/p&gt;
+&lt;h2 id=&#34;media&#34;&gt;Media&lt;/h2&gt;
+&lt;p&gt;(Fullscreen recommended - &amp;lsquo;esc&amp;rsquo; to exit)
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+
+
+
+&lt;link rel=&#34;stylesheet&#34; href=&#34;ArmyDillos-web/TemplateData/style.css&#34;&gt;
+&lt;script src=&#34;ArmyDillos-web/TemplateData/UnityProgress.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;ArmyDillos-web/Build/UnityLoader.js&#34;&gt;&lt;/script&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+    
+        function LoadUnity() {
+            var unityInstance = UnityLoader.instantiate(&#34;unityContainer&#34;, &#34;ArmyDillos-web/Build/ArmyDillos-web.json&#34;, {onProgress: UnityProgress});
+            document.getElementById(&#34;unity-fullscreen&#34;).addEventListener(&#34;click&#34;, function() {
+                unityInstance.SetFullscreen(1);
+            });
+        }
+    
+&lt;/script&gt;
+
+&lt;div class=&#34;webgl-content&#34; style=&#34;all: inherit; margin: 25px auto; position: relative; width: 100%; padding-top: 62.5%;&#34;&gt;
+    &lt;div id=&#34;unityContainer&#34; style=&#34;position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: calc(100% - 38px);&#34;&gt;
+        &lt;div style=&#34;display: flex; justify-content: center; height: 100%; background-color: rgba(30, 144,255, 0.5);&#34;&gt;
+            &lt;button onclick=&#34;LoadUnity()&#34; style=&#34;width: 40%; height: 30%; margin: auto; font-size: 2em&#34;&gt;Load Unity Player&lt;/button&gt;
+            &lt;div id=device-error style=&#34;display: none; margin: auto&#34;&gt;&lt;span style=&#34;font-size: 2em&#34;&gt;Sorry, device not supported.&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;unity-footer&#34;&gt;
+         &lt;div class=&#34;webgl-logo&#34;&gt;&lt;/div&gt; 
+        &lt;div class=&#34;fullscreen&#34; id=&#34;unity-fullscreen&#34;&gt;&lt;/div&gt; 
+        &lt;div class=&#34;title&#34;&gt;
+            
+            
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>The MecWarriors</title>
       <link>https://www.adamormsby.com/projects/the-mecwarriors/</link>
       <pubDate>Sun, 01 Sep 2013 00:00:00 +0000</pubDate>

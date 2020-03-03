@@ -112,3 +112,15 @@
 .showcase__post-description {
     padding-top: 10px;
 }
+
+@media (--phone) {
+    .unityContainer button {
+        display: none;
+    }
+}
+
+@media (--phone) {
+    .unityContainer #device-error {
+        display: block;
+    }
+}
