@@ -11,17 +11,266 @@
     
     
     <item>
+      <title>How to Set Up a Hugo Site on Github Pages - with Git Submodules!</title>
+      <link>https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</link>
+      <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;I made this blog site using the &lt;a href=&#34;https://www.gohugo.io&#34;  target=&#34;_blank&#34; &gt;Hugo static site generator&lt;/a&gt; because I wanted to build a simple site where I could have full control over every detail - &lt;em&gt;not&lt;/em&gt; like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels &lt;em&gt;great&lt;/em&gt; to have that kind of power. You probably ended up here because you want that, too.&lt;/p&gt;
+&lt;p&gt;In this post, we&amp;rsquo;ll take a look at how to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a new Hugo site&lt;/li&gt;
+&lt;li&gt;Host it on Github Pages&lt;/li&gt;
+&lt;li&gt;Use git submodules to separate our site&amp;rsquo;s key directories into manageable chunks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We&amp;rsquo;ll also go over the benefits (and drawbacks) of using submodules in our setup, and by the end of this post, we&amp;rsquo;ll have a new Hugo project hosted on Github Pages and ready for action.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Please note:&lt;br&gt;
+I&amp;rsquo;ll talk a little about branching inside our submodules later on. To keep things simple, you can assume that I&amp;rsquo;ve stayed on the main &amp;lsquo;master&amp;rsquo; branch of each git module. Also, I work on a Mac so all of my commands are Mac-specific.&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;why-git-submodules&#34;&gt;Why Git Submodules?&lt;/h3&gt;
+&lt;p&gt;Every git project is stored as a versioned code repository (a repo). Git submodules allow us to reference other repos within a project, which effectively puts a project inside a project (or a repo inside a repo). The submodule&amp;rsquo;s code can then be used by the main project, but the submodule &lt;em&gt;&lt;strong&gt;maintains its own commit and branch history,&lt;/strong&gt;&lt;/em&gt; which separates the projects and can be a pretty powerful thing.&lt;/p&gt;
+
+  
+  &lt;img src=&#34;img/explain-submodules.jpg&#34;  alt=&#34;diagram showing how code is included using submodules with a git project&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;In a Hugo project, most of what we see is source data - the raw files we manipulate before building our site. After Hugo builds our site, our &amp;lsquo;ready-to-publish&amp;rsquo; data gets output to the &lt;code&gt;public&lt;/code&gt; directory of our project. By turning the &lt;code&gt;public&lt;/code&gt; folder into a submodule of the main project, we can treat it as a separate entity with a separate history. Let&amp;rsquo;s see what that process looks like.&lt;/p&gt;
+&lt;h2 id=&#34;install-hugo-and-create-a-project&#34;&gt;Install Hugo and Create a Project&lt;/h2&gt;
+&lt;p&gt;First things first, we need to install Hugo! We&amp;rsquo;ll run through the key Mac commands quickly here, but if you need any more help you can always check &lt;a href=&#34;https://gohugo.io/getting-started/quick-start/&#34;  target=&#34;_blank&#34; &gt;Hugo’s ‘Quick Start’ guide&lt;/a&gt; for more details or information about installing on Windows and Linux.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1. Open a terminal. Alternatively, you can VSCode&amp;#39;s terminal - it&amp;#39;s great!&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2. If you don&amp;#39;t have brew installed --&lt;/span&gt;
+&amp;gt; /bin/bash -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3. Install Hugo&lt;/span&gt;
+&amp;gt; brew install hugo
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 4. Move to the directory where you want to create the project.&lt;/span&gt;
+&amp;gt; cd &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;MY/DIRECTORY/NAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5. Create a new Hugo project. I&amp;#39;ll use &amp;#34;hugo-gh&amp;#34; as my sample name.&lt;/span&gt;
+&amp;gt; hugo new site &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;SITE_NAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So far, we&amp;rsquo;ve installed Hugo on our machine and created a new template project named &lt;strong&gt;hugo-gh&lt;/strong&gt;. If you&amp;rsquo;re following Hugo&amp;rsquo;s Quick Start guide, you may be tempted to move straight on to adding a theme, running the local server, and seeing your site. We&amp;rsquo;ll &lt;em&gt;absolutely&lt;/em&gt; get to all that, but since our goal here is to use git submodules to manage the different parts of our project, it would benefit us to go through some setup steps on Github first.&lt;/p&gt;
+&lt;h2 id=&#34;push-project-files-to-github&#34;&gt;Push Project Files to Github&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s get our project versioned with Github right away! We&amp;rsquo;ll need to create two repositories on Github - one to host our source code and one to host our live site data.&lt;/p&gt;
+&lt;h3 id=&#34;source-code-repository&#34;&gt;Source Code Repository&lt;/h3&gt;
+&lt;p&gt;Sign in to Github and create a new repository. I&amp;rsquo;ll call mine &lt;strong&gt;hugo-gh-pages-source&lt;/strong&gt;.&lt;/p&gt;
+
+  
+  &lt;img src=&#34;img/github-new-repo.jpg&#34;  alt=&#34;create a new github repo&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+
+  
+  &lt;img src=&#34;img/github-repo-name.jpg&#34;  alt=&#34;name the new github repo&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Hot tip:&lt;/strong&gt; If we create a repo &lt;em&gt;without&lt;/em&gt; a README file it&amp;rsquo;s easier to avoid accidental history conflicts when pushing a local project to a fresh repo. We can always add one later.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;When our new empty repo is ready, go back to the terminal window and input these commands to initialize our local repo and push to Github.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;(If you already have a &lt;code&gt;public&lt;/code&gt; folder in your project, delete it before doing any of this to save some headaches.)&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1. Enter the project folder.&lt;/span&gt;
+&amp;gt; cd hugo-gh
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2. Initialize git locally.&lt;/span&gt;
+&amp;gt; git init
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 3. Set our new Github repo as the remote for our local project&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# (my sample URL - https://github.com/aormsby/hugo-gh-pages-source.git)&lt;/span&gt;
+&amp;gt; git remote add origin https://github.com/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;GITHUB_USERNAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;SOURCE_REPO_NAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;.git
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 4. Stage all files for commit.&lt;/span&gt;
+&amp;gt; git add .
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5. Commit files.&lt;/span&gt;
+&amp;gt; git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;committing our hugo template&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 6. Push to the remote master&lt;/span&gt;
+&amp;gt; git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And there you have it! Our project source is now pushed to our Github repo.&lt;/p&gt;
+
+  
+  &lt;img src=&#34;img/source-pushed.jpg&#34;  alt=&#34;source project pushed to Github&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;You could &lt;em&gt;absolutely&lt;/em&gt; set up your source repo to be the host of your site using Github Pages, and you may have good reasons for doing so. That would require a different setup that you can find steps for on Hugo&amp;rsquo;s &lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/#deployment-of-project-pages-from-docs-folder-on-master-branch&#34;  target=&#34;_blank&#34; &gt;Host on Github&lt;/a&gt; docs page. However, if we do this we ignore our chance to separate &lt;code&gt;public&lt;/code&gt; into a separately versioned repo. To accomplish this, we have to create a second repository.&lt;/p&gt;
+&lt;h3 id=&#34;live-site-data-repository&#34;&gt;Live Site Data Repository&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s add our first submodule to the project! Remember, our goal is to separate the commit histories of our project source and our site build output to the &lt;code&gt;public&lt;/code&gt; directory. First, we create another repo on Github for our public site data. I&amp;rsquo;ll call mine &lt;strong&gt;hugo-gh-pages-public&lt;/strong&gt;. In our local terminal, run the following command from the project root.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git&lt;/span&gt;
+&amp;gt; git submodule add &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://github.com/[GITHUB_USERNAME]/[PUBLIC_REPO_NAME].git&amp;#34;&lt;/span&gt; public
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Sweet! We now have a submodule initialized and loaded into our project under the &lt;code&gt;public&lt;/code&gt; directory, and it&amp;rsquo;s already connected to its remote origin. Let&amp;rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&amp;rsquo;s good to know the process.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1. Perform a site build and output to &amp;#39;public/&amp;#39; directory.&lt;/span&gt;
+&amp;gt; hugo
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 2-4.&lt;/span&gt;
+&amp;gt; cd public
+&amp;gt; git add .
+&amp;gt; git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;first build&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 5. Return to the project root.&lt;/span&gt;
+&amp;gt; cd ../
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 6-7.&lt;/span&gt;
+&amp;gt; git add .
+&amp;gt; git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;first build - update submodule reference&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 8. Push the source project *and* the public submodule to Github together.&lt;/span&gt;
+&amp;gt; git push -u origin master --recurse-submodules&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;on-demand
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It&amp;rsquo;s &lt;em&gt;&lt;strong&gt;super important&lt;/strong&gt;&lt;/em&gt; when we build to make sure that we commit and push &lt;em&gt;both&lt;/em&gt; the public submodule and the main project. For each submodule commit, the project updates its reference to the submodule to maintain its connection to the correct commit. The &lt;code&gt;--recurse-submodules=on-demand&lt;/code&gt; command pushes all of the project modules at the same time.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    
+    &lt;img src=&#34;img/submodule-reference-terminal.jpg&#34;  alt=&#34;submodule reference in terminal using git status command&#34;   /&gt;
+    
+    
+      &lt;figcaption class=&#34;center&#34; &gt;submodule reference updated vied in the terminal after &lt;code&gt;git status&lt;/code&gt; command&lt;/figcaption&gt;
+    
+  &lt;/figure&gt;
+
+
+
+  &lt;figure class=&#34;center&#34; &gt;
+    
+    &lt;img src=&#34;img/submodule-reference-github.jpg&#34;  alt=&#34;submodule reference on github after pushing&#34;   /&gt;
+    
+    
+      &lt;figcaption class=&#34;center&#34; &gt;submodule reference on github after pushing&lt;/figcaption&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;h2 id=&#34;enable-github-pages&#34;&gt;Enable Github Pages&lt;/h2&gt;
+&lt;p&gt;On Github, our &lt;strong&gt;hugo-gh-pages-public&lt;/strong&gt; repo now has some data. Go to the repo settings and find the Github Pages section. Set the &lt;strong&gt;Source&lt;/strong&gt; of our site to &lt;strong&gt;master branch&lt;/strong&gt;.&lt;/p&gt;
+
+  
+  &lt;img src=&#34;img/github-pages-settings.jpg&#34;  alt=&#34;menu to update Github Pages settings to use master branch&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;With these settings, Github Pages will be able to serve our site from the repo starting with the &lt;strong&gt;index.html&lt;/strong&gt; file in its root directory. The live URL for the site is built from your user name and the project name. Here&amp;rsquo;s my sample URL - &lt;a href=&#34;https://aormsby.github.io/hugo-gh-pages-public&#34;  target=&#34;_blank&#34; &gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://aormsby.github.io/hugo-gh-pages-public&#34;&gt;https://aormsby.github.io/hugo-gh-pages-public&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;. At this point, our site won&amp;rsquo;t display anything except an error message since Hugo requires some page templates or a full theme to generate the pages. That&amp;rsquo;s fine. We just wanted to add some stuff to Github so we could access the repo&amp;rsquo;s Github Pages settings as we just did.&lt;/p&gt;
+&lt;h2 id=&#34;benefits-of-making-a-submodule-in-public&#34;&gt;Benefits of Making a Submodule in &amp;lsquo;Public&amp;rsquo;&lt;/h2&gt;
+&lt;p&gt;To recap, here&amp;rsquo;s our project setup so far.&lt;/p&gt;
+
+  
+  &lt;img src=&#34;img/submodules-diagram-with-public.jpg&#34;  alt=&#34;project submodule digram with public folder&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;Let&amp;rsquo;s take a look at some of the benefits of this system.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;No accidental deploys&lt;/strong&gt; - With our source code separated from our site data, it&amp;rsquo;s a lot harder to accidentally push unfinished work to our live site. Even if we make builds locally and push our source changes, we won&amp;rsquo;t push to our &lt;strong&gt;hugo-gh-pages-public&lt;/strong&gt; repo without explicitly running commands to make that happen. &lt;em&gt;*sigh of relief*&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Separate rollbacks&lt;/strong&gt; - If something goes wrong, the main project and public project can be separately rolled back to earlier commits. &lt;em&gt;(Just remember to commit the modified reference updates to the main module!)&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Branch work is easier&lt;/strong&gt; - Changing branches in our source project will not change branches in our subproject (and vice versa). This is another nice safety buffer, and it gives us more options for branching in either module.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Ready for site staging&lt;/strong&gt; - We can easily create development branches in the &lt;strong&gt;public&lt;/strong&gt; submodule that could be served as development subdomains of our site and used for testing new features.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;some-drawbacks&#34;&gt;Some Drawbacks&lt;/h3&gt;
+&lt;p&gt;Of course, it&amp;rsquo;s always wise to assess the risks of any setup, and there are many opinions on the &amp;lsquo;perfect system&amp;rsquo; in the dev world - &lt;strong&gt;tell me about yours in the comments!&lt;/strong&gt; To shine some light on the potential downsides of our submodule use, here are some of the concerns I&amp;rsquo;ve thought about.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Juggling multiple repos&lt;/strong&gt; - With more submodules comes more administration. It doesn&amp;rsquo;t seem so rough for me, but right now I&amp;rsquo;m working on my own. Running interlinked, asynchronous repositories comes with its own challenges in a team setting, particularly if someone forgets to push updated submodule references to the source.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;No site staging with Github Pages&lt;/strong&gt; - While the &lt;strong&gt;public&lt;/strong&gt; submodule can branch and easily store data used in a site staging system, Github Pages does not seem to support subdomains from different project branches. That&amp;rsquo;s more of a Github Pages drawback, but it means we can&amp;rsquo;t take full advantage of our setup just yet. Another hosting platform might offer a solution - I&amp;rsquo;ll be looking into some options in a future post.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;add-a-theme-to-our-site&#34;&gt;Add a Theme to Our Site&lt;/h2&gt;
+&lt;p&gt;Wait, we&amp;rsquo;re not finished just yet! Remember how our site doesn&amp;rsquo;t display anything except an error message right now? We need some templates to get things up and running. The easiest way to get some is to add one of the many &lt;a href=&#34;https://themes.gohugo.io/&#34;  target=&#34;_blank&#34; &gt;Hugo themes&lt;/a&gt; to our project. Since I&amp;rsquo;m already using it on this site, I&amp;rsquo;ll use the &lt;a href=&#34;https://themes.gohugo.io/hugo-theme-hello-friend/&#34;  target=&#34;_blank&#34; &gt;Hello Friend theme&lt;/a&gt; in my example.&lt;/p&gt;
+&lt;p&gt;Many guides for adding a theme - including Hugo&amp;rsquo;s own docs - just tell you to clone the theme repo or download and copy it into your project&amp;rsquo;s &lt;code&gt;themes&lt;/code&gt; directory. But hey, &lt;em&gt;our&lt;/em&gt; theme today is &lt;em&gt;submodules&lt;/em&gt;, so I propose that we add a theme to our project as a &lt;em&gt;submodule&lt;/em&gt; since doing so would give us some nice dev powers over the theme.&lt;/p&gt;
+
+  
+  &lt;img src=&#34;img/submodules-diagram-with-theme.jpg&#34;  alt=&#34;project submodule digram with theme folder&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;Look at it this way - directly cloning a theme into our project has two major problems.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;We can&amp;rsquo;t commit to the theme&amp;rsquo;s upstream repo, because we don&amp;rsquo;t have permission.&lt;/strong&gt; This means we can&amp;rsquo;t make changes to the theme and then keep them versioned.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;A cloned project in a subdirectory isn&amp;rsquo;t linked with the main project.&lt;/strong&gt; When a submodule is added to a project, the main project adds a reference to it in a file named &lt;code&gt;.gitmodules&lt;/code&gt;. Without that reference, the main project and the theme project aren&amp;rsquo;t connected, which could cause confusion or problems down the line.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let&amp;rsquo;s solve each of those problems in one fell swoop.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Make a fork of the &lt;strong&gt;Hello Friend&lt;/strong&gt; theme so we have our own copy of it.&lt;/li&gt;
+&lt;/ol&gt;
+
+  
+  &lt;img src=&#34;img/fork-theme.jpg&#34;  alt=&#34;fork a theme project on Github&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Add our forked repo as a submodule in our main project&amp;rsquo;s &lt;code&gt;themes&lt;/code&gt; folder.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Add the theme submodule from the root project folder&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# my sample URL - https://github.com/aormsby/F-hugo-theme-hello-friend.git&lt;/span&gt;
+&amp;gt; git submodule add https://github.com/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;GITHUB_USERNAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;FORKED_THEME_REPO_NAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;.git themes/hello-friend
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Boom! Now we have our own fork of a cool theme referenced as a submodule of our Hugo project. We can make any changes we want and push them to our own repo. I&amp;rsquo;ll get into more advanced uses of theme submodules in another post, but for now we have the basics in place.&lt;/p&gt;
+&lt;p&gt;Things won&amp;rsquo;t be &lt;em&gt;quite&lt;/em&gt; right without tweaking a few final settings, so let&amp;rsquo;s open the &lt;code&gt;config.toml&lt;/code&gt; file in our project root so we can modify a few lines.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add a line so our site builds using our new theme.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello-friend&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Because we&amp;rsquo;re making a Github &amp;lsquo;project site&amp;rsquo; we want to change the&lt;code&gt;baseURL&lt;/code&gt; to match our project URL.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;baseURL&lt;/span&gt; = [&lt;span style=&#34;color:#a6e22e&#34;&gt;GITHUB_USER_NAME&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;github&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;io&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;/&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;PROJECT_NAME&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For example, mine will say &lt;code&gt;aormsby.github.io/hugo-gh-pages-public&lt;/code&gt;. To understand the difference between setting up a project site and a user/organization site, see these &lt;a href=&#34;https://pages.github.com/&#34;  target=&#34;_blank&#34; &gt;Github Pages&lt;/a&gt; and &lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages&#34;  target=&#34;_blank&#34; &gt;Hugo&lt;/a&gt; docs on the matter.&lt;/p&gt;
+&lt;p&gt;There are a lot more theme settings that can be adjusted in your config file, but you can explore those on your own. Let&amp;rsquo;s deploy!&lt;/p&gt;
+&lt;h2 id=&#34;test-site-and-deploy&#34;&gt;Test Site and Deploy&lt;/h2&gt;
+&lt;p&gt;Running the terminal command &lt;code&gt;hugo server&lt;/code&gt; in our project root spins up a local live preview of our site that can be viewed in a browser at &lt;code&gt;localhost:1313&lt;/code&gt;. Run this now to check if our site is displaying anything (it should!), and then stop the process with &lt;code&gt;Ctrl+C&lt;/code&gt;. Just like we did before, run the commands to build, commit, and push. &lt;em&gt;(Note that we didn&amp;rsquo;t change anything in the theme, so we don&amp;rsquo;t have to push anything in that repo.)&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&amp;gt; hugo
+&amp;gt; cd public
+&amp;gt; git add .
+&amp;gt; git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;build with theme&amp;#34;&lt;/span&gt;
+&amp;gt; cd ../
+&amp;gt; git add .
+&amp;gt; git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;build with theme - update submodule reference&amp;#34;&lt;/span&gt;
+&amp;gt; git push -u origin master --recurse-submodules&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;on-demand
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After a few minutes, refresh the live site at &lt;code&gt;https://[USER_NAME].github.io/hugo-gh-pages-public&lt;/code&gt; and check out your new site! Congratulations, you&amp;rsquo;ve done it!&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Theme Branches and Getting Updates&lt;/strong&gt; - I&amp;rsquo;ve worked out a nice branch-based system for continuing to get updates from the original theme repo while adding and changing things our forked theme repo. It&amp;rsquo;s super useful. Next post!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Better Deploy&lt;/strong&gt; - I&amp;rsquo;m sure you noticed that we had to use &lt;em&gt;a plethora&lt;/em&gt; of terminal commands to add, commit, and push files to the main project and its submodules to maintain proper commit references. I wrote them out in this post for clarity, but this process is definitely something we can automate. Hugo&amp;rsquo;s docs provide a &lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script&#34;  target=&#34;_blank&#34; &gt;basic deploy script&lt;/a&gt; to do this, and I&amp;rsquo;m working on a greatly improved version of it that I&amp;rsquo;ll write about when it&amp;rsquo;s ready for action.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Custom domains / CNAME&lt;/strong&gt; - You may want to set up a custom domain on Github Pages. Here&amp;rsquo;s &lt;a href=&#34;https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site&#34;  target=&#34;_blank&#34; &gt;some good documentation&lt;/a&gt; on how to do that.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thanks for reading!~&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Personal Blog - you&#39;re reading it!</title>
       <link>https://www.adamormsby.com/projects/personal-blog/</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/personal-blog/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
 &lt;p&gt;I built this little blog on my own using the &lt;a href=&#34;https://gohugo.io/&#34;  target=&#34;_blank&#34; &gt;Hugo static site generator&lt;/a&gt;, and I&amp;rsquo;m super proud of it. It&amp;rsquo;s honestly the most fun I&amp;rsquo;ve had in developing a website in &lt;em&gt;years!&lt;/em&gt; I&amp;rsquo;ve learned a ton of things in the process, and I&amp;rsquo;m very capable of building websites using this framework. In fact, if you want a website for yourself or need one for your company, I&amp;rsquo;d &lt;em&gt;love&lt;/em&gt; to build it for you. Just get in touch with me through the contact links on my &lt;a href=&#34;https://www.adamormsby.com/about&#34; &gt;About page&lt;/a&gt; and let me know!&lt;/p&gt;
 &lt;p&gt;Sometimes I write more technical posts about the work that went into building this site, and I&amp;rsquo;d love it if you check them out. The links below will take you to some of them.&lt;/p&gt;
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-&lt;h3 id=&#34;posts&#34;&gt;Posts&lt;/h3&gt;
-&lt;p&gt;(to be added!)&lt;/p&gt;
+&lt;h3 id=&#34;posts-about-my-blog-setup&#34;&gt;Posts About My Blog Setup&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/&#34; &gt;How to Set Up a Hugo Site on Github Pages - with Git Submodules!&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h3 id=&#34;custom-work--add-ons&#34;&gt;Custom Work / Add-Ons&lt;/h3&gt;
 &lt;h4 id=&#34;projects-pageprojects&#34;&gt;&lt;a href=&#34;https://www.adamormsby.com/projects&#34; &gt;Projects Page&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;My Projects page is a custom page layout that I built to be used within this site theme. I created a new site section called &amp;lsquo;projects&amp;rsquo; so the layout can read from all subdirectories and display each set of projects in a list. Each project is its own bundled page directory with all relevant media.&lt;/p&gt;
@@ -82,7 +331,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 3</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-3/</link>
-      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-3/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Author&amp;rsquo;s Note:&lt;/strong&gt; This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.&lt;/em&gt; 🙂&lt;/p&gt;
@@ -154,7 +403,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 2</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-2/</link>
-      <pubDate>Thu, 31 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 31 Aug 2017 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-2/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Author&amp;rsquo;s Note:&lt;/strong&gt; This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.&lt;/em&gt; 🙂&lt;/p&gt;
@@ -248,7 +497,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 1</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-1/</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 29 Aug 2017 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-1/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Author&amp;rsquo;s Note:&lt;/strong&gt; This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.&lt;/em&gt; 🙂&lt;/p&gt;
@@ -385,7 +634,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Adam Roams - Travel Blog</title>
       <link>https://www.adamormsby.com/projects/adam-roams/</link>
-      <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Feb 2017 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/adam-roams/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -449,7 +698,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Agents of Mayhem</title>
       <link>https://www.adamormsby.com/projects/agents-of-mayhem/</link>
-      <pubDate>Wed, 01 Jul 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Jul 2015 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/agents-of-mayhem/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -477,7 +726,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Yeti&#39;s Quest - iOS</title>
       <link>https://www.adamormsby.com/projects/yetis-quest/</link>
-      <pubDate>Wed, 01 Oct 2014 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Oct 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/yetis-quest/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -515,7 +764,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Chosen - 1st Person Character Controller</title>
       <link>https://www.adamormsby.com/projects/the-chosen/</link>
-      <pubDate>Fri, 01 Aug 2014 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 Aug 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-chosen/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -536,7 +785,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Luminus</title>
       <link>https://www.adamormsby.com/projects/luminus/</link>
-      <pubDate>Thu, 01 May 2014 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 01 May 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/luminus/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -572,7 +821,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Imparta - AI Character Behavior</title>
       <link>https://www.adamormsby.com/projects/imparta/</link>
-      <pubDate>Tue, 01 Apr 2014 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Apr 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/imparta/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -589,7 +838,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Presentation - Game Developers Conference</title>
       <link>https://www.adamormsby.com/projects/gdc-presentation/</link>
-      <pubDate>Wed, 19 Mar 2014 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 19 Mar 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/gdc-presentation/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -604,12 +853,12 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>ArmyDillos!</title>
       <link>https://www.adamormsby.com/projects/armydillos/</link>
-      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/armydillos/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;ArmyDillos!&lt;/em&gt; was made by a team of friends during a 48-hour game jam while surrounded a hellishly cold Chicago winter. It has never stopped being fun to play!&lt;/p&gt;
-&lt;h2 id=&#34;media&#34;&gt;Media&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;ArmyDillos!&lt;/em&gt; was made by a team of friends during a 48-hour game jam while surrounded a hellishly cold Chicago winter. Grab a friend and compete to be the last armadillo standing. It has never stopped being fun to play!&lt;/p&gt;
+&lt;h2 id=&#34;play-armydillos&#34;&gt;Play ArmyDillos!&lt;/h2&gt;
 &lt;p&gt;(Fullscreen recommended - &amp;lsquo;esc&amp;rsquo; to exit)
 
 
@@ -670,7 +919,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The MecWarriors</title>
       <link>https://www.adamormsby.com/projects/the-mecwarriors/</link>
-      <pubDate>Sun, 01 Sep 2013 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 01 Sep 2013 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-mecwarriors/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -715,7 +964,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Editor Tools - Unity Game Engine</title>
       <link>https://www.adamormsby.com/projects/unity-tools/</link>
-      <pubDate>Thu, 01 Aug 2013 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 01 Aug 2013 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/unity-tools/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -751,7 +1000,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Artemis</title>
       <link>https://www.adamormsby.com/projects/artemis/</link>
-      <pubDate>Wed, 01 May 2013 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 May 2013 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/artemis/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -768,7 +1017,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Undertakers</title>
       <link>https://www.adamormsby.com/projects/undertakers/</link>
-      <pubDate>Wed, 01 Aug 2012 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Aug 2012 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/undertakers/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -811,7 +1060,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Backflip Studios</title>
       <link>https://www.adamormsby.com/projects/backflip-studios/</link>
-      <pubDate>Fri, 01 Jun 2012 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 Jun 2012 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/backflip-studios/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;

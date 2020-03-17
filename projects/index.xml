@@ -13,15 +13,17 @@
     <item>
       <title>Personal Blog - you&#39;re reading it!</title>
       <link>https://www.adamormsby.com/projects/personal-blog/</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/personal-blog/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
 &lt;p&gt;I built this little blog on my own using the &lt;a href=&#34;https://gohugo.io/&#34;  target=&#34;_blank&#34; &gt;Hugo static site generator&lt;/a&gt;, and I&amp;rsquo;m super proud of it. It&amp;rsquo;s honestly the most fun I&amp;rsquo;ve had in developing a website in &lt;em&gt;years!&lt;/em&gt; I&amp;rsquo;ve learned a ton of things in the process, and I&amp;rsquo;m very capable of building websites using this framework. In fact, if you want a website for yourself or need one for your company, I&amp;rsquo;d &lt;em&gt;love&lt;/em&gt; to build it for you. Just get in touch with me through the contact links on my &lt;a href=&#34;https://www.adamormsby.com/about&#34; &gt;About page&lt;/a&gt; and let me know!&lt;/p&gt;
 &lt;p&gt;Sometimes I write more technical posts about the work that went into building this site, and I&amp;rsquo;d love it if you check them out. The links below will take you to some of them.&lt;/p&gt;
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-&lt;h3 id=&#34;posts&#34;&gt;Posts&lt;/h3&gt;
-&lt;p&gt;(to be added!)&lt;/p&gt;
+&lt;h3 id=&#34;posts-about-my-blog-setup&#34;&gt;Posts About My Blog Setup&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/&#34; &gt;How to Set Up a Hugo Site on Github Pages - with Git Submodules!&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h3 id=&#34;custom-work--add-ons&#34;&gt;Custom Work / Add-Ons&lt;/h3&gt;
 &lt;h4 id=&#34;projects-pageprojects&#34;&gt;&lt;a href=&#34;https://www.adamormsby.com/projects&#34; &gt;Projects Page&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;My Projects page is a custom page layout that I built to be used within this site theme. I created a new site section called &amp;lsquo;projects&amp;rsquo; so the layout can read from all subdirectories and display each set of projects in a list. Each project is its own bundled page directory with all relevant media.&lt;/p&gt;
@@ -82,7 +84,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Adam Roams - Travel Blog</title>
       <link>https://www.adamormsby.com/projects/adam-roams/</link>
-      <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Feb 2017 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/adam-roams/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -146,7 +148,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Agents of Mayhem</title>
       <link>https://www.adamormsby.com/projects/agents-of-mayhem/</link>
-      <pubDate>Wed, 01 Jul 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Jul 2015 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/agents-of-mayhem/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -174,7 +176,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Yeti&#39;s Quest - iOS</title>
       <link>https://www.adamormsby.com/projects/yetis-quest/</link>
-      <pubDate>Wed, 01 Oct 2014 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Oct 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/yetis-quest/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -212,7 +214,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Chosen - 1st Person Character Controller</title>
       <link>https://www.adamormsby.com/projects/the-chosen/</link>
-      <pubDate>Fri, 01 Aug 2014 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 Aug 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-chosen/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -233,7 +235,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Luminus</title>
       <link>https://www.adamormsby.com/projects/luminus/</link>
-      <pubDate>Thu, 01 May 2014 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 01 May 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/luminus/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -269,7 +271,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Imparta - AI Character Behavior</title>
       <link>https://www.adamormsby.com/projects/imparta/</link>
-      <pubDate>Tue, 01 Apr 2014 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Apr 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/imparta/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -286,7 +288,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Presentation - Game Developers Conference</title>
       <link>https://www.adamormsby.com/projects/gdc-presentation/</link>
-      <pubDate>Wed, 19 Mar 2014 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 19 Mar 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/gdc-presentation/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -301,12 +303,12 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>ArmyDillos!</title>
       <link>https://www.adamormsby.com/projects/armydillos/</link>
-      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/armydillos/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;ArmyDillos!&lt;/em&gt; was made by a team of friends during a 48-hour game jam while surrounded a hellishly cold Chicago winter. It has never stopped being fun to play!&lt;/p&gt;
-&lt;h2 id=&#34;media&#34;&gt;Media&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;ArmyDillos!&lt;/em&gt; was made by a team of friends during a 48-hour game jam while surrounded a hellishly cold Chicago winter. Grab a friend and compete to be the last armadillo standing. It has never stopped being fun to play!&lt;/p&gt;
+&lt;h2 id=&#34;play-armydillos&#34;&gt;Play ArmyDillos!&lt;/h2&gt;
 &lt;p&gt;(Fullscreen recommended - &amp;lsquo;esc&amp;rsquo; to exit)
 
 
@@ -367,7 +369,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The MecWarriors</title>
       <link>https://www.adamormsby.com/projects/the-mecwarriors/</link>
-      <pubDate>Sun, 01 Sep 2013 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 01 Sep 2013 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-mecwarriors/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -412,7 +414,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Editor Tools - Unity Game Engine</title>
       <link>https://www.adamormsby.com/projects/unity-tools/</link>
-      <pubDate>Thu, 01 Aug 2013 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 01 Aug 2013 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/unity-tools/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -448,7 +450,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Artemis</title>
       <link>https://www.adamormsby.com/projects/artemis/</link>
-      <pubDate>Wed, 01 May 2013 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 May 2013 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/artemis/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -465,7 +467,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Undertakers</title>
       <link>https://www.adamormsby.com/projects/undertakers/</link>
-      <pubDate>Wed, 01 Aug 2012 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 01 Aug 2012 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/undertakers/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -508,7 +510,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Backflip Studios</title>
       <link>https://www.adamormsby.com/projects/backflip-studios/</link>
-      <pubDate>Fri, 01 Jun 2012 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 Jun 2012 00:00:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/projects/backflip-studios/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
