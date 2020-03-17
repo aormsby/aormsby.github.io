@@ -124,3 +124,13 @@
         display: block;
     }
 }
+
+/* general for links */
+
+.post-content a {
+    color: rgb(51, 255, 51);
+}
+
+.post-tags {
+    color: rgb(51, 255, 51);
+}
