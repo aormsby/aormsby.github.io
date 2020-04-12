@@ -260,7 +260,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
     <item>
       <title>Personal Blog - you&#39;re reading it!</title>
       <link>https://www.adamormsby.com/projects/personal-blog/</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/projects/personal-blog/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -289,7 +289,7 @@ ___|___| project-page.md&lt;/p&gt;
       &lt;img src=&#34;https://www.adamormsby.com/icon/mailgo.png&#34; alt=&#34;mailgo&#34;  height=&#34;100&#34;  /&gt;
     &lt;/a&gt;
     
-    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.3/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.5/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
   &lt;/span&gt;
 
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;{{ if .Get 1 }}
@@ -331,7 +331,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 3</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-3/</link>
-      <pubDate>Sat, 02 Sep 2017 00:00:00 +0700</pubDate>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-3/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Author&amp;rsquo;s Note:&lt;/strong&gt; This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.&lt;/em&gt; 🙂&lt;/p&gt;
@@ -403,7 +403,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 2</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-2/</link>
-      <pubDate>Thu, 31 Aug 2017 00:00:00 +0700</pubDate>
+      <pubDate>Thu, 31 Aug 2017 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-2/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Author&amp;rsquo;s Note:&lt;/strong&gt; This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.&lt;/em&gt; 🙂&lt;/p&gt;
@@ -497,7 +497,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 1</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-1/</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 +0700</pubDate>
+      <pubDate>Tue, 29 Aug 2017 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-1/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;Author&amp;rsquo;s Note:&lt;/strong&gt; This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.&lt;/em&gt; 🙂&lt;/p&gt;
@@ -634,7 +634,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Adam Roams - Travel Blog</title>
       <link>https://www.adamormsby.com/projects/adam-roams/</link>
-      <pubDate>Wed, 01 Feb 2017 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Feb 2017 00:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/projects/adam-roams/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -698,7 +698,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Agents of Mayhem</title>
       <link>https://www.adamormsby.com/projects/agents-of-mayhem/</link>
-      <pubDate>Wed, 01 Jul 2015 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Jul 2015 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/agents-of-mayhem/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -726,7 +726,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Yeti&#39;s Quest - iOS</title>
       <link>https://www.adamormsby.com/projects/yetis-quest/</link>
-      <pubDate>Wed, 01 Oct 2014 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Oct 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/yetis-quest/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -764,7 +764,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Chosen - 1st Person Character Controller</title>
       <link>https://www.adamormsby.com/projects/the-chosen/</link>
-      <pubDate>Fri, 01 Aug 2014 00:00:00 +0700</pubDate>
+      <pubDate>Fri, 01 Aug 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-chosen/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -785,7 +785,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Luminus</title>
       <link>https://www.adamormsby.com/projects/luminus/</link>
-      <pubDate>Thu, 01 May 2014 00:00:00 +0700</pubDate>
+      <pubDate>Thu, 01 May 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/luminus/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -821,7 +821,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Imparta - AI Character Behavior</title>
       <link>https://www.adamormsby.com/projects/imparta/</link>
-      <pubDate>Tue, 01 Apr 2014 00:00:00 +0700</pubDate>
+      <pubDate>Tue, 01 Apr 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/imparta/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -838,7 +838,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Presentation - Game Developers Conference</title>
       <link>https://www.adamormsby.com/projects/gdc-presentation/</link>
-      <pubDate>Wed, 19 Mar 2014 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 19 Mar 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/gdc-presentation/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -853,7 +853,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>ArmyDillos!</title>
       <link>https://www.adamormsby.com/projects/armydillos/</link>
-      <pubDate>Wed, 01 Jan 2014 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/projects/armydillos/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -919,7 +919,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The MecWarriors</title>
       <link>https://www.adamormsby.com/projects/the-mecwarriors/</link>
-      <pubDate>Sun, 01 Sep 2013 00:00:00 +0700</pubDate>
+      <pubDate>Sun, 01 Sep 2013 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-mecwarriors/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -964,7 +964,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Editor Tools - Unity Game Engine</title>
       <link>https://www.adamormsby.com/projects/unity-tools/</link>
-      <pubDate>Thu, 01 Aug 2013 00:00:00 +0700</pubDate>
+      <pubDate>Thu, 01 Aug 2013 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/unity-tools/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -1000,7 +1000,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Artemis</title>
       <link>https://www.adamormsby.com/projects/artemis/</link>
-      <pubDate>Wed, 01 May 2013 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 May 2013 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/artemis/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -1017,7 +1017,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Undertakers</title>
       <link>https://www.adamormsby.com/projects/undertakers/</link>
-      <pubDate>Wed, 01 Aug 2012 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Aug 2012 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/undertakers/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -1060,7 +1060,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Backflip Studios</title>
       <link>https://www.adamormsby.com/projects/backflip-studios/</link>
-      <pubDate>Fri, 01 Jun 2012 00:00:00 +0700</pubDate>
+      <pubDate>Fri, 01 Jun 2012 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/backflip-studios/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -1095,9 +1095,9 @@ ___|___| project-page.md&lt;/p&gt;
 &lt;/figure&gt;
 
 &lt;h2 id=&#34;hi-im-adam&#34;&gt;Hi, I&amp;rsquo;m Adam!&lt;/h2&gt;
-&lt;p&gt;I&amp;rsquo;m a software developer currently making mobile apps with Xamarin and C#, and I&amp;rsquo;m learning languages like Python and Go through smaller projects (including this website!). I started this blog to share my work and provide insight into the roadblocks I&amp;rsquo;ve encountered as a developer - both on &lt;em&gt;and&lt;/em&gt; off the computer. I&amp;rsquo;m a big fan of open source, and I believe that sharing our experiences is an important part of that ideal. I hope we can learn a lot from each other.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m a software developer currently studying internationalization processes so that I can take a step toward specializing as a localization engineer. I make websites with Hugo and mobile apps with Xamarin and C#. I started this blog to share my work and provide insight into the roadblocks I encounter as a developer - both on &lt;em&gt;and&lt;/em&gt; off the computer. I&amp;rsquo;m a big fan of open source, and I believe that sharing our experiences is an important part of that ideal. I hope we can learn a lot from each other.&lt;/p&gt;
 &lt;h2 id=&#34;im-a-freelancer&#34;&gt;I&amp;rsquo;m a Freelancer.&lt;/h2&gt;
-&lt;p&gt;If you need a helping hand, I may be the developer you&amp;rsquo;re looking for. I&amp;rsquo;m always adding to my skill set, and I enjoy working with active teams on projects they care about. Most recently, I&amp;rsquo;ve been interested in software internationalization and localization, but I&amp;rsquo;m open to most types of work. As a remote developer, I&amp;rsquo;m available to work with you and your friends anywhere in the world, and I&amp;rsquo;m happy to discuss on-site work if it&amp;rsquo;s what you need.&lt;/p&gt;
+&lt;p&gt;If you need a helping hand, I may be the developer you&amp;rsquo;re looking for. I&amp;rsquo;m always adding to my skill set, and I enjoy working with active teams on projects they care about. As a remote developer, I&amp;rsquo;m available to work with you and your friends anywhere in the world, and I&amp;rsquo;m happy to discuss on-site work if it&amp;rsquo;s what you need.&lt;/p&gt;
 &lt;h2 id=&#34;get-in-touch&#34;&gt;Get in touch!&lt;/h2&gt;
 &lt;p&gt;
   &lt;span class=&#34;icon-link&#34;&gt;
@@ -1105,7 +1105,7 @@ ___|___| project-page.md&lt;/p&gt;
       &lt;img src=&#34;https://www.adamormsby.com/icon/mailgo.png&#34; alt=&#34;mailgo&#34;  height=&#34;100&#34;  /&gt;
     &lt;/a&gt;
     
-    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.3/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.5/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
   &lt;/span&gt;
 
 
@@ -1125,8 +1125,8 @@ ___|___| project-page.md&lt;/p&gt;
 
 
   &lt;span class=&#34;icon-link&#34;&gt;
-    &lt;a href=&#34;https://ko-fi.com/aormsby&#34; target=&#34;_blank&#34; &gt;
-      &lt;img src=&#34;https://www.adamormsby.com/icon/kofi.png&#34; alt=&#34;Buy Me a Coffee at ko-fi.com&#34;  height=100  /&gt;
+    &lt;a href=&#34;https://buymeacoff.ee/aormsby&#34; target=&#34;_blank&#34; &gt;
+      &lt;img src=&#34;https://www.adamormsby.com/icon/coffee-cup.svg&#34; alt=&#34;Buy Me a Coffee&#34;  height=100  /&gt;
     &lt;/a&gt;
   &lt;/span&gt;
 &lt;/p&gt;

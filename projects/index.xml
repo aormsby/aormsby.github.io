@@ -13,7 +13,7 @@
     <item>
       <title>Personal Blog - you&#39;re reading it!</title>
       <link>https://www.adamormsby.com/projects/personal-blog/</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/projects/personal-blog/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -42,7 +42,7 @@ ___|___| project-page.md&lt;/p&gt;
       &lt;img src=&#34;https://www.adamormsby.com/icon/mailgo.png&#34; alt=&#34;mailgo&#34;  height=&#34;100&#34;  /&gt;
     &lt;/a&gt;
     
-    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.3/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.5/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
   &lt;/span&gt;
 
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;{{ if .Get 1 }}
@@ -84,7 +84,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Adam Roams - Travel Blog</title>
       <link>https://www.adamormsby.com/projects/adam-roams/</link>
-      <pubDate>Wed, 01 Feb 2017 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Feb 2017 00:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/projects/adam-roams/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -148,7 +148,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Agents of Mayhem</title>
       <link>https://www.adamormsby.com/projects/agents-of-mayhem/</link>
-      <pubDate>Wed, 01 Jul 2015 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Jul 2015 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/agents-of-mayhem/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -176,7 +176,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Yeti&#39;s Quest - iOS</title>
       <link>https://www.adamormsby.com/projects/yetis-quest/</link>
-      <pubDate>Wed, 01 Oct 2014 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Oct 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/yetis-quest/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -214,7 +214,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The Chosen - 1st Person Character Controller</title>
       <link>https://www.adamormsby.com/projects/the-chosen/</link>
-      <pubDate>Fri, 01 Aug 2014 00:00:00 +0700</pubDate>
+      <pubDate>Fri, 01 Aug 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-chosen/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -235,7 +235,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Luminus</title>
       <link>https://www.adamormsby.com/projects/luminus/</link>
-      <pubDate>Thu, 01 May 2014 00:00:00 +0700</pubDate>
+      <pubDate>Thu, 01 May 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/luminus/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -271,7 +271,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Imparta - AI Character Behavior</title>
       <link>https://www.adamormsby.com/projects/imparta/</link>
-      <pubDate>Tue, 01 Apr 2014 00:00:00 +0700</pubDate>
+      <pubDate>Tue, 01 Apr 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/imparta/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -288,7 +288,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Presentation - Game Developers Conference</title>
       <link>https://www.adamormsby.com/projects/gdc-presentation/</link>
-      <pubDate>Wed, 19 Mar 2014 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 19 Mar 2014 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/gdc-presentation/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -303,7 +303,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>ArmyDillos!</title>
       <link>https://www.adamormsby.com/projects/armydillos/</link>
-      <pubDate>Wed, 01 Jan 2014 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/projects/armydillos/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -369,7 +369,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>The MecWarriors</title>
       <link>https://www.adamormsby.com/projects/the-mecwarriors/</link>
-      <pubDate>Sun, 01 Sep 2013 00:00:00 +0700</pubDate>
+      <pubDate>Sun, 01 Sep 2013 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/the-mecwarriors/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -414,7 +414,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Editor Tools - Unity Game Engine</title>
       <link>https://www.adamormsby.com/projects/unity-tools/</link>
-      <pubDate>Thu, 01 Aug 2013 00:00:00 +0700</pubDate>
+      <pubDate>Thu, 01 Aug 2013 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/unity-tools/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -450,7 +450,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Artemis</title>
       <link>https://www.adamormsby.com/projects/artemis/</link>
-      <pubDate>Wed, 01 May 2013 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 May 2013 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/artemis/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -467,7 +467,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Undertakers</title>
       <link>https://www.adamormsby.com/projects/undertakers/</link>
-      <pubDate>Wed, 01 Aug 2012 00:00:00 +0700</pubDate>
+      <pubDate>Wed, 01 Aug 2012 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/undertakers/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
@@ -510,7 +510,7 @@ ___|___| project-page.md&lt;/p&gt;
     <item>
       <title>Backflip Studios</title>
       <link>https://www.adamormsby.com/projects/backflip-studios/</link>
-      <pubDate>Fri, 01 Jun 2012 00:00:00 +0700</pubDate>
+      <pubDate>Fri, 01 Jun 2012 00:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/projects/backflip-studios/</guid>
       <description>&lt;h2 id=&#34;about&#34;&gt;About&lt;/h2&gt;
