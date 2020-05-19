@@ -17,7 +17,13 @@
       <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
-      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+      <description>
+        
+          &lt;image src=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/cover.jpg&#34;/&gt;
+          
+        
+        
+        &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;I made this blog site using the &lt;a href=&#34;https://www.gohugo.io&#34;  target=&#34;_blank&#34; &gt;Hugo static site generator&lt;/a&gt; because I wanted to build a simple site where I could have full control over every detail - &lt;em&gt;not&lt;/em&gt; like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels &lt;em&gt;great&lt;/em&gt; to have that kind of power. You probably ended up here because you want that, too.&lt;/p&gt;
 &lt;p&gt;In this post, we&amp;rsquo;ll take a look at how to:&lt;/p&gt;
 &lt;ul&gt;
@@ -101,7 +107,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 &lt;h3 id=&#34;live-site-data-repository&#34;&gt;Live Site Data Repository&lt;/h3&gt;
 &lt;p&gt;Let&amp;rsquo;s add our first submodule to the project! Remember, our goal is to separate the commit histories of our project source and our site build output to the &lt;code&gt;public&lt;/code&gt; directory. First, we create another repo on Github for our public site data. I&amp;rsquo;ll call mine &lt;strong&gt;hugo-gh-pages-public&lt;/strong&gt;. In our local terminal, run the following command from the project root.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git&lt;/span&gt;
-&amp;gt; git submodule add &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://github.com/[GITHUB_USERNAME]/[PUBLIC_REPO_NAME].git&amp;#34;&lt;/span&gt; public
+&amp;gt; git submodule add https://github.com/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;GITHUB_USERNAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;PUBLIC_REPO_NAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;.git public
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Sweet! We now have a submodule initialized and loaded into our project under the &lt;code&gt;public&lt;/code&gt; directory, and it&amp;rsquo;s already connected to its remote origin. Let&amp;rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&amp;rsquo;s good to know the process.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1. Perform a site build and output to &amp;#39;public/&amp;#39; directory.&lt;/span&gt;
 &amp;gt; hugo
@@ -196,12 +202,9 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 
 &lt;p&gt;Look at it this way - directly cloning a theme into our project has two major problems.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;We can&amp;rsquo;t commit to the theme&amp;rsquo;s upstream repo, because we don&amp;rsquo;t have permission.&lt;/strong&gt; This means we can&amp;rsquo;t make changes to the theme and then keep them versioned.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;A cloned project in a subdirectory isn&amp;rsquo;t linked with the main project.&lt;/strong&gt; When a submodule is added to a project, the main project adds a reference to it in a file named &lt;code&gt;.gitmodules&lt;/code&gt;. Without that reference, the main project and the theme project aren&amp;rsquo;t connected, which could cause confusion or problems down the line.&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;We can&amp;rsquo;t push our commits to the theme&amp;rsquo;s source repo, because we don&amp;rsquo;t have permission.&lt;/strong&gt; This means we can&amp;rsquo;t make changes to the theme and then keep them versioned.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A cloned project in a subdirectory isn&amp;rsquo;t linked with the main project.&lt;/strong&gt; When a submodule is added to a project, the main project adds a reference to it in a file named &lt;code&gt;.gitmodules&lt;/code&gt;. Without that reference, the main project and the theme project aren&amp;rsquo;t connected, which could cause confusion or problems down the line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Also, Git doesn&amp;rsquo;t allow repos inside repos that aren&amp;rsquo;t submodules.&lt;/strong&gt; See &lt;a href=&#34;https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/&#34;  target=&#34;_blank&#34; &gt;this ‘simple dev’ post&lt;/a&gt; for details.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Let&amp;rsquo;s solve each of those problems in one fell swoop.&lt;/p&gt;
 &lt;ol&gt;
@@ -245,7 +248,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 &lt;h2 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Theme Branches and Getting Updates&lt;/strong&gt; - I&amp;rsquo;ve worked out a nice branch-based system for continuing to get updates from the original theme repo while adding and changing things our forked theme repo. It&amp;rsquo;s super useful. Next post!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theme Branches and Getting Updates&lt;/strong&gt; - I&amp;rsquo;ve worked out a nice branch-based system for continuing to get updates from the original theme repo while adding and changing things our forked theme repo. It&amp;rsquo;s super useful. &lt;a href=&#34;https://www.adamormsby.com/posts/hugo-themes-making-modifications/&#34; &gt;Next post!&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Better Deploy&lt;/strong&gt; - I&amp;rsquo;m sure you noticed that we had to use &lt;em&gt;a plethora&lt;/em&gt; of terminal commands to add, commit, and push files to the main project and its submodules to maintain proper commit references. I wrote them out in this post for clarity, but this process is definitely something we can automate. Hugo&amp;rsquo;s docs provide a &lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script&#34;  target=&#34;_blank&#34; &gt;basic deploy script&lt;/a&gt; to do this, and I&amp;rsquo;m working on a greatly improved version of it that I&amp;rsquo;ll write about when it&amp;rsquo;s ready for action.&lt;/p&gt;
@@ -254,8 +257,10 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 &lt;p&gt;&lt;strong&gt;Custom domains / CNAME&lt;/strong&gt; - You may want to set up a custom domain on Github Pages. Here&amp;rsquo;s &lt;a href=&#34;https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site&#34;  target=&#34;_blank&#34; &gt;some good documentation&lt;/a&gt; on how to do that.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Thanks for reading!~&lt;/p&gt;
-</description>
+&lt;p&gt;Thanks for reading! ~&lt;/p&gt;
+
+        
+        </description>
     </item>
     
   </channel>

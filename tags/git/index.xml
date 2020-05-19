@@ -6,10 +6,160 @@
     <description>Recent content in git on Adam Ormsby</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Mar 2020 22:30:00 +0700</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2020 18:30:00 -0500</lastBuildDate>
     
 	<atom:link href="https://www.adamormsby.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hugo Themes - Making Modifications while Keeping the Source Up-To-Date</title>
+      <link>https://www.adamormsby.com/posts/hugo-themes-making-modifications/</link>
+      <pubDate>Tue, 19 May 2020 18:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/hugo-themes-making-modifications/</guid>
+      <description>
+        
+          &lt;image src=&#34;https://www.adamormsby.com/posts/hugo-themes-making-modifications/cover.jpg&#34;/&gt;
+          
+        
+        
+        &lt;p&gt;&lt;em&gt;This is a continuation of a previous post - &lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/&#34; &gt;How to Set Up a Hugo Site on Github Pages - with Git Submodules!&lt;/a&gt; I will reference some things we did there, so be sure to check it out if you&amp;rsquo;re confused about something.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &amp;lsquo;But my theme works fine!&amp;rsquo; you say. &amp;lsquo;Why would I ever need to update it?&amp;rsquo; Well, when you download or clone a Hugo theme from its hosted git repository, you&amp;rsquo;re getting its latest version &lt;em&gt;at that point in time.&lt;/em&gt; So even if the theme&amp;rsquo;s creator pushes updates to the code - with fixes, new features, and outside pull requests - you&amp;rsquo;ll still be stuck using the version you downloaded before. While this is fine in some cases, many of us want the newest updates so we can take advantage of a stronger, improved theme.&lt;/p&gt;
+&lt;p&gt;The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. If you followed my previous tutorial on &lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/&#34; &gt;adding a theme to your Hugo site as a git submodule&lt;/a&gt;, you already have a functional Hugo site with a (forked) theme included. Starting there, let&amp;rsquo;s see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.&lt;/p&gt;
+&lt;h2 id=&#34;just-the-updates-please&#34;&gt;Just the Updates, Please&lt;/h2&gt;
+&lt;p&gt;If we don&amp;rsquo;t intend to customize a theme at all, we can keep our workflow super simple. All we need to do is add the theme repo into our project as a submodule and periodically run a few git commands to check for updates. For the moment, let&amp;rsquo;s pretend we haven&amp;rsquo;t forked the theme repo and see what it would be like to clone the source directly. We&amp;rsquo;ll see an example with our fork in the next section.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s a quick refresher command for adding a submodule to our project.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&amp;gt; git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;You might be thinking you can simply run &lt;code&gt;git clone&lt;/code&gt; instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&amp;rsquo;t work here. Git doesn&amp;rsquo;t like having &lt;code&gt;.git&lt;/code&gt; files in a subdirectory without a &lt;code&gt;.gitmodules&lt;/code&gt; component in the root. For more on that, see &lt;a href=&#34;https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/&#34;  target=&#34;_blank&#34; &gt;this ‘simple dev’ post.&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In the example above, we added our submodule by pulling the theme&amp;rsquo;s source repo directly into our project. With the &lt;code&gt;git remote&lt;/code&gt; command, we can easily verify that it&amp;rsquo;s connected to the correct remote repo.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&amp;gt; cd themes/hello-friend
+&amp;gt; git remote --verbose
+origin  https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;fetch&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+origin  https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;push&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  
+  &lt;img src=&#34;img/simple-update.jpg&#34;  alt=&#34;one-way update directly from theme source&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;And there it is! With this setup, all we need to do is pull updates straight from the source. From the theme&amp;rsquo;s directory, we run the following terminal commands.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# optional: fetch any updates to view changes before merging&lt;/span&gt;
+&amp;gt; git fetch origin
+&amp;gt; git status
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;status output here&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# pull updates and merge them automatically&lt;/span&gt;
+&amp;gt; git pull
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Since we&amp;rsquo;re not making any theme changes in this workflow, we shouldn&amp;rsquo;t expect any merging issues during the &lt;code&gt;git pull&lt;/code&gt;. We don&amp;rsquo;t really &lt;em&gt;need&lt;/em&gt; to fetch or check the status of the repo, but it&amp;rsquo;s always nice to see incoming changes before we bring them in.&lt;/p&gt;
+&lt;p&gt;And that&amp;rsquo;s it! Getting updates every so often is no problem if we don&amp;rsquo;t intend to make our own customizations to a theme. But hey - customization is where the fun &lt;em&gt;really&lt;/em&gt; begins.&lt;/p&gt;
+&lt;h2 id=&#34;updates-and-theme-customization---a-parallel-branch-workflow&#34;&gt;Updates and Theme Customization - A Parallel Branch Workflow&lt;/h2&gt;
+&lt;p&gt;Here&amp;rsquo;s the scenario - We want to add a Hugo theme, make custom changes, and still to get updates from the theme&amp;rsquo;s original source. The method used above doesn&amp;rsquo;t work here for a few reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;We can&amp;rsquo;t push our custom changes to the theme&amp;rsquo;s source repo&lt;/strong&gt;. We simply don&amp;rsquo;t have those permissions on the repo. Our local changes will not be safely stored anywhere, and any pulled updates may not be easily mergeable.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Incoming updates may require merges.&lt;/strong&gt; If we&amp;rsquo;ve modified some of the theme files that are being updated in the source, then a simple &lt;code&gt;git pull&lt;/code&gt; will not be enough to deal with the resulting conflicts.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Thankfully, a more advanced git workflow would help deal with these issues. Remember &lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#add-a-theme-to-our-site&#34; &gt;how we set up a forked theme repo&lt;/a&gt; in the last post? Now we get to take advantage of it. Crucially, the forked repo is &lt;em&gt;ours&lt;/em&gt;, so we have full write access to it and don&amp;rsquo;t need to worry about repo permissions. We can do whatever we want.&lt;/p&gt;
+&lt;h3 id=&#34;add-a-remote-repo&#34;&gt;Add a Remote Repo&lt;/h3&gt;
+&lt;p&gt;However, our fork doesn&amp;rsquo;t automatically receive source updates either! Here, an additional step is needed to link our fork back to the source repo. Earlier, in the direct update workflow, we used the &lt;code&gt;git remote&lt;/code&gt; command to verify that we had the correct remote repo connections. Running it in our forked theme directory, we see only the fork as our remote.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# my forked repo URLs as an example&lt;/span&gt;
+&amp;gt; git remote --verbose
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;fetch&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;push&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To get updates from the source repo, we need to add a &lt;em&gt;second&lt;/em&gt; remote repo - yes, git can do this! We simply run this command in our working directory and check our remotes again to verify the connection.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# add a new remote repo connection&lt;/span&gt;
+&amp;gt; git remote add upstream https://github.com/panr/hugo-theme-hello-friend.git
+
+&amp;gt; git remote --verbose
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;fetch&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;push&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+upstream   https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;fetch&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+upstream   https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;push&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ta-da! Our local theme repo is now linked to both our forked repo &lt;em&gt;and&lt;/em&gt; the source repo, which we called &lt;code&gt;upstream&lt;/code&gt;. (This is a conventional label, but any name you choose is fine.) At this point, our setup already supports getting updates from the source, but the process is a little different than before.&lt;/p&gt;
+&lt;p&gt;Normally, when we&amp;rsquo;re updating directly from a single remote repo, all we need to do is &lt;code&gt;pull&lt;/code&gt; the data to our local directory so that the local matches the remote. We&amp;rsquo;ll still do that here, but we explicitly pull data from the &lt;code&gt;upstream&lt;/code&gt; repo we added. We&amp;rsquo;ll also have to make an additional &lt;code&gt;push&lt;/code&gt; to our forked repo - &lt;code&gt;origin&lt;/code&gt; - to update it with the new code. Here&amp;rsquo;s how that works compared to the previous example.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    
+    &lt;img src=&#34;img/forked-update.jpg&#34;  alt=&#34;comparison of update methods&#34;   /&gt;
+    
+    
+      &lt;figcaption class=&#34;center&#34; &gt;Left: simple update / Right: updating with a fork&lt;/figcaption&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;Assuming you&amp;rsquo;re still on your &lt;code&gt;master&lt;/code&gt; branch, here are the modified commands needed to pull and push the updates.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# optional: fetch any updates to view changes before merging&lt;/span&gt;
+&amp;gt; git fetch upstream master
+&amp;gt; git status
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;status output here&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# pull updates and merge them automatically&lt;/span&gt;
+&amp;gt; git pull upstream master
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# push source updates to forked repo&lt;/span&gt;
+&amp;gt; git push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With no local changes to our theme, the commands run smoothly with no errors - and we want to keep it that way! Simple is good, and an update process that doesn&amp;rsquo;t result in merge conflicts is always nice. But how do we manage to avoid conflicts if we want to customize the theme? Simple - don&amp;rsquo;t do your work on &lt;code&gt;master&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;branching-customizing-and-merging-updates&#34;&gt;Branching, Customizing, and Merging Updates&lt;/h3&gt;
+&lt;p&gt;Although you technically &lt;em&gt;could&lt;/em&gt; make theme customizations on the &lt;code&gt;master&lt;/code&gt; branch, this increases the chances of having to resolve merge conflicts every time you try to pull an update. It&amp;rsquo;s fine if that&amp;rsquo;s how you want to work, but I &lt;em&gt;highly&lt;/em&gt; recommend avoiding it. In my experience, it&amp;rsquo;s often best to keep &lt;code&gt;master&lt;/code&gt; sparkly clean and do your dirty work on a different branch.&lt;/p&gt;
+&lt;p&gt;For example, I do my theme in a separate branch that is always kept in parallel with &lt;code&gt;master&lt;/code&gt;. I&amp;rsquo;ve named it &lt;code&gt;working&lt;/code&gt;, as it&amp;rsquo;s the branch that I &lt;em&gt;work&lt;/em&gt; in. (Not exactly clever, I know.) Since it has all of my theme customizations, it&amp;rsquo;s also the branch that I use when I build my site. Every so often, I switch back over to &lt;code&gt;master&lt;/code&gt;, go through our update process, and then explicitly merge any new theme updates from &lt;code&gt;master&lt;/code&gt; into &lt;code&gt;working&lt;/code&gt; so that I have all the latest features in my working  branch. Visually, it&amp;rsquo;s kind of like this.&lt;/p&gt;
+
+  
+  &lt;img src=&#34;img/parallel-branches.jpg&#34;  alt=&#34;parallel branch system with updates merged from master&#34;  class=&#34;center&#34;  /&gt;
+  
+
+
+&lt;p&gt;This is just one possible theme customization workflow, but we can benefit from a setup like this. For example &amp;ndash;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Our workspace is separate from our update environment.&lt;/strong&gt; Getting theme updates will always be a painless process, and we have more control over merging when the time comes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Commit histories are clearer.&lt;/strong&gt; Histories are much easier to read if source updates and custom work don&amp;rsquo;t get tangled up, and this can be super helpful when performing more advanced git actions on a branch.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;All the data is on our forked repo.&lt;/strong&gt; The customizations &lt;em&gt;and&lt;/em&gt; the pulled updates all live on our fork, which means we have full control of the data.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;We can test on &lt;code&gt;master&lt;/code&gt; before merging.&lt;/strong&gt; If we&amp;rsquo;re unsure of how a new feature will display on our site, we can run a build using the &lt;code&gt;master&lt;/code&gt; code. It&amp;rsquo;s a nice clean test bed before performing a merge.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The drawbacks are much the same as I mentioned in the &lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#some-drawbacks&#34; &gt;last post&lt;/a&gt; with the addition that now we&amp;rsquo;d have at least one more working branch to manage. However, I&amp;rsquo;ve found this parallel branch workflow quite nice after getting more familiar with it. Perhaps you will, too.&lt;/p&gt;
+&lt;p&gt;Here are the commands we can use to get our &lt;code&gt;working&lt;/code&gt; branch up and running. (You can choose a better name if you&amp;rsquo;d like.)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# create a new branch and switch to it&lt;/span&gt;
+&amp;gt; git branch working
+&amp;gt; git checkout working
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We make some changes, commit our work, and push to our forked repo (&lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#test-site-and-deploy&#34; &gt;see these commands for help&lt;/a&gt;). Time passes&amp;hellip; and we want to get some updates on &lt;code&gt;master&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# switch to master branch&lt;/span&gt;
+&amp;gt; git checkout master
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# quick update&lt;/span&gt;
+&amp;gt; git pull upstream master
+&amp;gt; git push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, we switch back to &lt;code&gt;working&lt;/code&gt; and merge in the updates from &lt;code&gt;master&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# switch to working&lt;/span&gt;
+&amp;gt; git checkout working
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# merge master into current branch (working)&lt;/span&gt;
+&amp;gt; git merge master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I won&amp;rsquo;t get into resolving a merge here, so let&amp;rsquo;s cross our fingers and hope there are no conflicts to deal with.&lt;/p&gt;
+
+  &lt;figure class=&#34;center&#34; &gt;
+    
+    &lt;img src=&#34;img/git-merge-conflict.jpg&#34;  alt=&#34;git merge conflict comic&#34;   /&gt;
+    
+    
+      &lt;figcaption class=&#34;center&#34; &gt;something to look forward to :)&lt;/figcaption&gt;
+    
+  &lt;/figure&gt;
+
+
+&lt;p&gt;So yes - customizing your theme with this kind of workflow does take a bit of setup, and there are a few extra steps and things to keep track of to manage our code well. However, using git submodules and a parallel branch workflow do give us more leverage over our codebase, and I think that makes the extra work worthwhile. I&amp;rsquo;ve been using this workflow with my site for some time, and I don&amp;rsquo;t think I&amp;rsquo;d change anything about it.&lt;/p&gt;
+&lt;p&gt;That said, there are a number of other methods that people use for managing their themes, and it&amp;rsquo;s worth exploring them to see what fits your needs best. I recently read a post about &lt;a href=&#34;https://www.hugofordevelopers.com/articles/master-hugo-modules-managing-themes-as-modules/&#34;  target=&#34;_blank&#34; &gt;managing your themes as Hugo modules by Nick Gracilla&lt;/a&gt; that I found quite interesting, and I think it&amp;rsquo;s worth checking out if you&amp;rsquo;re looking for an alternate way of doing things.&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Better Deploy&lt;/strong&gt; - I&amp;rsquo;m still working on a better site deploy script! It&amp;rsquo;s looking good so far, but it&amp;rsquo;s not quite ready.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automatic Builds&lt;/strong&gt; - This would still be great to have, so if I get around to it I&amp;rsquo;ll be sure to share my work.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Until next time! ~&lt;/p&gt;
+
+        
+        </description>
+    </item>
     
     <item>
       <title>How to Set Up a Hugo Site on Github Pages - with Git Submodules!</title>
@@ -17,7 +167,13 @@
       <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
-      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+      <description>
+        
+          &lt;image src=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/cover.jpg&#34;/&gt;
+          
+        
+        
+        &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;I made this blog site using the &lt;a href=&#34;https://www.gohugo.io&#34;  target=&#34;_blank&#34; &gt;Hugo static site generator&lt;/a&gt; because I wanted to build a simple site where I could have full control over every detail - &lt;em&gt;not&lt;/em&gt; like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels &lt;em&gt;great&lt;/em&gt; to have that kind of power. You probably ended up here because you want that, too.&lt;/p&gt;
 &lt;p&gt;In this post, we&amp;rsquo;ll take a look at how to:&lt;/p&gt;
 &lt;ul&gt;
@@ -101,7 +257,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 &lt;h3 id=&#34;live-site-data-repository&#34;&gt;Live Site Data Repository&lt;/h3&gt;
 &lt;p&gt;Let&amp;rsquo;s add our first submodule to the project! Remember, our goal is to separate the commit histories of our project source and our site build output to the &lt;code&gt;public&lt;/code&gt; directory. First, we create another repo on Github for our public site data. I&amp;rsquo;ll call mine &lt;strong&gt;hugo-gh-pages-public&lt;/strong&gt;. In our local terminal, run the following command from the project root.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git&lt;/span&gt;
-&amp;gt; git submodule add &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://github.com/[GITHUB_USERNAME]/[PUBLIC_REPO_NAME].git&amp;#34;&lt;/span&gt; public
+&amp;gt; git submodule add https://github.com/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;GITHUB_USERNAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;/&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;PUBLIC_REPO_NAME&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;.git public
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Sweet! We now have a submodule initialized and loaded into our project under the &lt;code&gt;public&lt;/code&gt; directory, and it&amp;rsquo;s already connected to its remote origin. Let&amp;rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&amp;rsquo;s good to know the process.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 1. Perform a site build and output to &amp;#39;public/&amp;#39; directory.&lt;/span&gt;
 &amp;gt; hugo
@@ -196,12 +352,9 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 
 &lt;p&gt;Look at it this way - directly cloning a theme into our project has two major problems.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;We can&amp;rsquo;t commit to the theme&amp;rsquo;s upstream repo, because we don&amp;rsquo;t have permission.&lt;/strong&gt; This means we can&amp;rsquo;t make changes to the theme and then keep them versioned.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;A cloned project in a subdirectory isn&amp;rsquo;t linked with the main project.&lt;/strong&gt; When a submodule is added to a project, the main project adds a reference to it in a file named &lt;code&gt;.gitmodules&lt;/code&gt;. Without that reference, the main project and the theme project aren&amp;rsquo;t connected, which could cause confusion or problems down the line.&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;We can&amp;rsquo;t push our commits to the theme&amp;rsquo;s source repo, because we don&amp;rsquo;t have permission.&lt;/strong&gt; This means we can&amp;rsquo;t make changes to the theme and then keep them versioned.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A cloned project in a subdirectory isn&amp;rsquo;t linked with the main project.&lt;/strong&gt; When a submodule is added to a project, the main project adds a reference to it in a file named &lt;code&gt;.gitmodules&lt;/code&gt;. Without that reference, the main project and the theme project aren&amp;rsquo;t connected, which could cause confusion or problems down the line.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Also, Git doesn&amp;rsquo;t allow repos inside repos that aren&amp;rsquo;t submodules.&lt;/strong&gt; See &lt;a href=&#34;https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/&#34;  target=&#34;_blank&#34; &gt;this ‘simple dev’ post&lt;/a&gt; for details.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Let&amp;rsquo;s solve each of those problems in one fell swoop.&lt;/p&gt;
 &lt;ol&gt;
@@ -245,7 +398,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 &lt;h2 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Theme Branches and Getting Updates&lt;/strong&gt; - I&amp;rsquo;ve worked out a nice branch-based system for continuing to get updates from the original theme repo while adding and changing things our forked theme repo. It&amp;rsquo;s super useful. Next post!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theme Branches and Getting Updates&lt;/strong&gt; - I&amp;rsquo;ve worked out a nice branch-based system for continuing to get updates from the original theme repo while adding and changing things our forked theme repo. It&amp;rsquo;s super useful. &lt;a href=&#34;https://www.adamormsby.com/posts/hugo-themes-making-modifications/&#34; &gt;Next post!&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Better Deploy&lt;/strong&gt; - I&amp;rsquo;m sure you noticed that we had to use &lt;em&gt;a plethora&lt;/em&gt; of terminal commands to add, commit, and push files to the main project and its submodules to maintain proper commit references. I wrote them out in this post for clarity, but this process is definitely something we can automate. Hugo&amp;rsquo;s docs provide a &lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script&#34;  target=&#34;_blank&#34; &gt;basic deploy script&lt;/a&gt; to do this, and I&amp;rsquo;m working on a greatly improved version of it that I&amp;rsquo;ll write about when it&amp;rsquo;s ready for action.&lt;/p&gt;
@@ -254,8 +407,10 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 &lt;p&gt;&lt;strong&gt;Custom domains / CNAME&lt;/strong&gt; - You may want to set up a custom domain on Github Pages. Here&amp;rsquo;s &lt;a href=&#34;https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site&#34;  target=&#34;_blank&#34; &gt;some good documentation&lt;/a&gt; on how to do that.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Thanks for reading!~&lt;/p&gt;
-</description>
+&lt;p&gt;Thanks for reading! ~&lt;/p&gt;
+
+        
+        </description>
     </item>
     
   </channel>

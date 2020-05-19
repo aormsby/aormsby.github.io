@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.adamormsby.com/tags/git/</loc>
+    <lastmod>2020-05-19T18:27:06-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/tags/hugo/</loc>
+    <lastmod>2020-05-19T18:27:06-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/posts/hugo-themes-making-modifications/</loc>
+    <lastmod>2020-05-19T18:27:06-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/tags/jamstack/</loc>
+    <lastmod>2020-05-19T18:27:06-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/posts/</loc>
+    <lastmod>2020-05-19T18:27:06-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/tags/submodules/</loc>
+    <lastmod>2020-05-19T18:27:06-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/tags/</loc>
+    <lastmod>2020-05-19T18:27:06-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.adamormsby.com/tags/covid-19/</loc>
     <lastmod>2020-04-25T19:05:09-05:00</lastmod>
   </url>
@@ -18,53 +53,23 @@
   </url>
   
   <url>
-    <loc>https://www.adamormsby.com/posts/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.adamormsby.com/tags/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.adamormsby.com/tags/viet-nam/</loc>
     <lastmod>2020-04-25T19:05:09-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.adamormsby.com/tags/git/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.adamormsby.com/tags/github/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
+    <lastmod>2020-05-17T19:44:28-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.adamormsby.com/tags/hugo/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.adamormsby.com/tags/jamstack/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.adamormsby.com/tags/submodules/</loc>
-    <lastmod>2020-04-25T19:05:09-05:00</lastmod>
+    <lastmod>2020-05-17T19:44:28-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.adamormsby.com/projects/personal-blog/</loc>
-    <lastmod>2020-04-25T19:28:03-05:00</lastmod>
+    <lastmod>2020-05-17T19:53:37-05:00</lastmod>
   </url>
   
   <url>
@@ -134,12 +139,12 @@
   
   <url>
     <loc>https://www.adamormsby.com/projects/the-mecwarriors/</loc>
-    <lastmod>2020-04-25T19:28:03-05:00</lastmod>
+    <lastmod>2020-05-17T19:53:37-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.adamormsby.com/projects/unity-tools/</loc>
-    <lastmod>2020-04-25T19:28:03-05:00</lastmod>
+    <lastmod>2020-05-17T19:53:37-05:00</lastmod>
   </url>
   
   <url>
