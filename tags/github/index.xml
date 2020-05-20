@@ -2,6 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>github on Adam Ormsby</title>
+    
+    <image>
+      <url>https://www.adamormsby.com/tags/github/img/rssIcon.png</url>
+      <title>github on Adam Ormsby</title>
+      <link>https://www.adamormsby.com/tags/github/</link>
+    </image>
+    
+    
     <link>https://www.adamormsby.com/tags/github/</link>
     <description>Recent content in github on Adam Ormsby</description>
     <generator>Hugo -- gohugo.io</generator>

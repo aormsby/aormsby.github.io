@@ -2,6 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>life abroad on Adam Ormsby</title>
+    
+    <image>
+      <url>https://www.adamormsby.com/tags/life-abroad/img/rssIcon.png</url>
+      <title>life abroad on Adam Ormsby</title>
+      <link>https://www.adamormsby.com/tags/life-abroad/</link>
+    </image>
+    
+    
     <link>https://www.adamormsby.com/tags/life-abroad/</link>
     <description>Recent content in life abroad on Adam Ormsby</description>
     <generator>Hugo -- gohugo.io</generator>
