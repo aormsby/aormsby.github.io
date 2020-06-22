@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shell on Adam Ormsby</title>
+    
+    <image>
+      <url>https://www.adamormsby.com/tags/shell/img/rssIcon.png</url>
+      <title>shell on Adam Ormsby</title>
+      <link>https://www.adamormsby.com/tags/shell/</link>
+    </image>
+    
+    
+    <link>https://www.adamormsby.com/tags/shell/</link>
+    <description>Recent content in shell on Adam Ormsby</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jun 2020 22:00:00 -0500</lastBuildDate>
+    
+	<atom:link href="https://www.adamormsby.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Build and Deploy: A Shell Script for Hugo Sites</title>
+      <link>https://www.adamormsby.com/posts/hugo-shell-deploy-script/</link>
+      <pubDate>Sun, 21 Jun 2020 22:00:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/hugo-shell-deploy-script/</guid>
+      <description>
+        
+          &lt;img src=&#34;https://www.adamormsby.com/posts/hugo-shell-deploy-script/cover.jpg&#34;/&gt;
+          
+        
+        
+        &lt;h2 id=&#34;shell-scripts-are-awesome&#34;&gt;Shell Scripts are Awesome&lt;/h2&gt;
+&lt;p&gt;I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my &lt;a href=&#34;https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/&#34; &gt;git submodule setup&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;So why do this? Well, when I began working with Hugo, I ran across a &lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script&#34;  target=&#34;_blank&#34; &gt;rudimentary deploy script&lt;/a&gt; in their documentation. Since I was still familiarizing myself with Hugo, it hadn&amp;rsquo;t occurred to me yet to automate the build process, and I immediately fell in love with the idea. However, I could see the script would need major improvements to do what I wanted, and I was completely new to shell.&lt;/p&gt;
+&lt;p&gt;At first, I struggled a bit with writing shell code (especially keeping things POSIX-compliant for portability!), but I stumbled upon the &lt;a href=&#34;https://www.shellscript.sh/&#34;  target=&#34;_blank&#34; &gt;shellscript.sh&lt;/a&gt; tutorials and dove straight in. Thanks to those &lt;em&gt;fantastic&lt;/em&gt; tutorials, I now have a sweet script to show off and perhaps even a newfound love for the shell. Apart from variable expansion struggles, it&amp;rsquo;s really quite elegant!&lt;/p&gt;
+&lt;p&gt;I find my &lt;code&gt;hugo-deploy.sh&lt;/code&gt; script does help keep builds following a standard process, but I think I&amp;rsquo;ll really see it shine when I get around to scheduling automated builds on a remote server. Exciting!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#the-full-script&#34; &gt;full script at end&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;deploy-script-functionality&#34;&gt;Deploy Script Functionality&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Be sure to place this script in your &lt;strong&gt;site&amp;rsquo;s root directory&lt;/strong&gt; if you intend to use it. It&amp;rsquo;s built with my git submodule setup in mind. But I don&amp;rsquo;t think it would be too hard to modify it for something different.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;order-of-operations&#34;&gt;Order of Operations&lt;/h3&gt;
+&lt;p&gt;From start to finish, here&amp;rsquo;s what the script does.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Update the automatic build number (included in the git commit)&lt;/li&gt;
+&lt;li&gt;Check for any user options (see below)&lt;/li&gt;
+&lt;li&gt;Check if your active repo branches match your intended deploy branches
+&lt;ul&gt;
+&lt;li&gt;Production and development branches can both be set&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Check if your local repo is up to date (no merge conflicts allowed!)&lt;/li&gt;
+&lt;li&gt;(Optional) Clear out the site output folder before the Hugo build&lt;/li&gt;
+&lt;li&gt;Run Hugo build command&lt;/li&gt;
+&lt;li&gt;Git add, commit, and push to your specified remotes&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If any point in this process fails, the script exits with an error message detailing where the issue occurred. You&amp;rsquo;ll have to fix the issue before running the script again. Thankfully, most of the issues are quick fixes. If you have to do a merge, that&amp;rsquo;s on you!&lt;/p&gt;
+&lt;h2 id=&#34;settings-variables&#34;&gt;&amp;lsquo;Settings&amp;rsquo; Variables&lt;/h2&gt;
+&lt;p&gt;There are some &amp;lsquo;settings&amp;rsquo; variables at the top of the script that you may need to modify to match your project.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# BUILD/DEPLOY SETTINGS - edit as needed for your use case&lt;/span&gt;
+
+PUB_SUBMODULE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;public&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#75715e&#34;&gt;# name of output folder where git submodule is located&lt;/span&gt;
+IGNORE_FILES&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;. .. .git CNAME&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# space-delimited array of files to protect when &amp;#39;fresh&amp;#39; option is used&lt;/span&gt;
+DEV_BRANCHES&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dev dev&amp;#34;&lt;/span&gt;         &lt;span style=&#34;color:#75715e&#34;&gt;# development branches to build on and push to, 1-root, 2-pubmodule&lt;/span&gt;
+PROD_BRANCHES&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;master master&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# production branches to build on and push to, 1-root, 2-pubmodule&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;PUB_SUBMODULE&lt;/code&gt; holds the name of the folder where your public site submodule is located. The default output folder is &lt;code&gt;public&lt;/code&gt;, which is where I have my submodule for the live site. If you&amp;rsquo;ve changed your output folder in the site config, you&amp;rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&amp;rsquo;ve buried your output folder then set the path accordingly (e.g. &lt;code&gt;my/public/build&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;IGNORE_FILES&lt;/code&gt; is used with the &amp;lsquo;fresh&amp;rsquo; option (see below). It acts as an array of filenames that will &lt;em&gt;not&lt;/em&gt; be deleted from the output folder if you select the &amp;lsquo;fresh&amp;rsquo; option. It&amp;rsquo;s mostly to protect non-Hugo files.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PROD_BRANCHES&lt;/code&gt; are the two production branches on which you intend to build and push your site data. The first branch name matches the preferred deploy branch for your &lt;strong&gt;site source data&lt;/strong&gt; (in your root directory), and the second branch name matches the preferred deploy branch for &lt;strong&gt;your live site&lt;/strong&gt; (the supposed submodule). These are the values the script uses to check your active branches in step 3 above. It&amp;rsquo;s a nice safety check.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DEV_BRANCHES&lt;/code&gt; works the same way for a development build, which is enabled through the user options.&lt;/p&gt;
+&lt;h2 id=&#34;user-options&#34;&gt;User Options&lt;/h2&gt;
+&lt;p&gt;Sometimes you need a little customization! That&amp;rsquo;s where my included script user options come into play. Hopefully these options can help you out a bit.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Script Options&lt;/span&gt;
+./hugo-deploy.sh &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-d|-f&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;COMMIT_MESSAGE&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; -o &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;HUGO_OPTIONS&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;-d&lt;/strong&gt;
+&amp;lsquo;dev&amp;rsquo; =&amp;gt; deploys to development branches set in DEV_BRANCHES list (default is PROD_BRANCHES)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-f&lt;/strong&gt;
+&amp;lsquo;fresh&amp;rsquo; =&amp;gt; deletes public directory data before rebuild (skips files in IGNORE_FILES list)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-m&lt;/strong&gt;
+&amp;lsquo;message&amp;rsquo; =&amp;gt; appends a custom commit message to the auto-build string, works exactly like git -m&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-o&lt;/strong&gt;
+&amp;lsquo;options&amp;rsquo; (for Hugo build) =&amp;gt; includes Hugo build options during deploy process (default none), all &lt;code&gt;hugo build&lt;/code&gt; options are valid&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-h&lt;/strong&gt; =&amp;gt; &amp;lsquo;help&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Usage Example&lt;/span&gt;
+./hugo-deploy.sh -d -f -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Deploying like a rockstar!&amp;#34;&lt;/span&gt; -o &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--cleanDestinationDir&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Fun Stuff:&lt;/strong&gt; If you rename the script file to &lt;code&gt;hugo-deploy.command&lt;/code&gt;, you can run the script with a double click! I haven&amp;rsquo;t actually tested this, but I think it just runs without options. Try it out!&lt;/p&gt;
+&lt;h2 id=&#34;disclaimers--seeking-shell-wisdom&#34;&gt;Disclaimers / Seeking Shell Wisdom&lt;/h2&gt;
+&lt;p&gt;I ran into some issues with this script that I couldn&amp;rsquo;t totally avoid. Please be aware of them if you try out my script.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Variable expansion&lt;/strong&gt; - I&amp;rsquo;m aware that the variables I use in my various git commands are not double-quoted. (And just in case I didn&amp;rsquo;t notice, &lt;a href=&#34;https://www.shellcheck.net/&#34;  target=&#34;_blank&#34; &gt;ShellCheck&lt;/a&gt; yelled about them in bright colors.) However, adding quotes or modifying the expansion caused the commands to be incorrectly formatted and resulted in failure. They work as they are now, but I&amp;rsquo;m curious to know if there&amp;rsquo;s a way to improve this. I&amp;rsquo;d love to get advice from experienced shell coders.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Limited Testing&lt;/strong&gt; - I work on Mac OS, so I &lt;em&gt;know&lt;/em&gt; this script works on that system - at least on my machine! I have no idea about Windows or Linux. If you try it out, please let me know!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;the-full-script&#34;&gt;The Full Script&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh&#34;  target=&#34;_blank&#34; &gt;View on Github&lt;/a&gt;&lt;/p&gt;
+&lt;script type=&#34;application/javascript&#34; src=&#34;https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js&#34;&gt;&lt;/script&gt;
+
+
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>
