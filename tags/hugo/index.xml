@@ -14,7 +14,7 @@
     <description>Recent content in hugo on Adam Ormsby</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Jun 2020 22:00:00 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 23:30:00 -0500</lastBuildDate>
     
 	<atom:link href="https://www.adamormsby.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
@@ -22,7 +22,7 @@
     <item>
       <title>Build and Deploy: A Shell Script for Hugo Sites</title>
       <link>https://www.adamormsby.com/posts/hugo-shell-deploy-script/</link>
-      <pubDate>Sun, 21 Jun 2020 22:00:00 -0500</pubDate>
+      <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/posts/hugo-shell-deploy-script/</guid>
       <description>
