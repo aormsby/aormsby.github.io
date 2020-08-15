@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>open source on Adam Ormsby</title>
+    
+    <image>
+      <url>https://www.adamormsby.com/tags/open-source/img/rssIcon.png</url>
+      <title>open source on Adam Ormsby</title>
+      <link>https://www.adamormsby.com/tags/open-source/</link>
+    </image>
+    
+    
+    <link>https://www.adamormsby.com/tags/open-source/</link>
+    <description>Recent content in open source on Adam Ormsby</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 14 Aug 2020 20:00:00 -0500</lastBuildDate>
+    
+	<atom:link href="https://www.adamormsby.com/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Github Action: Fork Sync With Upstream</title>
+      <link>https://www.adamormsby.com/posts/github-actions/fork-sync-with-upstream/</link>
+      <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/github-actions/fork-sync-with-upstream/</guid>
+      <description>
+        
+          &lt;img src=&#34;https://www.adamormsby.com/posts/github-actions/fork-sync-with-upstream/cover.png&#34;/&gt;
+          
+        
+        
+        &lt;p&gt;These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&amp;rsquo;s available now on the Github Marketplace if you want to try it out - &lt;a href=&#34;https://github.com/marketplace/actions/fork-sync-with-upstream&#34;  target=&#34;_blank&#34; &gt;Fork Sync With Upstream&lt;/a&gt;. Let&amp;rsquo;s see what it does!&lt;/p&gt;
+&lt;h2 id=&#34;how-it-works&#34;&gt;How It Works&lt;/h2&gt;
+&lt;p&gt;Remember my post on &lt;a href=&#34;https://www.adamormsby.com/posts/hugo-themes-making-modifications/&#34; &gt;making modifications to a Hugo theme&lt;/a&gt;? We forked a theme repository and saw how to make custom modifications to our local version of it. Whenever we wanted to pull updates from the source repo, we ran a bunch of git commands to pull new commits from the upstream repo and then push them to our fork. Syncing with commands like that is all well and good, but let&amp;rsquo;s save ourselves a little time by automating that process.&lt;/p&gt;
+&lt;p&gt;The Fork Sync With Upstream action takes care of all those updates for us without any work on our part. At its core, the action is a shell script that runs on a Github server and automatically does the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Checkout your fork (needed for the sync process)&lt;/li&gt;
+&lt;li&gt;Set the upstream repo to pull updates from&lt;/li&gt;
+&lt;li&gt;Check if there are any new commits to sync (and print the commit information)&lt;/li&gt;
+&lt;li&gt;Pull from the upstream repo&lt;/li&gt;
+&lt;li&gt;Push to the target branch of the target repo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Just add my action to a Github workflow file in your repo, and &lt;em&gt;voila!&lt;/em&gt; All that update work you were doing manually is now automated!&lt;/p&gt;
+&lt;h2 id=&#34;running-the-fork-sync&#34;&gt;Running the Fork Sync&lt;/h2&gt;
+&lt;p&gt;If you&amp;rsquo;ve never made a Github workflow before, it&amp;rsquo;s a little bit confusing to figure out at first. (At least, it all was for me.) I recommend reading some of the &lt;a href=&#34;https://docs.github.com/en/actions&#34;  target=&#34;_blank&#34; &gt;Github Actions documentation&lt;/a&gt; to get a better feel for how all the pieces work together.&lt;/p&gt;
+&lt;p&gt;For those looking for a quick sample workflow, here&amp;rsquo;s the one I&amp;rsquo;m using in &lt;a href=&#34;https://github.com/aormsby/F-hugo-theme-hello-friend&#34;  target=&#34;_blank&#34; &gt;my fork of Hello Friend&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;on&lt;/span&gt;:
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;schedule&lt;/span&gt;:
+    - &lt;span style=&#34;color:#66d9ef&#34;&gt;cron&lt;/span&gt;:  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0 7 * * 1,4&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;# scheduled at 07:00 every Monday and Thursday&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;jobs&lt;/span&gt;:
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;sync_with_upstream&lt;/span&gt;:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;runs-on&lt;/span&gt;: ubuntu-latest
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Sync master with upstream latest
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;steps&lt;/span&gt;:
+    - &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Checkout master
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;uses&lt;/span&gt;: actions/checkout@v2
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;ref&lt;/span&gt;: master
+
+    - &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Pull upstream changes
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;id&lt;/span&gt;: sync
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;uses&lt;/span&gt;: aormsby/Fork-Sync-With-Upstream-action@v1
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;upstream_repository&lt;/span&gt;: panr/hugo-theme-hello-friend
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;upstream_branch&lt;/span&gt;: master
+
+    - &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Timestamp
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;run&lt;/span&gt;: date
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(Actual file at &lt;a href=&#34;https://github.com/aormsby/F-hugo-theme-hello-friend/blob/Working/.github/workflows/wf-fork-sync.yaml&#34;  target=&#34;_blank&#34; &gt;&lt;!-- raw HTML omitted --&gt;.github/workflows/wf-fork-sync.yaml&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&amp;rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for &lt;a href=&#34;https://github.com/marketplace/actions/fork-sync-with-upstream&#34;  target=&#34;_blank&#34; &gt;Fork Sync With Upstream&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;behind-the-scenes&#34;&gt;Behind The Scenes&lt;/h2&gt;
+&lt;p&gt;Just some extra dev notes if you&amp;rsquo;re interested. 🙂&lt;/p&gt;
+&lt;p&gt;Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&amp;rsquo;s more familiar to me, and I don&amp;rsquo;t need to run this action in any specific Docker-simulated environment.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;action.yaml&lt;/code&gt; file declares all the input variables needed for the action and then runs &lt;code&gt;main.js&lt;/code&gt;. At the moment, &lt;code&gt;main.js&lt;/code&gt; exists only to run the shell script &lt;code&gt;upstream-sync.sh&lt;/code&gt;, which is where the sync really happens. This could change in the future.&lt;/p&gt;
+&lt;p&gt;I used both &lt;code&gt;@actions/core&lt;/code&gt; and &lt;code&gt;@actions/exec&lt;/code&gt; from the &lt;a href=&#34;https://github.com/actions/toolkit&#34;  target=&#34;_blank&#34; &gt;Github Actions Toolkit&lt;/a&gt; to simplify the functionality in &lt;code&gt;main.js&lt;/code&gt;. The shell script is called by &lt;code&gt;exec&lt;/code&gt;, which I think of as an &amp;lsquo;easy&amp;rsquo; version of the &lt;code&gt;exec&lt;/code&gt; function in node.js. Some of the actions and tools that Github has made are really quite useful.&lt;/p&gt;
+&lt;p&gt;Anyway, try it out! Let me know how you like it. I&amp;rsquo;m also planning on turning my &lt;a href=&#34;https://www.adamormsby.com/posts/hugo-shell-deploy-script/&#34; &gt;shell deploy script&lt;/a&gt; into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!&lt;/p&gt;
+
+  &lt;span class=&#34;icon-link&#34;&gt;
+    &lt;a href=&#34;https://www.buymeacoffee.com/aormsby&#34; target=&#34;_blank&#34;&gt;
+      &lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/default-green.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 51px !important;width: 217px !important;&#34; &gt;
+    &lt;/a&gt;
+  &lt;/span&gt;
+
+
+
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>
