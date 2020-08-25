@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>xamarin on Adam Ormsby</title>
+    
+    <image>
+      <url>https://www.adamormsby.com/tags/xamarin/img/rssIcon.png</url>
+      <title>xamarin on Adam Ormsby</title>
+      <link>https://www.adamormsby.com/tags/xamarin/</link>
+    </image>
+    
+    
+    <link>https://www.adamormsby.com/tags/xamarin/</link>
+    <description>Recent content in xamarin on Adam Ormsby</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 24 Aug 2020 09:00:00 -0500</lastBuildDate>
+    
+	<atom:link href="https://www.adamormsby.com/tags/xamarin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>I Am - Dev Log 1 - Project Goals and Challenges</title>
+      <link>https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/</link>
+      <pubDate>Mon, 24 Aug 2020 09:00:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/</guid>
+      <description>
+        
+          &lt;img src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/cover.png&#34;/&gt;
+          
+        
+        
+        &lt;h2 id=&#34;today-i-am-bold&#34;&gt;Today I Am Bold&lt;/h2&gt;
+&lt;p&gt;Well, it&amp;rsquo;s about time I got to this! Welcome to my first development log about a mobile app I&amp;rsquo;m working on titled &amp;lsquo;I Am&amp;rsquo;. It&amp;rsquo;s a concept I&amp;rsquo;ve had for quite some time, and it&amp;rsquo;s turning out to be a great starter project. Rather than go deep into the details right away, I want to start by sharing a little about the project - what it is, my development goals, and some of the roadblocks I expect to encounter along the way (and some I&amp;rsquo;ve already had trouble with!).&lt;/p&gt;
+&lt;h2 id=&#34;i-am---the-concept&#34;&gt;I Am - The Concept&lt;/h2&gt;
+&lt;p&gt;I Am is a simple app with a simple premise. Life is stressful, and that stress can sap away our energy. When that happens, it&amp;rsquo;s nice to have a little pick-me-up to help us work through the challenges in front of us and get back to feeling like ourselves again. I Am wants to be your daily pick-me-up, and it will do it in a pretty straightforward way.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Today I am [adjective]&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s the sentence you&amp;rsquo;ll see on the main page of the app, nice and large in the middle of your phone&amp;rsquo;s screen. Except, of course, you&amp;rsquo;ll see an actual adjective at the end - bold, adventurous, friendly&amp;hellip; there&amp;rsquo;s a whole list to select from! Whichever word you choose, you&amp;rsquo;re setting an emotional goal for yourself, something that can be used as a personal mantra and can help you find a way to keep moving forward when times are tough.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s an early look at how things are going:&lt;/p&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+&lt;figure class=&#34;center&#34; &gt;
+  &lt;a href =&#34;img/iPhone_adventurous.jpg&#34; &gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone_adventurous_hud126f445d9a2ac6816a75bff92b59e8b_72814_0x400_resize_q75_box.jpg&#34;  alt=&#34;I Am app, English, adventurous&#34;  width=&#34;185&#34; height=&#34;400&#34;&gt;
+  &lt;/a&gt;
+	
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;main-project-goals&#34;&gt;Main Project Goals&lt;/h2&gt;
+&lt;h3 id=&#34;build-ship-and-update-a-xamarinforms-app&#34;&gt;Build, Ship, and Update a Xamarin.Forms App&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ve been looking into Xamarin.Forms on and off for a few years now, and I&amp;rsquo;m taking this chance to build an app from start to release and beyond. I love the idea that I could build an app for iOS, Android, and more using the same codebase. Multiplatform projects are definitely big in the future of development, and it&amp;rsquo;s time I got familiar with it.&lt;/p&gt;
+&lt;p&gt;By the end of this, I expect to have a much better understanding of Xamarin.Forms, some aspects of native platform configuration, debugging, publishing, and pushing updates to a live Xamarin app - the whole project lifecycle with Xamarin. Then the second app will come out much faster!&lt;/p&gt;
+&lt;h3 id=&#34;endless-localization-support&#34;&gt;&amp;lsquo;Endless&amp;rsquo; Localization Support&lt;/h3&gt;
+&lt;p&gt;I&amp;rsquo;ve been &lt;strong&gt;super heavy&lt;/strong&gt; into localization this year, and I&amp;rsquo;m trying hard to build up the skills and experience to get a job as a localization engineer. I think it&amp;rsquo;s important to be aware of the different audiences that use a product, and I really support the goal of speaking to people in their language on their terms. So I&amp;rsquo;m going to localize the hell out of this app!&lt;/p&gt;
+&lt;p&gt;While I do have a few target locales in mind - en-US, es-ES, vi-VN, and ja-JP - I actually have a very open-ended plan for localization. I&amp;rsquo;ll do what I can on my end to internationalize the app&amp;rsquo;s layout and text display in preparation for string localization, and from there I plan on crowdsourcing translations through collaborative online tools. Hopefully (&lt;em&gt;fingers crossed&lt;/em&gt;), I can slot in translated resources without many issues. If that works out, I intend to keep adding languages indefinitely as long as I can find translators to support them.&lt;/p&gt;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+&lt;figure class=&#34;center&#34; &gt;
+  &lt;a href =&#34;img/iPhone-loc-sample.png&#34; &gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone-loc-sample_hud6562426f0250fa08740481507d830a7_311202_0x400_resize_box_2.png&#34;  alt=&#34;I Am app, English, adventurous&#34;  width=&#34;380&#34; height=&#34;400&#34;&gt;
+  &lt;/a&gt;
+	
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;challenges-and-roadblocks&#34;&gt;Challenges and Roadblocks&lt;/h2&gt;
+&lt;p&gt;No project is without challenges, but they&amp;rsquo;re also how we find and overcome limitations. Here are some roadblocks I&amp;rsquo;ve already run into along with one that I fully expect to be an issue down the line.&lt;/p&gt;
+&lt;h3 id=&#34;visual-studio-for-mac&#34;&gt;Visual Studio for Mac&lt;/h3&gt;
+&lt;p&gt;I &lt;strong&gt;love&lt;/strong&gt; that Visual Studio for Mac exists because I can work on my MacBook Air anywhere in the world I want. I &lt;strong&gt;don&amp;rsquo;t love&lt;/strong&gt; that VS for Mac sometimes feels like a lower priority than the Windows version when it comes to feature support and bug fixes.&lt;/p&gt;
+&lt;p&gt;For example, the huge majority of VS extensions are only available on Windows, mostly due to the use of  code libraries like WPF that don&amp;rsquo;t work on a Mac. This isn&amp;rsquo;t really anybody&amp;rsquo;s fault, specifically. It just means that I constantly find tools recommendations or even Microsoft-sponsored tutorials that show me tools I can&amp;rsquo;t use on a Mac.&lt;/p&gt;
+&lt;p&gt;Yes, VS for Mac is &lt;em&gt;beautifully designed&lt;/em&gt; (much nicer than Windows, I think), but my tools are limited. I was especially surprised when I found out the .resx editor available for editing resources files on Windows was missing from Mac entirely. Before I found my online translation tools, I was editing multiple .resx files &lt;strong&gt;by hand.&lt;/strong&gt; 😱&lt;/p&gt;
+&lt;p&gt;So why don&amp;rsquo;t I just work on Windows? Simple - I need a Mac to build the iOS app. Even if I started on Windows with all the nice toolsets, they wouldn&amp;rsquo;t build on a Mac, so I simply can&amp;rsquo;t use them if I intend to build anything on a Mac. It&amp;rsquo;s fine, though. I see this as an opportunity to discover and develop strong Mac-friendly workflows that I can use in other projects.&lt;/p&gt;
+&lt;h3 id=&#34;localization-with-xamarin&#34;&gt;Localization with Xamarin&lt;/h3&gt;
+&lt;p&gt;Building a localization system was a challenge for some time as well. Remember all the VS extensions I can&amp;rsquo;t use on Mac? Well, I had to build something on my own. There is &lt;strong&gt;very little&lt;/strong&gt; &lt;a href=&#34;https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/localization/&#34;  target=&#34;_blank&#34; &gt;official documentation on localization&lt;/a&gt; (though it&amp;rsquo;s sometimes very helpful), and it seems very few people have tried to tackle the subject in blogs and forums. I might have know that localization isn&amp;rsquo;t such a hot topic. However, I did find a workable solution that I&amp;rsquo;ll be writing about in another post.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m also a bit concerned about testing with pseudo-localization. I honestly don&amp;rsquo;t know how to do it, and I don&amp;rsquo;t know if there&amp;rsquo;s a way to do it properly in a Xamarin app. This requires some research.&lt;/p&gt;
+&lt;h3 id=&#34;auto-sizing-label-fonts&#34;&gt;Auto Sizing Label Fonts&lt;/h3&gt;
+&lt;p&gt;I never thought this would be an issue, but it was an absolutely devilish one that completely stalled my progress for around a month. It turns out there&amp;rsquo;s currently no built-in Xamarin support for setting the font size of a label to fill up as much space as it can. It &lt;em&gt;sounds&lt;/em&gt; like such a basic thing, but I found out the hard way that it really isn&amp;rsquo;t. But hey, when you want your text to fill up the screen, you have to figure out a way to make it happen. I&amp;rsquo;ll show you how I did it in a different post.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;That&amp;rsquo;s the rundown so far! Perhaps I&amp;rsquo;ve teased more than I&amp;rsquo;ve explained, but I certainly plan on sharing more about I Am&amp;rsquo;s development in future posts. Tomorrow I continue building, but today I&amp;rsquo;m excited to share my goals and aspirations, to risk the creator&amp;rsquo;s humiliation that we all feel when sharing the fruits of our labor. Today I&amp;rsquo;m putting it out there.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Today I am bold.&lt;/strong&gt;&lt;/p&gt;
+
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>

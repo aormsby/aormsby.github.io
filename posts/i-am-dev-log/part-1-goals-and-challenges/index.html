@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>I Am - Dev Log 1 - Project Goals and Challenges :: Adam Ormsby — Personal Blog and Projects</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Today I Am Bold Well, it&amp;rsquo;s about time I got to this! Welcome to my first development log about a mobile app I&amp;rsquo;m working on titled &amp;lsquo;I Am&amp;rsquo;. It&amp;rsquo;s a concept I&amp;rsquo;ve had for quite some time, and it&amp;rsquo;s turning out to be a great starter project. Rather than go deep into the details right away, I want to start by sharing a little about the project - what it is, my development goals, and some of the roadblocks I expect to encounter along the way (and some I&amp;rsquo;ve already had trouble with!"/>
+<meta name="keywords" content="i am mobile app, xamarin, devlog, development log, xamarin mobile app, mobile app, xamarin development, csharp mobile app, csharp develoment, csharp, c sharp, localization, Visual Studio for Mac, Xamarin Auto Font Sizing, xamarin localization"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css">
+
+
+<link rel="stylesheet" href="https://www.adamormsby.com/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/cover.png"/>
+<meta name="twitter:title" content="I Am - Dev Log 1 - Project Goals and Challenges"/>
+<meta name="twitter:description" content="Welcome to my first development log about a mobile app I&#39;m working on titled &#39;I Am&#39;. It&#39;s a concept I&#39;ve had for quite some time, and it&#39;s turning out to be a great starter project. Rather than go deep into the details right away, I want to start by sharing a little about the project - what it is, my development goals, and some of the roadblocks I expect to encounter along the way (and some I&#39;ve already had trouble with!)."/>
+
+
+
+<meta property="og:title" content="I Am - Dev Log 1 - Project Goals and Challenges" />
+<meta property="og:description" content="Welcome to my first development log about a mobile app I&#39;m working on titled &#39;I Am&#39;. It&#39;s a concept I&#39;ve had for quite some time, and it&#39;s turning out to be a great starter project. Rather than go deep into the details right away, I want to start by sharing a little about the project - what it is, my development goals, and some of the roadblocks I expect to encounter along the way (and some I&#39;ve already had trouble with!)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/" />
+<meta property="og:image" content="https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/cover.png"/>
+<meta property="article:published_time" content="2020-08-24T09:00:00-05:00" />
+<meta property="article:modified_time" content="2020-08-24T09:00:00-05:00" /><meta property="og:site_name" content="Adam Ormsby" />
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Posts</a></li>
+        
+      
+        
+          <li><a href="/projects">Projects</a></li>
+        
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Posts</a></li>
+      
+    
+      
+        <li><a href="/projects">Projects</a></li>
+      
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+
+      <span id="icon-coffee">
+        <a href='https://buymeacoff.ee/aormsby' target='_blank'>
+    <img height='25' src='/icon/coffee.svg' alt='Buy Me a Coffee' />
+</a>
+
+      </span>
+
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title"><a href="https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/">I Am - Dev Log 1 - Project Goals and Challenges</a></h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          Aug 24, 2020
+        </span>
+
+        
+          
+            
+
+
+
+          
+        
+      
+
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://www.adamormsby.com/tags/devlog/">devlog</a>&nbsp;
+        
+          #<a href="https://www.adamormsby.com/tags/xamarin/">xamarin</a>&nbsp;
+        
+          #<a href="https://www.adamormsby.com/tags/iam/">iam</a>&nbsp;
+        
+      </span>
+    
+
+    
+      
+        <img src="https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/cover.png" class="post-cover" />
+      
+    
+
+    <div class="post-content">
+      
+      <h2 id="today-i-am-bold">Today I Am Bold</h2>
+<p>Well, it&rsquo;s about time I got to this! Welcome to my first development log about a mobile app I&rsquo;m working on titled &lsquo;I Am&rsquo;. It&rsquo;s a concept I&rsquo;ve had for quite some time, and it&rsquo;s turning out to be a great starter project. Rather than go deep into the details right away, I want to start by sharing a little about the project - what it is, my development goals, and some of the roadblocks I expect to encounter along the way (and some I&rsquo;ve already had trouble with!).</p>
+<h2 id="i-am---the-concept">I Am - The Concept</h2>
+<p>I Am is a simple app with a simple premise. Life is stressful, and that stress can sap away our energy. When that happens, it&rsquo;s nice to have a little pick-me-up to help us work through the challenges in front of us and get back to feeling like ourselves again. I Am wants to be your daily pick-me-up, and it will do it in a pretty straightforward way.</p>
+<p><strong>&ldquo;Today I am [adjective]&quot;</strong></p>
+<p>That&rsquo;s the sentence you&rsquo;ll see on the main page of the app, nice and large in the middle of your phone&rsquo;s screen. Except, of course, you&rsquo;ll see an actual adjective at the end - bold, adventurous, friendly&hellip; there&rsquo;s a whole list to select from! Whichever word you choose, you&rsquo;re setting an emotional goal for yourself, something that can be used as a personal mantra and can help you find a way to keep moving forward when times are tough.</p>
+<p>Here&rsquo;s an early look at how things are going:</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<figure class="center" >
+  <a href ="img/iPhone_adventurous.jpg" >
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone_adventurous_hud126f445d9a2ac6816a75bff92b59e8b_72814_0x400_resize_q75_box.jpg"  alt="I Am app, English, adventurous"  width="185" height="400">
+  </a>
+	
+</figure>
+
+<h2 id="main-project-goals">Main Project Goals</h2>
+<h3 id="build-ship-and-update-a-xamarinforms-app">Build, Ship, and Update a Xamarin.Forms App</h3>
+<p>I&rsquo;ve been looking into Xamarin.Forms on and off for a few years now, and I&rsquo;m taking this chance to build an app from start to release and beyond. I love the idea that I could build an app for iOS, Android, and more using the same codebase. Multiplatform projects are definitely big in the future of development, and it&rsquo;s time I got familiar with it.</p>
+<p>By the end of this, I expect to have a much better understanding of Xamarin.Forms, some aspects of native platform configuration, debugging, publishing, and pushing updates to a live Xamarin app - the whole project lifecycle with Xamarin. Then the second app will come out much faster!</p>
+<h3 id="endless-localization-support">&lsquo;Endless&rsquo; Localization Support</h3>
+<p>I&rsquo;ve been <strong>super heavy</strong> into localization this year, and I&rsquo;m trying hard to build up the skills and experience to get a job as a localization engineer. I think it&rsquo;s important to be aware of the different audiences that use a product, and I really support the goal of speaking to people in their language on their terms. So I&rsquo;m going to localize the hell out of this app!</p>
+<p>While I do have a few target locales in mind - en-US, es-ES, vi-VN, and ja-JP - I actually have a very open-ended plan for localization. I&rsquo;ll do what I can on my end to internationalize the app&rsquo;s layout and text display in preparation for string localization, and from there I plan on crowdsourcing translations through collaborative online tools. Hopefully (<em>fingers crossed</em>), I can slot in translated resources without many issues. If that works out, I intend to keep adding languages indefinitely as long as I can find translators to support them.</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<figure class="center" >
+  <a href ="img/iPhone-loc-sample.png" >
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone-loc-sample_hud6562426f0250fa08740481507d830a7_311202_0x400_resize_box_2.png"  alt="I Am app, English, adventurous"  width="380" height="400">
+  </a>
+	
+</figure>
+
+<h2 id="challenges-and-roadblocks">Challenges and Roadblocks</h2>
+<p>No project is without challenges, but they&rsquo;re also how we find and overcome limitations. Here are some roadblocks I&rsquo;ve already run into along with one that I fully expect to be an issue down the line.</p>
+<h3 id="visual-studio-for-mac">Visual Studio for Mac</h3>
+<p>I <strong>love</strong> that Visual Studio for Mac exists because I can work on my MacBook Air anywhere in the world I want. I <strong>don&rsquo;t love</strong> that VS for Mac sometimes feels like a lower priority than the Windows version when it comes to feature support and bug fixes.</p>
+<p>For example, the huge majority of VS extensions are only available on Windows, mostly due to the use of  code libraries like WPF that don&rsquo;t work on a Mac. This isn&rsquo;t really anybody&rsquo;s fault, specifically. It just means that I constantly find tools recommendations or even Microsoft-sponsored tutorials that show me tools I can&rsquo;t use on a Mac.</p>
+<p>Yes, VS for Mac is <em>beautifully designed</em> (much nicer than Windows, I think), but my tools are limited. I was especially surprised when I found out the .resx editor available for editing resources files on Windows was missing from Mac entirely. Before I found my online translation tools, I was editing multiple .resx files <strong>by hand.</strong> 😱</p>
+<p>So why don&rsquo;t I just work on Windows? Simple - I need a Mac to build the iOS app. Even if I started on Windows with all the nice toolsets, they wouldn&rsquo;t build on a Mac, so I simply can&rsquo;t use them if I intend to build anything on a Mac. It&rsquo;s fine, though. I see this as an opportunity to discover and develop strong Mac-friendly workflows that I can use in other projects.</p>
+<h3 id="localization-with-xamarin">Localization with Xamarin</h3>
+<p>Building a localization system was a challenge for some time as well. Remember all the VS extensions I can&rsquo;t use on Mac? Well, I had to build something on my own. There is <strong>very little</strong> <a href="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/localization/"  target="_blank" >official documentation on localization</a> (though it&rsquo;s sometimes very helpful), and it seems very few people have tried to tackle the subject in blogs and forums. I might have know that localization isn&rsquo;t such a hot topic. However, I did find a workable solution that I&rsquo;ll be writing about in another post.</p>
+<p>I&rsquo;m also a bit concerned about testing with pseudo-localization. I honestly don&rsquo;t know how to do it, and I don&rsquo;t know if there&rsquo;s a way to do it properly in a Xamarin app. This requires some research.</p>
+<h3 id="auto-sizing-label-fonts">Auto Sizing Label Fonts</h3>
+<p>I never thought this would be an issue, but it was an absolutely devilish one that completely stalled my progress for around a month. It turns out there&rsquo;s currently no built-in Xamarin support for setting the font size of a label to fill up as much space as it can. It <em>sounds</em> like such a basic thing, but I found out the hard way that it really isn&rsquo;t. But hey, when you want your text to fill up the screen, you have to figure out a way to make it happen. I&rsquo;ll show you how I did it in a different post.</p>
+<hr>
+<p>That&rsquo;s the rundown so far! Perhaps I&rsquo;ve teased more than I&rsquo;ve explained, but I certainly plan on sharing more about I Am&rsquo;s development in future posts. Tomorrow I continue building, but today I&rsquo;m excited to share my goals and aspirations, to risk the creator&rsquo;s humiliation that we all feel when sharing the fruits of our labor. Today I&rsquo;m putting it out there.</p>
+<p><strong>Today I am bold.</strong></p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Other posts</span>
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://www.adamormsby.com/posts/github-actions/fork-sync-with-upstream/">
+                  <span class="button__text">Github Action: Fork Sync With Upstream</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+
+    
+      
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "adamormsby" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+      
+    
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <div class="copyright">
+      <span>© 2020
+        
+      </span>
+    </div>
+  </div>
+
+  <div class="footer__inner">
+    <div class="copyright copyright--made-with">
+      <span>Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+      <span>Theme created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+    </div>
+  </div>
+
+</footer>
+
+<script src="https://www.adamormsby.com/assets/main.js"></script>
+<script src="https://www.adamormsby.com/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-164591949-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>
