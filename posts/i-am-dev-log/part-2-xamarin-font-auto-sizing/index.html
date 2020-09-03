@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin :: Adam Ormsby — Personal Blog and Projects</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Font size! It sounds like one of the simplest things to figure out, but it turns out that sizing font to make a label expand and fill the available space is actually quite challenging in Xamarin. To start, there aren&amp;rsquo;t any Forms systems built to take care of that for us, so we&amp;rsquo;re left on our own to figure it out. There are some platform-specific solutions for auto-sizing, but since those features of iOS and Android are basically functional opposites, this may not be the best option for a multiplatform project."/>
+<meta name="keywords" content="i am mobile app, xamarin, devlog, development log, xamarin mobile app, xamarin development, csharp mobile app, csharp development, csharp, localization, Visual Studio for Mac, Xamarin Auto Font Sizing, xamarin localization, Font Sizer, Xamarin Label Font Sizer, Github Project, open source code, ghost sizing, ghost label"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css">
+
+
+<link rel="stylesheet" href="https://www.adamormsby.com/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/cover.png"/>
+<meta name="twitter:title" content="I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin"/>
+<meta name="twitter:description" content="Font size! It sounds like one of the simplest things to figure out, but it turns out that sizing font to make a label expand and fill the available space is actually quite challenging in Xamarin. But I figured out a solution that works for all of it, and I&#39;m excited to share it with you."/>
+
+
+
+<meta property="og:title" content="I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin" />
+<meta property="og:description" content="Font size! It sounds like one of the simplest things to figure out, but it turns out that sizing font to make a label expand and fill the available space is actually quite challenging in Xamarin. But I figured out a solution that works for all of it, and I&#39;m excited to share it with you." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/" />
+<meta property="og:image" content="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/cover.png"/>
+<meta property="article:published_time" content="2020-09-03T06:00:00-05:00" />
+<meta property="article:modified_time" content="2020-09-03T06:00:00-05:00" /><meta property="og:site_name" content="Adam Ormsby" />
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Posts</a></li>
+        
+      
+        
+          <li><a href="/projects">Projects</a></li>
+        
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Posts</a></li>
+      
+    
+      
+        <li><a href="/projects">Projects</a></li>
+      
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+
+      <span id="icon-coffee">
+        <a href='https://buymeacoff.ee/aormsby' target='_blank'>
+    <img height='25' src='/icon/coffee.svg' alt='Buy Me a Coffee' />
+</a>
+
+      </span>
+
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title"><a href="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/">I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin</a></h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          Sep 03, 2020
+        </span>
+
+        
+          
+            
+
+
+
+          
+        
+      
+
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://www.adamormsby.com/tags/devlog/">devlog</a>&nbsp;
+        
+          #<a href="https://www.adamormsby.com/tags/xamarin/">xamarin</a>&nbsp;
+        
+          #<a href="https://www.adamormsby.com/tags/fonts/">fonts</a>&nbsp;
+        
+          #<a href="https://www.adamormsby.com/tags/localization/">localization</a>&nbsp;
+        
+          #<a href="https://www.adamormsby.com/tags/iam/">iam</a>&nbsp;
+        
+      </span>
+    
+
+    
+      
+        <img src="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/cover.png" class="post-cover" />
+      
+    
+
+    <div class="post-content">
+      
+      <p>Font size! It sounds like one of the simplest things to figure out, but it turns out that sizing font to make a label expand and fill the available space is actually quite challenging in Xamarin. To start, there aren&rsquo;t any Forms systems built to take care of that for us, so we&rsquo;re left on our own to figure it out. There <em>are</em> some platform-specific solutions for auto-sizing, but since those features of iOS and Android are basically functional opposites, this may not be the best option for a multiplatform project.</p>
+<p>It&rsquo;s a shame that Xamarin.Forms doesn&rsquo;t have a common function for this yet, since I can think of a number of common use cases where you might want your text to fill all the space available to it. For the I Am project, the main visual focus on the screen is a centered text sentence, so I really want it to be as large as possible. Without filling the available space, it just doesn&rsquo;t stand out.</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<figure class="center" >
+  <a href ="img/font-size-before-after.png" >
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/font-size-before-after_hu4a790b6b4b8e41c1323ce0a0ebb1e258_52096_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshots, left shows default font size, right shows after sizing to fit"  width="528" height="500">
+  </a>
+	
+    <figcaption class="center">
+      Left: default font size | Right: after sizing to fit space
+    </figcaption>
+	
+</figure>
+
+<p>Inside this sentence, you can see that I&rsquo;ve also placed a picker that needs its text sized to match the surrounding labels. Unfortunately, all the sizing solutions I&rsquo;ve come across are focused on simple labels, and pickers are a combination of different native elements when rendered. If you assume the picker is a problem, you&rsquo;re correct. But I figured out a solution that works for all of it, and I&rsquo;m excited to share it with you.</p>
+<p>(And if you&rsquo;re super impatient, just check out <a href="https://github.com/aormsby/Xamarin-Label-FontSizer"  target="_blank" >Xamarin-Label-FontSizer</a> on Github. 😉)</p>
+<h2 id="things-that-didnt-work">Things That Didn&rsquo;t Work</h2>
+<p>I went through quite a few possible code solutions, and I think it&rsquo;s worth going over them quickly to explain what didn&rsquo;t work and why not before we look at what I actually implemented.</p>
+<h3 id="---estimated-font-size">✖️ - Estimated Font Size</h3>
+<p>The <a href="https://github.com/xamarin/xamarin-forms-book-samples/tree/master/Chapter05/EstimatedFontSize"  target="_blank" >Estimated Font Size</a> sample project from the book <a href="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/creating-mobile-apps-xamarin-forms/"  target="_blank" ><!-- raw HTML omitted -->Creating Mobile Apps with Xamarin.Forms<!-- raw HTML omitted --> by Charles Petzold</a> was my first attempt at a quick sizing. (The book is a remarkably useful resource, but it can also be outdated at times.) I figured I didn&rsquo;t need anything too complicated and thought this would be a nice, straightforward solution.</p>
+<p>Basically, this takes the outer view containing the label, sizes it up, and then calculates a font size using this equation &ndash;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">double</span> lineHeight = <span style="color:#ae81ff">1.2</span>
+<span style="color:#66d9ef">double</span> charWidth = <span style="color:#ae81ff">0.5</span>;
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> fontSize = (<span style="color:#66d9ef">int</span>)Math.Sqrt(view.Width * view.Height /
+                            (charCount * lineHeight * charWidth));
+</code></pre></div><p>Unfortunately, this was overly simplistic and failed to account for many details.</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/creating-mobile-apps-xamarin-forms/summaries/chapter05#accessibility-issues"  target="_blank" >Accessibility issues</a> mentioned in the Xamarin docs - If users change their device&rsquo;s text sizing in their settings - modifiers like &lsquo;Normal&rsquo;, &lsquo;Bigger&rsquo;, or &lsquo;Biggest&rsquo; - then the font size can be scaled beyond the constraints you calculate for.</li>
+<li>The docs say that the default <code>lineHeight</code> of a label is 1.2 times the height of the label, but I&rsquo;ve found no way to verify that, which sort of screws with some calculations.</li>
+<li>The variable <code>charWidth</code> used in the code above is only reliable for the default font that uses the Latin alphabet (and even here it seems like a rough guess). Relying on these defaults throws font styling and localization out the window. In case you need visual proof:</li>
+</ul>
+
+  <figure class="center" >
+    <a href ="img/char-width-sample.png" >
+    <img src="img/char-width-sample.png"  alt="Xamarin mobile app screenshot shows different character widths between English and Japanese fonts"   />
+    </a>
+    
+      <figcaption class="center" >clearly different character widths</figcaption>
+    
+  </figure>
+
+
+<p>I did try to calculate the active font&rsquo;s character width by measuring the text within the label, but the results were very inconsistent. This option was simply not working for me.</p>
+<h3 id="---platform-specific-sizing">✖️ - Platform-Specific Sizing</h3>
+<p>There are some platform-specific options available for auto-sizing a label font, either by making a custom renderer or styling elements with an effect. But these didn&rsquo;t work out for me, and here&rsquo;s why:</p>
+<ul>
+<li>
+<p>They size labels only. You&rsquo;d need a more extensive custom control for these to work with anything else - like my Picker.</p>
+</li>
+<li>
+<p>iOS shrinks to fit while Android expands to fit. I never got far enough here to figure out how to accommodate these opposing setups.</p>
+</li>
+<li>
+<p>I was pretty confused about how the native features worked and couldn&rsquo;t find good Xamarin documentation. Sometimes the reasons really are that simple.</p>
+</li>
+<li>
+<p><strong>On iOS:</strong> The auto-sizing functionality on iOS is limited to single-line labels. (<a href="https://developer.apple.com/documentation/uikit/uilabel/1620546-adjustsfontsizetofitwidth"  target="_blank" >Apple docs</a>) I needed more options.</p>
+</li>
+<li>
+<p><strong>On Android:</strong> The functions to size text are different enough in the <a href="https://developer.android.com/guide/topics/ui/look-and-feel/autosizing-textview"  target="_blank" >Android</a> and <a href="https://docs.microsoft.com/en-us/dotnet/api/android.widget.textview.setautosizetexttypewithdefaults?view=xamarin-android-sdk-9#Android_Widget_TextView_SetAutoSizeTextTypeWithDefaults_Android_Widget_AutoSizeTextType_"  target="_blank" >Xamarin</a> docs that I wasn&rsquo;t sure how to implement them. Maybe this is on me, but I couldn&rsquo;t get the Android settings functioning at all.</p>
+</li>
+</ul>
+<h3 id="---empirical-font-size-original-version">✖️ - Empirical Font Size (original version)</h3>
+<p>The <a href="https://github.com/xamarin/xamarin-forms-book-samples/tree/master/Chapter05/EmpiricalFontSize"  target="_blank" >Empirical Font Size</a> sample project was built to solve the accessibility issues in the Estimated Font Size sample from above and to perform somewhat safer font sizing calculations. I came back to this method a few different times to compare it to other options (and I eventually made an improved version of it which is discussed next).</p>
+<p>The latest version of this code sample uses the <a href="https://docs.microsoft.com/en-us/dotnet/api/xamarin.forms.visualelement.measure?view=xamarin-forms#Xamarin_Forms_VisualElement_Measure_System_Double_System_Double_Xamarin_Forms_MeasureFlags_"  target="_blank" ><!-- raw HTML omitted -->VisualElement.Measure()<!-- raw HTML omitted --></a> function to size a label algorithmically within an outer container space. Basically, it sets a min and max font size, runs <code>Measure()</code> to check for fit, and repeats until it narrows the size down to on that fits. The results of the sizing looked something like this:</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<figure class="center" >
+  <a href ="img/empirical-size-sample.png" >
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/empirical-size-sample_hu7e4400d6e152454e6c977d5cf28afee8_123251_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshot showing sample text sized with Empirical Font Size project code"  width="231" height="500">
+  </a>
+	
+    <figcaption class="center">
+      Empirical Font Size project sample
+    </figcaption>
+	
+</figure>
+
+<p>This was the most reliable code I found, but it was missing three things:</p>
+<ul>
+<li>The algorithm parameters were a little stiff. They relied on actual <code>View</code> elements for constraint sizing, and I needed more flexibility. (easy fix)</li>
+<li>The algorithm didn&rsquo;t check to see if words were split over multiple lines, resulting in some nasty wrapping.</li>
+<li><strong>It could break bindings.</strong> 😱 The sizing algorithm <em>only works</em> when it performs calculation with a <code>Label</code> object directly. If you perform the calculations on a label with bound data, you must avoid setting that bound value in code for any reason or you will destroy the binding. Of course, you could always be sure to reset the binding after a sizing, but that&rsquo;s costly.</li>
+</ul>
+<p>But hey, this project sample was a good start for what I needed. I knew that with a little effort I could solve these issues and make an algorithm suited to my needs - and perhaps yours, too!</p>
+<h2 id="---the-font-sizer-project">✔️ - The Font Sizer Project</h2>
+<p>I&rsquo;ve started an open-source project called the <a href="https://github.com/aormsby/Xamarin-Label-FontSizer"  target="_blank" >Xamarin-Label-FontSizer</a> that includes my improvements to the Empirical Font Sizing sample. Let&rsquo;s go through what I changed.</p>
+<ol>
+<li>I refactored the algorithm into its own standalone function (and its own project as well). Instead of calculating fit with the surrounding elements, you can now use <code>int</code> and <code>double</code> constraint values for font and container sizes. (You still need to pass in a label, though. More on that in a moment.)</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#75715e">//My new function
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">double</span> CalculateMaxFontSize(Label label, <span style="color:#66d9ef">int</span> minFontSize, <span style="color:#66d9ef">int</span> maxFontSize, <span style="color:#66d9ef">double</span> containerWidth, <span style="color:#66d9ef">double</span> containerHeight, <span style="color:#66d9ef">bool</span> wordSafe = <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">bool</span> sizeForWidth = <span style="color:#66d9ef">false</span>) {}
+</code></pre></div><p>After you include the project in your solution, you just have to call <code>FontSizer.CalculateMaxFontSize()</code> and store the return value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">double</span> labelFontSize = FontSizer.CalculateMaxFontSize(myLabel, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">200</span>, stackLayout.Width, stackLayout.Height / <span style="color:#ae81ff">3</span>);
+
+myLabel.FontSize = labelFontSize;
+</code></pre></div><p>Something like that should do the trick. However, this particular example still runs the risk of breaking bindings. The last point deals with this.</p>
+<ol start="2">
+<li>I improved the function to account for word splitting managed by the variables <code>wordSafe</code> and <code>sizeForWidth</code>, so on top of the existing height check, there is now a width check for the longest word in the label string.</li>
+</ol>
+<p>These values work on their own and are not intended for you to set when you call the sizing function. (For more details, check out the <a href="https://github.com/aormsby/Xamarin-Label-FontSizer/blob/master/README.md"  target="_blank" >project readme</a>.) With these additions to the calculations, you no longer have to worry about long words being displayed on multiple lines.</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<figure class="center" >
+  <a href ="img/word-safe-before-after.png" >
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/word-safe-before-after_hu6b31cdfccc5638fa3187842231bc0523_60465_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshot showing word sizing with and without word safe enabled"  width="231" height="500">
+  </a>
+	
+    <figcaption class="center">
+      Word safe | top: disabled | bottom: enabled
+    </figcaption>
+	
+</figure>
+
+<ol start="3">
+<li>Avoid breaking bindings by using what I&rsquo;m calling <strong>&lsquo;ghost sizing&rsquo;</strong>. This is really not an improvement, but a rather safe workaround to the binding issue.</li>
+</ol>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<figure class="center" >
+  <a href ="img/ghost-sizing.png" >
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-sizing_hu68158129fb1baf86a3b516ee7ca6db25_66161_0x400_resize_box_2.png"  alt="Mr Mít, the ghost sizer"  width="300" height="400">
+  </a>
+	
+    <figcaption class="center">
+      Mr Mít, the ghost sizer
+    </figcaption>
+	
+</figure>
+
+<p>Both the original algorithm and my improved word-safe version modify the <code>.Text</code> property of the label you pass into the function. I&rsquo;d say this is bad form, but the <code>Measure()</code> function requires a label object that is placed within a layout to perform any kind of sizing. Without that, nothing works. I tried finding ways around using a label by performing different calculations, but it just isn&rsquo;t possible right now within Forms.</p>
+<p>The solution I&rsquo;ve found is to size using a &lsquo;ghost label&rsquo;. What I mean is to add an <em>invisible label</em> somewhere on your page with whatever properties you want and size that instead of the actual label you&rsquo;re trying to fit into the space.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!--  for sizing other elements without breaking bindings  --&gt;</span>
+<span style="color:#f92672">&lt;Label</span> <span style="color:#a6e22e">x:Name=</span><span style="color:#e6db74">&#34;ghostLabel&#34;</span> <span style="color:#a6e22e">IsVisible=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+
+
+
+
+<figure class="center" >
+  <a href ="img/ghost-label.png" >
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-label_hud1d5915748b011cafe7cdcff5ba24bee_136021_0x500_resize_box_2.png"  alt="Mr Mít sizing a ghost label"  width="231" height="500">
+  </a>
+	
+    <figcaption class="center">
+      Mr Mít sizing a ghost label
+    </figcaption>
+	
+</figure>
+
+<p>You can set the <code>Text</code> of the ghost label to whatever text you&rsquo;re trying to size (from a different label) and pass the ghost label into the function instead. It may not be visible on your page, but it does size correctly!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">ghostLabel.Text = String.Copy(myLabel.Text);
+
+<span style="color:#66d9ef">double</span> labelFontSize = FontSizer.CalculateMaxFontSize(ghostLabel, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">200</span>, stackLayout.Width, stackLayout.Height / <span style="color:#ae81ff">3</span>);
+
+myLabel.FontSize = labelFontSize;
+</code></pre></div><p>And honestly, it&rsquo;s not such a bad workaround as its quite easy to implement and not resource-intensive at all.</p>
+<h3 id="sizing-the-picker">Sizing The Picker</h3>
+<p>Remember the picker I wanted to size? Well, I can&rsquo;t pass it into a function that only takes labels, and I can&rsquo;t assume it will size the same, either. Thankfully, the ghost sizing solution works here as well. All you have to do is get the longest picker item, give it to the ghost label, and modify the size constraints to account for some padding between the text and the edges of the picker.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">pickerFontSize = FontSizer.CalculateMaxFontSize(ghostLabel, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">200</span>, stackLayout.Width * <span style="color:#ae81ff">0.9</span>, stackLayout.Height / <span style="color:#ae81ff">2</span>);
+</code></pre></div><p>It&rsquo;s the <code>stackLayout.Width * 0.9</code> that gives me the padding I need by ensuring the text size only takes up a maximum 90% of the available width. Sure, it&rsquo;s kind of a hack. But it works.</p>
+<h2 id="contribute-to-the-font-sizer">Contribute to the Font Sizer!</h2>
+<p>This <a href="https://github.com/aormsby/Xamarin-Label-FontAutoSize"  target="_blank" >Xamarin-Label-FontAutoSize</a> project is open source and ready to download on Github. I&rsquo;m sure I&rsquo;ll be making updates to it as I have the time or need, and I&rsquo;d love to get some input on how to approach the various issues that still exist.</p>
+<p>The Github project readme goes over these <a href="https://github.com/aormsby/Xamarin-Label-FontSizer#font-sizer-limitations--things-to-watch-out-for"  target="_blank" >things to watch out for</a> if you decided to implement my work into your own codebase. If you think you can solve any of these issues, I invite you to contribute to the project yourself.</p>
+<h2 id="on-the-horizon---possible-new-font-sizing-option-in-xamarinforms">On The Horizon - Possible New Font Sizing Option in Xamarin.Forms</h2>
+<p>It looks like the Xamarin dev team might <em>finally</em> be considering adding a font sizing solution to Xamarin.Forms. I&rsquo;ve been keeping an eye on this enhancement post and this pull request for any updates. I agree that this enhancement is needed, but I also wonder if it will take care of that crucial word splitting issue I fixed with the FontSizer. Or if it will be limited to sizing for a single line. Or how it will handle localized strings. I just don&rsquo;t know!</p>
+<p>But hey, if the sizing problem is ever solved, I can always alter this project to focus on localization needs. Those will never go away. 😉</p>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Other posts</span>
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/">
+                  <span class="button__text">I Am - Dev Log 1 - Project Goals and Challenges</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+
+    
+      
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "adamormsby" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+      
+    
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <div class="copyright">
+      <span>© 2020
+        
+      </span>
+    </div>
+  </div>
+
+  <div class="footer__inner">
+    <div class="copyright copyright--made-with">
+      <span>Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+      <span>Theme created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+    </div>
+  </div>
+
+</footer>
+
+<script src="https://www.adamormsby.com/assets/main.js"></script>
+<script src="https://www.adamormsby.com/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-164591949-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>
