@@ -345,13 +345,13 @@ myLabel.FontSize = labelFontSize;
     
     <item>
       <title>Github Action: Fork Sync With Upstream</title>
-      <link>https://www.adamormsby.com/posts/github-actions/fork-sync-with-upstream/</link>
+      <link>https://www.adamormsby.com/posts/github-projects/actions/fork-sync-with-upstream/</link>
       <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
       
-      <guid>https://www.adamormsby.com/posts/github-actions/fork-sync-with-upstream/</guid>
+      <guid>https://www.adamormsby.com/posts/github-projects/actions/fork-sync-with-upstream/</guid>
       <description>
         
-          &lt;img src=&#34;https://www.adamormsby.com/posts/github-actions/fork-sync-with-upstream/cover.png&#34;/&gt;
+          &lt;img src=&#34;https://www.adamormsby.com/posts/github-projects/actions/fork-sync-with-upstream/cover.png&#34;/&gt;
           
         
         
@@ -403,14 +403,6 @@ myLabel.FontSize = labelFontSize;
 &lt;p&gt;The &lt;code&gt;action.yaml&lt;/code&gt; file declares all the input variables needed for the action and then runs &lt;code&gt;main.js&lt;/code&gt;. At the moment, &lt;code&gt;main.js&lt;/code&gt; exists only to run the shell script &lt;code&gt;upstream-sync.sh&lt;/code&gt;, which is where the sync really happens. This could change in the future.&lt;/p&gt;
 &lt;p&gt;I used both &lt;code&gt;@actions/core&lt;/code&gt; and &lt;code&gt;@actions/exec&lt;/code&gt; from the &lt;a href=&#34;https://github.com/actions/toolkit&#34;  target=&#34;_blank&#34; &gt;Github Actions Toolkit&lt;/a&gt; to simplify the functionality in &lt;code&gt;main.js&lt;/code&gt;. The shell script is called by &lt;code&gt;exec&lt;/code&gt;, which I think of as an &amp;lsquo;easy&amp;rsquo; version of the &lt;code&gt;exec&lt;/code&gt; function in node.js. Some of the actions and tools that Github has made are really quite useful.&lt;/p&gt;
 &lt;p&gt;Anyway, try it out! Let me know how you like it. I&amp;rsquo;m also planning on turning my &lt;a href=&#34;https://www.adamormsby.com/posts/hugo-shell-deploy-script/&#34; &gt;shell deploy script&lt;/a&gt; into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!&lt;/p&gt;
-
-  &lt;span class=&#34;icon-link&#34;&gt;
-    &lt;a href=&#34;https://www.buymeacoffee.com/aormsby&#34; target=&#34;_blank&#34;&gt;
-      &lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/default-green.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 51px !important;width: 217px !important;&#34; &gt;
-    &lt;/a&gt;
-  &lt;/span&gt;
-
-
 
         
         </description>
@@ -963,7 +955,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 3</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-3/</link>
-      <pubDate>Sat, 02 Sep 2017 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-3/</guid>
       <description>
@@ -1043,7 +1035,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 2</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-2/</link>
-      <pubDate>Thu, 31 Aug 2017 00:00:00 -0500</pubDate>
+      <pubDate>Thu, 31 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-2/</guid>
       <description>
@@ -1145,7 +1137,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 1</title>
       <link>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-1/</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 -0500</pubDate>
+      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/posts/adam-roams-cycling-vinales/part-1/</guid>
       <description>
