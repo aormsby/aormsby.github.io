@@ -42,19 +42,23 @@
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/font-size-before-after.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/font-size-before-after_hu4a790b6b4b8e41c1323ce0a0ebb1e258_52096_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshots, left shows default font size, right shows after sizing to fit&#34;  width=&#34;528&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/font-size-before-after_hu4a790b6b4b8e41c1323ce0a0ebb1e258_52096_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshots, left shows default font size, right shows after sizing to fit&#34; 
+    width=&#34;528&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Left: default font size | Right: after sizing to fit space
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;Inside this sentence, you can see that I&amp;rsquo;ve also placed a picker that needs its text sized to match the surrounding labels. Unfortunately, all the sizing solutions I&amp;rsquo;ve come across are focused on simple labels, and pickers are a combination of different native elements when rendered. If you assume the picker is a problem, you&amp;rsquo;re correct. But I figured out a solution that works for all of it, and I&amp;rsquo;m excited to share it with you.&lt;/p&gt;
@@ -78,7 +82,7 @@
 
   &lt;figure class=&#34;center&#34; &gt;
     &lt;a href =&#34;img/char-width-sample.png&#34; &gt;
-    &lt;img src=&#34;img/char-width-sample.png&#34;  alt=&#34;Xamarin mobile app screenshot shows different character widths between English and Japanese fonts&#34;   /&gt;
+    &lt;img src=&#34;img/char-width-sample.png&#34;  alt=&#34;Xamarin mobile app screenshot shows different character widths between English and Japanese fonts&#34;   class=&#34;center&#34; /&gt;
     &lt;/a&gt;
     
       &lt;figcaption class=&#34;center&#34; &gt;clearly different character widths&lt;/figcaption&gt;
@@ -118,19 +122,23 @@
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/empirical-size-sample.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/empirical-size-sample_hu7e4400d6e152454e6c977d5cf28afee8_123251_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing sample text sized with Empirical Font Size project code&#34;  width=&#34;231&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/empirical-size-sample_hu7e4400d6e152454e6c977d5cf28afee8_123251_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing sample text sized with Empirical Font Size project code&#34; 
+    width=&#34;231&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Empirical Font Size project sample
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;This was the most reliable code I found, but it was missing three things:&lt;/p&gt;
@@ -165,19 +173,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/word-safe-before-after.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/word-safe-before-after_hu6b31cdfccc5638fa3187842231bc0523_60465_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing word sizing with and without word safe enabled&#34;  width=&#34;231&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/word-safe-before-after_hu6b31cdfccc5638fa3187842231bc0523_60465_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing word sizing with and without word safe enabled&#34; 
+    width=&#34;231&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Word safe | top: disabled | bottom: enabled
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;ol start=&#34;3&#34;&gt;
@@ -192,19 +204,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/ghost-sizing.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-sizing_hu68158129fb1baf86a3b516ee7ca6db25_66161_0x400_resize_box_2.png&#34;  alt=&#34;Mr Mít, the ghost sizer&#34;  width=&#34;300&#34; height=&#34;400&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-sizing_hu68158129fb1baf86a3b516ee7ca6db25_66161_0x400_resize_box_2.png&#34;  alt=&#34;Mr Mít, the ghost sizer&#34; 
+    width=&#34;300&#34; height=&#34;400&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Mr Mít, the ghost sizer
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;Both the original algorithm and my improved word-safe version modify the &lt;code&gt;.Text&lt;/code&gt; property of the label you pass into the function. I&amp;rsquo;d say this is bad form, but the &lt;code&gt;Measure()&lt;/code&gt; function requires a label object that is placed within a layout to perform any kind of sizing. Without that, nothing works. I tried finding ways around using a label by performing different calculations, but it just isn&amp;rsquo;t possible right now within Forms.&lt;/p&gt;
@@ -220,19 +236,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/ghost-label.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-label_hud1d5915748b011cafe7cdcff5ba24bee_136021_0x500_resize_box_2.png&#34;  alt=&#34;Mr Mít sizing a ghost label&#34;  width=&#34;231&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-label_hud1d5915748b011cafe7cdcff5ba24bee_136021_0x500_resize_box_2.png&#34;  alt=&#34;Mr Mít sizing a ghost label&#34; 
+    width=&#34;231&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Mr Mít sizing a ghost label
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;You can set the &lt;code&gt;Text&lt;/code&gt; of the ghost label to whatever text you&amp;rsquo;re trying to size (from a different label) and pass the ghost label into the function instead. It may not be visible on your page, but it does size correctly!&lt;/p&gt;
@@ -285,13 +305,17 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/iPhone_adventurous.jpg&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone_adventurous_hud126f445d9a2ac6816a75bff92b59e8b_72814_0x400_resize_q75_box.jpg&#34;  alt=&#34;I Am app, English, adventurous&#34;  width=&#34;185&#34; height=&#34;400&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone_adventurous_hud126f445d9a2ac6816a75bff92b59e8b_72814_0x400_resize_q75_box.jpg&#34;  alt=&#34;I Am app, English, adventurous&#34; 
+    width=&#34;185&#34; height=&#34;400&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
 &lt;/figure&gt;
@@ -312,13 +336,17 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/iPhone-loc-sample.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone-loc-sample_hud6562426f0250fa08740481507d830a7_311202_0x400_resize_box_2.png&#34;  alt=&#34;I Am app, English, adventurous&#34;  width=&#34;380&#34; height=&#34;400&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone-loc-sample_hud6562426f0250fa08740481507d830a7_311202_0x400_resize_box_2.png&#34;  alt=&#34;I Am app, English, adventurous&#34; 
+    width=&#34;380&#34; height=&#34;400&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
 &lt;/figure&gt;

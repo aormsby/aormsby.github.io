@@ -2,27 +2,47 @@
 <html lang="en">
   <head>
     
-      <title>I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin :: Adam Ormsby — Personal Blog and Projects</title>
+      <title>
+        I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin ::
+        Adam Ormsby — Personal Blog and Projects
+      </title>
     
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Font size! It sounds like one of the simplest things to figure out, but it turns out that sizing font to make a label expand and fill the available space is actually quite challenging in Xamarin. To start, there aren&amp;rsquo;t any Forms systems built to take care of that for us, so we&amp;rsquo;re left on our own to figure it out. There are some platform-specific solutions for auto-sizing, but since those features of iOS and Android are basically functional opposites, this may not be the best option for a multiplatform project."/>
-<meta name="keywords" content="i am mobile app, xamarin, devlog, development log, xamarin mobile app, xamarin development, csharp mobile app, csharp development, csharp, localization, Visual Studio for Mac, Xamarin Auto Font Sizing, xamarin localization, Font Sizer, Xamarin Label Font Sizer, Github Project, open source code, ghost sizing, ghost label"/>
-<meta name="robots" content="noodp"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Font size! It sounds like one of the simplest things to figure out, but it turns out that sizing font to make a label expand and fill the available space is actually quite challenging in Xamarin. To start, there aren&amp;rsquo;t any Forms systems built to take care of that for us, so we&amp;rsquo;re left on our own to figure it out. There are some platform-specific solutions for auto-sizing, but since those features of iOS and Android are basically functional opposites, this may not be the best option for a multiplatform project."
+/>
+<meta
+  name="keywords"
+  content="i am mobile app, xamarin, devlog, development log, xamarin mobile app, xamarin development, csharp mobile app, csharp development, csharp, localization, Visual Studio for Mac, Xamarin Auto Font Sizing, xamarin localization, Font Sizer, Xamarin Label Font Sizer, Github Project, open source code, ghost sizing, ghost label"
+/>
+<meta name="robots" content="noodp" />
 <link rel="canonical" href="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/" />
 
 
 
 
 
-<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css">
+<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css" />
+
+<link rel="stylesheet" href="https://www.adamormsby.com/style.css" />
 
 
-<link rel="stylesheet" href="https://www.adamormsby.com/style.css">
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png" />
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png">
-<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
 
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -50,13 +70,19 @@
     <div class="container">
       <header class="header">
   <span class="header__inner">
-    <a href="/" class="logo" style="text-decoration: none;">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
     <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
 </svg>
 </span>
-    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__text"
+      >Adam Ormsby</span
+    >
     <span class="logo__cursor"></span>
   
 </a>
@@ -80,7 +106,7 @@
         
       
       
-    
+      
   </ul>
 
   <ul class="menu__inner menu__inner--mobile">
@@ -102,16 +128,25 @@
 
         <span class="menu-trigger">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           </svg>
         </span>
       
       <span class="theme-toggle">
-        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
 </svg>
 
       </span>
@@ -134,7 +169,7 @@
   
 
   <div class="post">
-    <h1 class="post-title"><a href="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/">I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin</a></h1>
+    <h1 class="post-title">I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin</h1>
     <div class="post-meta">
       
         <span class="post-date">
@@ -152,29 +187,35 @@
       
 
       
+
+
       
     </div>
 
     
       <span class="post-tags">
         
-          #<a href="https://www.adamormsby.com/tags/devlog/">devlog</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/devlog/">#devlog</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/xamarin/">xamarin</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/xamarin/">#xamarin</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/fonts/">fonts</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/fonts/">#fonts</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/localization/">localization</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/localization/">#localization</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/iam/">iam</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/iam/">#iam</a>&nbsp;
         
       </span>
     
 
     
-      
-        <img src="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/cover.png" class="post-cover" />
-      
+      <figure class="post-cover">
+        
+          <img src="https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/cover.png" alt="I Am - Dev Log 2 - Auto Sizing Label Fonts in Xamarin" />
+        
+
+        
+      </figure>
     
 
     <div class="post-content">
@@ -190,19 +231,23 @@
 
 
   
-
+  
 
 
 
 <figure class="center" >
   <a href ="img/font-size-before-after.png" >
-  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/font-size-before-after_hu4a790b6b4b8e41c1323ce0a0ebb1e258_52096_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshots, left shows default font size, right shows after sizing to fit"  width="528" height="500">
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;"
+    src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/font-size-before-after_hu4a790b6b4b8e41c1323ce0a0ebb1e258_52096_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshots, left shows default font size, right shows after sizing to fit" 
+    width="528" height="500"
+    class="center"
+    />
   </a>
 	
     <figcaption class="center">
       Left: default font size | Right: after sizing to fit space
     </figcaption>
-	
+  
 </figure>
 
 <p>Inside this sentence, you can see that I&rsquo;ve also placed a picker that needs its text sized to match the surrounding labels. Unfortunately, all the sizing solutions I&rsquo;ve come across are focused on simple labels, and pickers are a combination of different native elements when rendered. If you assume the picker is a problem, you&rsquo;re correct. But I figured out a solution that works for all of it, and I&rsquo;m excited to share it with you.</p>
@@ -226,7 +271,7 @@
 
   <figure class="center" >
     <a href ="img/char-width-sample.png" >
-    <img src="img/char-width-sample.png"  alt="Xamarin mobile app screenshot shows different character widths between English and Japanese fonts"   />
+    <img src="img/char-width-sample.png"  alt="Xamarin mobile app screenshot shows different character widths between English and Japanese fonts"   class="center" />
     </a>
     
       <figcaption class="center" >clearly different character widths</figcaption>
@@ -266,19 +311,23 @@
 
 
   
-
+  
 
 
 
 <figure class="center" >
   <a href ="img/empirical-size-sample.png" >
-  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/empirical-size-sample_hu7e4400d6e152454e6c977d5cf28afee8_123251_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshot showing sample text sized with Empirical Font Size project code"  width="231" height="500">
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;"
+    src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/empirical-size-sample_hu7e4400d6e152454e6c977d5cf28afee8_123251_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshot showing sample text sized with Empirical Font Size project code" 
+    width="231" height="500"
+    class="center"
+    />
   </a>
 	
     <figcaption class="center">
       Empirical Font Size project sample
     </figcaption>
-	
+  
 </figure>
 
 <p>This was the most reliable code I found, but it was missing three things:</p>
@@ -313,19 +362,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 <figure class="center" >
   <a href ="img/word-safe-before-after.png" >
-  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/word-safe-before-after_hu6b31cdfccc5638fa3187842231bc0523_60465_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshot showing word sizing with and without word safe enabled"  width="231" height="500">
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;"
+    src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/word-safe-before-after_hu6b31cdfccc5638fa3187842231bc0523_60465_0x500_resize_box_2.png"  alt="Xamarin mobile app screenshot showing word sizing with and without word safe enabled" 
+    width="231" height="500"
+    class="center"
+    />
   </a>
 	
     <figcaption class="center">
       Word safe | top: disabled | bottom: enabled
     </figcaption>
-	
+  
 </figure>
 
 <ol start="3">
@@ -340,19 +393,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 <figure class="center" >
   <a href ="img/ghost-sizing.png" >
-  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-sizing_hu68158129fb1baf86a3b516ee7ca6db25_66161_0x400_resize_box_2.png"  alt="Mr Mít, the ghost sizer"  width="300" height="400">
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;"
+    src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-sizing_hu68158129fb1baf86a3b516ee7ca6db25_66161_0x400_resize_box_2.png"  alt="Mr Mít, the ghost sizer" 
+    width="300" height="400"
+    class="center"
+    />
   </a>
 	
     <figcaption class="center">
       Mr Mít, the ghost sizer
     </figcaption>
-	
+  
 </figure>
 
 <p>Both the original algorithm and my improved word-safe version modify the <code>.Text</code> property of the label you pass into the function. I&rsquo;d say this is bad form, but the <code>Measure()</code> function requires a label object that is placed within a layout to perform any kind of sizing. Without that, nothing works. I tried finding ways around using a label by performing different calculations, but it just isn&rsquo;t possible right now within Forms.</p>
@@ -368,19 +425,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 <figure class="center" >
   <a href ="img/ghost-label.png" >
-  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;" src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-label_hud1d5915748b011cafe7cdcff5ba24bee_136021_0x500_resize_box_2.png"  alt="Mr Mít sizing a ghost label"  width="231" height="500">
+  <img style="max-width: 100%; width: auto; height: auto; border-radius: 8px;"
+    src="/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-label_hud1d5915748b011cafe7cdcff5ba24bee_136021_0x500_resize_box_2.png"  alt="Mr Mít sizing a ghost label" 
+    width="231" height="500"
+    class="center"
+    />
   </a>
 	
     <figcaption class="center">
       Mr Mít sizing a ghost label
     </figcaption>
-	
+  
 </figure>
 
 <p>You can set the <code>Text</code> of the ghost label to whatever text you&rsquo;re trying to size (from a different label) and pass the ghost label into the function instead. It may not be visible on your page, but it does size correctly!</p>
@@ -406,7 +467,9 @@ myLabel.FontSize = labelFontSize;
       
         <div class="pagination">
           <div class="pagination__title">
-            <span class="pagination__title-h">Other posts</span>
+            <span class="pagination__title-h"
+              >Other posts</span
+            >
             <hr />
           </div>
           <div class="pagination__buttons">
@@ -423,7 +486,6 @@ myLabel.FontSize = labelFontSize;
         </div>
       
     
-
 
     
       
@@ -450,21 +512,26 @@ myLabel.FontSize = labelFontSize;
 
       
     
-
-    </div>
+  </div>
 
       </div>
 
       
         <footer class="footer">
   <div class="footer__inner">
-    <a href="/" class="logo" style="text-decoration: none;">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
     <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
 </svg>
 </span>
-    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__text"
+      >Adam Ormsby</span
+    >
     <span class="logo__cursor"></span>
   
 </a>

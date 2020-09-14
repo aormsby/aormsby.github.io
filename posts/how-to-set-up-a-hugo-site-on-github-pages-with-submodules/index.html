@@ -2,28 +2,48 @@
 <html lang="en">
   <head>
     
-      <title>How to Set Up a Hugo Site on Github Pages - with Git Submodules! :: Adam Ormsby — Personal Blog and Projects</title>
+      <title>
+        How to Set Up a Hugo Site on Github Pages - with Git Submodules! ::
+        Adam Ormsby — Personal Blog and Projects
+      </title>
     
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Overview I made this blog site using the Hugo static site generator because I wanted to build a simple site where I could have full control over every detail - not like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels great to have that kind of power. You probably ended up here because you want that, too.
-In this post, we&amp;rsquo;ll take a look at how to:"/>
-<meta name="keywords" content="Hugo, Github, Github Pages, submodules, git submodules, git, website, static site generator, static site, how to use submodules, how to create a Hugo website, host on Github Pages, host a Hugo site on Github Pages, git terminal commands, JAMStack"/>
-<meta name="robots" content="noodp"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Overview I made this blog site using the Hugo static site generator because I wanted to build a simple site where I could have full control over every detail - not like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels great to have that kind of power. You probably ended up here because you want that, too.
+In this post, we&amp;rsquo;ll take a look at how to:"
+/>
+<meta
+  name="keywords"
+  content="Hugo, Github, Github Pages, submodules, git submodules, git, website, static site generator, static site, how to use submodules, how to create a Hugo website, host on Github Pages, host a Hugo site on Github Pages, git terminal commands, JAMStack"
+/>
+<meta name="robots" content="noodp" />
 <link rel="canonical" href="https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/" />
 
 
 
 
 
-<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css">
+<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css" />
+
+<link rel="stylesheet" href="https://www.adamormsby.com/style.css" />
 
 
-<link rel="stylesheet" href="https://www.adamormsby.com/style.css">
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png" />
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png">
-<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
 
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -51,13 +71,19 @@ In this post, we&amp;rsquo;ll take a look at how to:"/>
     <div class="container">
       <header class="header">
   <span class="header__inner">
-    <a href="/" class="logo" style="text-decoration: none;">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
     <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
 </svg>
 </span>
-    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__text"
+      >Adam Ormsby</span
+    >
     <span class="logo__cursor"></span>
   
 </a>
@@ -81,7 +107,7 @@ In this post, we&amp;rsquo;ll take a look at how to:"/>
         
       
       
-    
+      
   </ul>
 
   <ul class="menu__inner menu__inner--mobile">
@@ -103,16 +129,25 @@ In this post, we&amp;rsquo;ll take a look at how to:"/>
 
         <span class="menu-trigger">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           </svg>
         </span>
       
       <span class="theme-toggle">
-        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
 </svg>
 
       </span>
@@ -135,7 +170,7 @@ In this post, we&amp;rsquo;ll take a look at how to:"/>
   
 
   <div class="post">
-    <h1 class="post-title"><a href="https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a></h1>
+    <h1 class="post-title">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</h1>
     <div class="post-meta">
       
         <span class="post-date">
@@ -153,29 +188,35 @@ In this post, we&amp;rsquo;ll take a look at how to:"/>
       
 
       
+
+
       
     </div>
 
     
       <span class="post-tags">
         
-          #<a href="https://www.adamormsby.com/tags/hugo/">hugo</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/hugo/">#hugo</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/git/">git</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/git/">#git</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/github/">github</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/github/">#github</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/submodules/">submodules</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/submodules/">#submodules</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/jamstack/">jamstack</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/jamstack/">#jamstack</a>&nbsp;
         
       </span>
     
 
     
-      
-        <img src="https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/cover.jpg" class="post-cover" />
-      
+      <figure class="post-cover">
+        
+          <img src="https://www.adamormsby.com/posts/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/cover.jpg" alt="How to Set Up a Hugo Site on Github Pages - with Git Submodules!" />
+        
+
+        
+      </figure>
     
 
     <div class="post-content">
@@ -314,7 +355,7 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 
   <figure class="center" >
     
-    <img src="img/submodule-reference-terminal.jpg"  alt="submodule reference in terminal using git status command"   />
+    <img src="img/submodule-reference-terminal.jpg"  alt="submodule reference in terminal using git status command"   class="center" />
     
     
       <figcaption class="center" >submodule reference updated vied in the terminal after <code>git status</code> command</figcaption>
@@ -325,7 +366,7 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 
   <figure class="center" >
     
-    <img src="img/submodule-reference-github.jpg"  alt="submodule reference on github after pushing"   />
+    <img src="img/submodule-reference-github.jpg"  alt="submodule reference on github after pushing"   class="center" />
     
     
       <figcaption class="center" >submodule reference on github after pushing</figcaption>
@@ -448,7 +489,9 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
       
         <div class="pagination">
           <div class="pagination__title">
-            <span class="pagination__title-h">Other posts</span>
+            <span class="pagination__title-h"
+              >Other posts</span
+            >
             <hr />
           </div>
           <div class="pagination__buttons">
@@ -472,7 +515,6 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
         </div>
       
     
-
 
     
       
@@ -499,21 +541,26 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 
       
     
-
-    </div>
+  </div>
 
       </div>
 
       
         <footer class="footer">
   <div class="footer__inner">
-    <a href="/" class="logo" style="text-decoration: none;">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
     <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
 </svg>
 </span>
-    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__text"
+      >Adam Ormsby</span
+    >
     <span class="logo__cursor"></span>
   
 </a>

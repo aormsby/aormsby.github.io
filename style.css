@@ -26,6 +26,10 @@
     margin: 0px 10px;
 }
 
+.icon-link img {
+    border-radius: 8px;
+}
+
 /* ------ from showcase.scss, manually converted */
 
 .showcase {

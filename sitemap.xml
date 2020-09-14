@@ -48,6 +48,21 @@
   </url>
   
   <url>
+    <loc>https://www.adamormsby.com/projects/</loc>
+    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/projects/github/xamarin-label-font-sizer/</loc>
+    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/projects/github/hugo-deploy-to-pages/</loc>
+    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/</loc>
     <lastmod>2020-08-24T09:00:00-05:00</lastmod>
   </url>
@@ -75,6 +90,11 @@
   <url>
     <loc>https://www.adamormsby.com/tags/submodules/</loc>
     <lastmod>2020-08-14T20:00:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.adamormsby.com/projects/github/fork-sync-with-upstream/</loc>
+    <lastmod>2020-08-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -134,11 +154,6 @@
   
   <url>
     <loc>https://www.adamormsby.com/projects/personal-blog/</loc>
-    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.adamormsby.com/projects/</loc>
     <lastmod>2020-01-01T00:00:00+00:00</lastmod>
   </url>
   

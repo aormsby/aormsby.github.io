@@ -2,28 +2,48 @@
 <html lang="en">
   <head>
     
-      <title>Hugo Themes - Making Modifications while Keeping the Source Up-To-Date :: Adam Ormsby — Personal Blog and Projects</title>
+      <title>
+        Hugo Themes - Making Modifications while Keeping the Source Up-To-Date ::
+        Adam Ormsby — Personal Blog and Projects
+      </title>
     
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="This is a continuation of a previous post - How to Set Up a Hugo Site on Github Pages - with Git Submodules! I will reference some things we did there, so be sure to check it out if you&amp;rsquo;re confused about something.
-Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &amp;lsquo;But my theme works fine!&amp;rsquo; you say. &amp;lsquo;Why would I ever need to update it?"/>
-<meta name="keywords" content="Hugo, Github, submodules, git submodules, git, website, how to use submodules, git command line, JAMStack, git branch workflow, branch workflow, parallel branches, Hugo theme customization, git remote"/>
-<meta name="robots" content="noodp"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="This is a continuation of a previous post - How to Set Up a Hugo Site on Github Pages - with Git Submodules! I will reference some things we did there, so be sure to check it out if you&amp;rsquo;re confused about something.
+Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &amp;lsquo;But my theme works fine!&amp;rsquo; you say. &amp;lsquo;Why would I ever need to update it?"
+/>
+<meta
+  name="keywords"
+  content="Hugo, Github, submodules, git submodules, git, website, how to use submodules, git command line, JAMStack, git branch workflow, branch workflow, parallel branches, Hugo theme customization, git remote"
+/>
+<meta name="robots" content="noodp" />
 <link rel="canonical" href="https://www.adamormsby.com/posts/hugo-themes-making-modifications/" />
 
 
 
 
 
-<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css">
+<link rel="stylesheet" href="https://www.adamormsby.com/assets/style.css" />
+
+<link rel="stylesheet" href="https://www.adamormsby.com/style.css" />
 
 
-<link rel="stylesheet" href="https://www.adamormsby.com/style.css">
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="144x144"
+  href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png"
+/>
+<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png" />
 
 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.adamormsby.com/img/apple-touch-icon-144-precomposed.png">
-<link rel="shortcut icon" href="https://www.adamormsby.com/img/favicon.png">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="https://www.adamormsby.com/assets/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
 
 
 <meta name="twitter:card" content="summary_large_image"/>
@@ -51,13 +71,19 @@ Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our
     <div class="container">
       <header class="header">
   <span class="header__inner">
-    <a href="/" class="logo" style="text-decoration: none;">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
     <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
 </svg>
 </span>
-    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__text"
+      >Adam Ormsby</span
+    >
     <span class="logo__cursor"></span>
   
 </a>
@@ -81,7 +107,7 @@ Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our
         
       
       
-    
+      
   </ul>
 
   <ul class="menu__inner menu__inner--mobile">
@@ -103,16 +129,25 @@ Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our
 
         <span class="menu-trigger">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
           </svg>
         </span>
       
       <span class="theme-toggle">
-        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
-  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
 </svg>
 
       </span>
@@ -135,7 +170,7 @@ Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our
   
 
   <div class="post">
-    <h1 class="post-title"><a href="https://www.adamormsby.com/posts/hugo-themes-making-modifications/">Hugo Themes - Making Modifications while Keeping the Source Up-To-Date</a></h1>
+    <h1 class="post-title">Hugo Themes - Making Modifications while Keeping the Source Up-To-Date</h1>
     <div class="post-meta">
       
         <span class="post-date">
@@ -153,27 +188,33 @@ Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our
       
 
       
+
+
       
     </div>
 
     
       <span class="post-tags">
         
-          #<a href="https://www.adamormsby.com/tags/hugo/">hugo</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/hugo/">#hugo</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/git/">git</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/git/">#git</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/submodules/">submodules</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/submodules/">#submodules</a>&nbsp;
         
-          #<a href="https://www.adamormsby.com/tags/jamstack/">jamstack</a>&nbsp;
+          <a href="https://www.adamormsby.com/tags/jamstack/">#jamstack</a>&nbsp;
         
       </span>
     
 
     
-      
-        <img src="https://www.adamormsby.com/posts/hugo-themes-making-modifications/cover.jpg" class="post-cover" />
-      
+      <figure class="post-cover">
+        
+          <img src="https://www.adamormsby.com/posts/hugo-themes-making-modifications/cover.jpg" alt="Hugo Themes - Making Modifications while Keeping the Source Up-To-Date" />
+        
+
+        
+      </figure>
     
 
     <div class="post-content">
@@ -252,7 +293,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
 
   <figure class="center" >
     
-    <img src="img/forked-update.jpg"  alt="comparison of update methods"   />
+    <img src="img/forked-update.jpg"  alt="comparison of update methods"   class="center" />
     
     
       <figcaption class="center" >Left: simple update / Right: updating with a fork</figcaption>
@@ -310,7 +351,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
 
   <figure class="center" >
     
-    <img src="img/git-merge-conflict.jpg"  alt="git merge conflict comic"   />
+    <img src="img/git-merge-conflict.jpg"  alt="git merge conflict comic"   class="center" />
     
     
       <figcaption class="center" >something to look forward to :)</figcaption>
@@ -332,7 +373,9 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
       
         <div class="pagination">
           <div class="pagination__title">
-            <span class="pagination__title-h">Other posts</span>
+            <span class="pagination__title-h"
+              >Other posts</span
+            >
             <hr />
           </div>
           <div class="pagination__buttons">
@@ -356,7 +399,6 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
         </div>
       
     
-
 
     
       
@@ -383,21 +425,26 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
 
       
     
-
-    </div>
+  </div>
 
       </div>
 
       
         <footer class="footer">
   <div class="footer__inner">
-    <a href="/" class="logo" style="text-decoration: none;">
+    <a
+  href="/"
+  class="logo"
+  style="text-decoration: none;"
+>
   
     <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
-  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
 </svg>
 </span>
-    <span class="logo__text">Adam Ormsby</span>
+    <span class="logo__text"
+      >Adam Ormsby</span
+    >
     <span class="logo__cursor"></span>
   
 </a>

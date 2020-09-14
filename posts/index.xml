@@ -42,19 +42,23 @@
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/font-size-before-after.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/font-size-before-after_hu4a790b6b4b8e41c1323ce0a0ebb1e258_52096_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshots, left shows default font size, right shows after sizing to fit&#34;  width=&#34;528&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/font-size-before-after_hu4a790b6b4b8e41c1323ce0a0ebb1e258_52096_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshots, left shows default font size, right shows after sizing to fit&#34; 
+    width=&#34;528&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Left: default font size | Right: after sizing to fit space
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;Inside this sentence, you can see that I&amp;rsquo;ve also placed a picker that needs its text sized to match the surrounding labels. Unfortunately, all the sizing solutions I&amp;rsquo;ve come across are focused on simple labels, and pickers are a combination of different native elements when rendered. If you assume the picker is a problem, you&amp;rsquo;re correct. But I figured out a solution that works for all of it, and I&amp;rsquo;m excited to share it with you.&lt;/p&gt;
@@ -78,7 +82,7 @@
 
   &lt;figure class=&#34;center&#34; &gt;
     &lt;a href =&#34;img/char-width-sample.png&#34; &gt;
-    &lt;img src=&#34;img/char-width-sample.png&#34;  alt=&#34;Xamarin mobile app screenshot shows different character widths between English and Japanese fonts&#34;   /&gt;
+    &lt;img src=&#34;img/char-width-sample.png&#34;  alt=&#34;Xamarin mobile app screenshot shows different character widths between English and Japanese fonts&#34;   class=&#34;center&#34; /&gt;
     &lt;/a&gt;
     
       &lt;figcaption class=&#34;center&#34; &gt;clearly different character widths&lt;/figcaption&gt;
@@ -118,19 +122,23 @@
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/empirical-size-sample.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/empirical-size-sample_hu7e4400d6e152454e6c977d5cf28afee8_123251_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing sample text sized with Empirical Font Size project code&#34;  width=&#34;231&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/empirical-size-sample_hu7e4400d6e152454e6c977d5cf28afee8_123251_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing sample text sized with Empirical Font Size project code&#34; 
+    width=&#34;231&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Empirical Font Size project sample
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;This was the most reliable code I found, but it was missing three things:&lt;/p&gt;
@@ -165,19 +173,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/word-safe-before-after.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/word-safe-before-after_hu6b31cdfccc5638fa3187842231bc0523_60465_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing word sizing with and without word safe enabled&#34;  width=&#34;231&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/word-safe-before-after_hu6b31cdfccc5638fa3187842231bc0523_60465_0x500_resize_box_2.png&#34;  alt=&#34;Xamarin mobile app screenshot showing word sizing with and without word safe enabled&#34; 
+    width=&#34;231&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Word safe | top: disabled | bottom: enabled
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;ol start=&#34;3&#34;&gt;
@@ -192,19 +204,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/ghost-sizing.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-sizing_hu68158129fb1baf86a3b516ee7ca6db25_66161_0x400_resize_box_2.png&#34;  alt=&#34;Mr Mít, the ghost sizer&#34;  width=&#34;300&#34; height=&#34;400&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-sizing_hu68158129fb1baf86a3b516ee7ca6db25_66161_0x400_resize_box_2.png&#34;  alt=&#34;Mr Mít, the ghost sizer&#34; 
+    width=&#34;300&#34; height=&#34;400&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Mr Mít, the ghost sizer
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;Both the original algorithm and my improved word-safe version modify the &lt;code&gt;.Text&lt;/code&gt; property of the label you pass into the function. I&amp;rsquo;d say this is bad form, but the &lt;code&gt;Measure()&lt;/code&gt; function requires a label object that is placed within a layout to perform any kind of sizing. Without that, nothing works. I tried finding ways around using a label by performing different calculations, but it just isn&amp;rsquo;t possible right now within Forms.&lt;/p&gt;
@@ -220,19 +236,23 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/ghost-label.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-label_hud1d5915748b011cafe7cdcff5ba24bee_136021_0x500_resize_box_2.png&#34;  alt=&#34;Mr Mít sizing a ghost label&#34;  width=&#34;231&#34; height=&#34;500&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-2-xamarin-font-auto-sizing/img/ghost-label_hud1d5915748b011cafe7cdcff5ba24bee_136021_0x500_resize_box_2.png&#34;  alt=&#34;Mr Mít sizing a ghost label&#34; 
+    width=&#34;231&#34; height=&#34;500&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
     &lt;figcaption class=&#34;center&#34;&gt;
       Mr Mít sizing a ghost label
     &lt;/figcaption&gt;
-	
+  
 &lt;/figure&gt;
 
 &lt;p&gt;You can set the &lt;code&gt;Text&lt;/code&gt; of the ghost label to whatever text you&amp;rsquo;re trying to size (from a different label) and pass the ghost label into the function instead. It may not be visible on your page, but it does size correctly!&lt;/p&gt;
@@ -285,13 +305,17 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/iPhone_adventurous.jpg&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone_adventurous_hud126f445d9a2ac6816a75bff92b59e8b_72814_0x400_resize_q75_box.jpg&#34;  alt=&#34;I Am app, English, adventurous&#34;  width=&#34;185&#34; height=&#34;400&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone_adventurous_hud126f445d9a2ac6816a75bff92b59e8b_72814_0x400_resize_q75_box.jpg&#34;  alt=&#34;I Am app, English, adventurous&#34; 
+    width=&#34;185&#34; height=&#34;400&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
 &lt;/figure&gt;
@@ -312,13 +336,17 @@ myLabel.FontSize = labelFontSize;
 
 
   
-
+  
 
 
 
 &lt;figure class=&#34;center&#34; &gt;
   &lt;a href =&#34;img/iPhone-loc-sample.png&#34; &gt;
-  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34; src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone-loc-sample_hud6562426f0250fa08740481507d830a7_311202_0x400_resize_box_2.png&#34;  alt=&#34;I Am app, English, adventurous&#34;  width=&#34;380&#34; height=&#34;400&#34;&gt;
+  &lt;img style=&#34;max-width: 100%; width: auto; height: auto; border-radius: 8px;&#34;
+    src=&#34;https://www.adamormsby.com/posts/i-am-dev-log/part-1-goals-and-challenges/img/iPhone-loc-sample_hud6562426f0250fa08740481507d830a7_311202_0x400_resize_box_2.png&#34;  alt=&#34;I Am app, English, adventurous&#34; 
+    width=&#34;380&#34; height=&#34;400&#34;
+    class=&#34;center&#34;
+    /&gt;
   &lt;/a&gt;
 	
 &lt;/figure&gt;
@@ -355,7 +383,23 @@ myLabel.FontSize = labelFontSize;
           
         
         
-        &lt;p&gt;These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&amp;rsquo;s available now on the Github Marketplace if you want to try it out - &lt;a href=&#34;https://github.com/marketplace/actions/fork-sync-with-upstream&#34;  target=&#34;_blank&#34; &gt;Fork Sync With Upstream&lt;/a&gt;. Let&amp;rsquo;s see what it does!&lt;/p&gt;
+        &lt;h4 id=&#34;on-github&#34;&gt;On github:&lt;/h4&gt;
+&lt;p&gt;
+
+
+    &lt;a class=&#34;github-button&#34; href=https://github.com/aormsby/Fork-Sync-With-Upstream-action/archive/master.zip data-icon=&#34;octicon-download&#34; data-size=&#34;large&#34; aria-label=Download&amp;#32;aormsby/Fork-Sync-With-Upstream-action&amp;#32;on&amp;#32;GitHub&gt;Download&lt;/a&gt;
+
+
+
+
+    &lt;a class=&#34;github-button&#34; href=https://github.com/aormsby/Fork-Sync-With-Upstream-action data-icon=&#34;octicon-star&#34; data-size=&#34;large&#34; aria-label=Star&amp;#32;aormsby/Fork-Sync-With-Upstream-action&amp;#32;on&amp;#32;Github&gt;Star&lt;/a&gt;
+
+
+
+
+    &lt;a class=&#34;github-button&#34; href=https://github.com/aormsby data-size=&#34;large&#34; aria-label=Follow&amp;#32;@aormsby&amp;#32;on&amp;#32;GitHub&gt;aormsby&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&amp;rsquo;s available now on the Github Marketplace if you want to try it out - &lt;a href=&#34;https://github.com/marketplace/actions/fork-sync-with-upstream&#34;  target=&#34;_blank&#34; &gt;Fork Sync With Upstream&lt;/a&gt;. Let&amp;rsquo;s see what it does!&lt;/p&gt;
 &lt;h2 id=&#34;how-it-works&#34;&gt;How It Works&lt;/h2&gt;
 &lt;p&gt;Remember my post on &lt;a href=&#34;https://www.adamormsby.com/posts/hugo-themes-making-modifications/&#34; &gt;making modifications to a Hugo theme&lt;/a&gt;? We forked a theme repository and saw how to make custom modifications to our local version of it. Whenever we wanted to pull updates from the source repo, we ran a bunch of git commands to pull new commits from the upstream repo and then push them to our fork. Syncing with commands like that is all well and good, but let&amp;rsquo;s save ourselves a little time by automating that process.&lt;/p&gt;
 &lt;p&gt;The Fork Sync With Upstream action takes care of all those updates for us without any work on our part. At its core, the action is a shell script that runs on a Github server and automatically does the following:&lt;/p&gt;
@@ -403,6 +447,31 @@ myLabel.FontSize = labelFontSize;
 &lt;p&gt;The &lt;code&gt;action.yaml&lt;/code&gt; file declares all the input variables needed for the action and then runs &lt;code&gt;main.js&lt;/code&gt;. At the moment, &lt;code&gt;main.js&lt;/code&gt; exists only to run the shell script &lt;code&gt;upstream-sync.sh&lt;/code&gt;, which is where the sync really happens. This could change in the future.&lt;/p&gt;
 &lt;p&gt;I used both &lt;code&gt;@actions/core&lt;/code&gt; and &lt;code&gt;@actions/exec&lt;/code&gt; from the &lt;a href=&#34;https://github.com/actions/toolkit&#34;  target=&#34;_blank&#34; &gt;Github Actions Toolkit&lt;/a&gt; to simplify the functionality in &lt;code&gt;main.js&lt;/code&gt;. The shell script is called by &lt;code&gt;exec&lt;/code&gt;, which I think of as an &amp;lsquo;easy&amp;rsquo; version of the &lt;code&gt;exec&lt;/code&gt; function in node.js. Some of the actions and tools that Github has made are really quite useful.&lt;/p&gt;
 &lt;p&gt;Anyway, try it out! Let me know how you like it. I&amp;rsquo;m also planning on turning my &lt;a href=&#34;https://www.adamormsby.com/posts/hugo-shell-deploy-script/&#34; &gt;shell deploy script&lt;/a&gt; into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!&lt;/p&gt;
+
+  &lt;span class=&#34;icon-link&#34;&gt;
+    &lt;a href=&#34;https://www.buymeacoffee.com/aormsby&#34; target=&#34;_blank&#34;&gt;
+      &lt;img src=&#34;https://cdn.buymeacoffee.com/buttons/default-green.png&#34; alt=&#34;Buy Me A Coffee&#34; style=&#34;height: 51px !important;width: 217px !important;&#34; &gt;
+    &lt;/a&gt;
+  &lt;/span&gt;
+
+
+&lt;p&gt;
+
+
+    &lt;a class=&#34;github-button&#34; href=https://github.com/aormsby/Fork-Sync-With-Upstream-action/archive/master.zip data-icon=&#34;octicon-download&#34; data-size=&#34;large&#34; aria-label=Download&amp;#32;aormsby/Fork-Sync-With-Upstream-action&amp;#32;on&amp;#32;GitHub&gt;Download&lt;/a&gt;
+
+
+
+
+    &lt;a class=&#34;github-button&#34; href=https://github.com/aormsby/Fork-Sync-With-Upstream-action data-icon=&#34;octicon-star&#34; data-size=&#34;large&#34; aria-label=Star&amp;#32;aormsby/Fork-Sync-With-Upstream-action&amp;#32;on&amp;#32;Github&gt;Star&lt;/a&gt;
+
+
+
+
+    &lt;a class=&#34;github-button&#34; href=https://github.com/aormsby data-size=&#34;large&#34; aria-label=Follow&amp;#32;@aormsby&amp;#32;on&amp;#32;GitHub&gt;aormsby&lt;/a&gt;
+
+
+&lt;script async defer src=&#34;https://buttons.github.io/buttons.js&#34;&gt;&lt;/script&gt;&lt;/p&gt;
 
         
         </description>
@@ -566,7 +635,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/forked-update.jpg&#34;  alt=&#34;comparison of update methods&#34;   /&gt;
+    &lt;img src=&#34;img/forked-update.jpg&#34;  alt=&#34;comparison of update methods&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;Left: simple update / Right: updating with a fork&lt;/figcaption&gt;
@@ -624,7 +693,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/git-merge-conflict.jpg&#34;  alt=&#34;git merge conflict comic&#34;   /&gt;
+    &lt;img src=&#34;img/git-merge-conflict.jpg&#34;  alt=&#34;git merge conflict comic&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;something to look forward to :)&lt;/figcaption&gt;
@@ -691,7 +760,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#
       &lt;img src=&#34;https://www.adamormsby.com/icon/mailgo.png&#34; alt=&#34;mailgo&#34;  height=&#34;100&#34;  /&gt;
     &lt;/a&gt;
     
-    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.8.5/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/mailgo@0.9.17/dist/mailgo.min.js&#34;&gt;&lt;/script&gt;
   &lt;/span&gt;
 
 &lt;p&gt;&lt;strong&gt;Good luck out there, friends. Stay safe.&lt;/strong&gt;&lt;/p&gt;
@@ -819,7 +888,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/submodule-reference-terminal.jpg&#34;  alt=&#34;submodule reference in terminal using git status command&#34;   /&gt;
+    &lt;img src=&#34;img/submodule-reference-terminal.jpg&#34;  alt=&#34;submodule reference in terminal using git status command&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;submodule reference updated vied in the terminal after &lt;code&gt;git status&lt;/code&gt; command&lt;/figcaption&gt;
@@ -830,7 +899,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/submodule-reference-github.jpg&#34;  alt=&#34;submodule reference on github after pushing&#34;   /&gt;
+    &lt;img src=&#34;img/submodule-reference-github.jpg&#34;  alt=&#34;submodule reference on github after pushing&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;submodule reference on github after pushing&lt;/figcaption&gt;

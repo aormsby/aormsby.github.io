@@ -177,7 +177,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/forked-update.jpg&#34;  alt=&#34;comparison of update methods&#34;   /&gt;
+    &lt;img src=&#34;img/forked-update.jpg&#34;  alt=&#34;comparison of update methods&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;Left: simple update / Right: updating with a fork&lt;/figcaption&gt;
@@ -235,7 +235,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git &lt;span style=&#
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/git-merge-conflict.jpg&#34;  alt=&#34;git merge conflict comic&#34;   /&gt;
+    &lt;img src=&#34;img/git-merge-conflict.jpg&#34;  alt=&#34;git merge conflict comic&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;something to look forward to :)&lt;/figcaption&gt;
@@ -375,7 +375,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/submodule-reference-terminal.jpg&#34;  alt=&#34;submodule reference in terminal using git status command&#34;   /&gt;
+    &lt;img src=&#34;img/submodule-reference-terminal.jpg&#34;  alt=&#34;submodule reference in terminal using git status command&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;submodule reference updated vied in the terminal after &lt;code&gt;git status&lt;/code&gt; command&lt;/figcaption&gt;
@@ -386,7 +386,7 @@ I&amp;rsquo;ll talk a little about branching inside our submodules later on. To 
 
   &lt;figure class=&#34;center&#34; &gt;
     
-    &lt;img src=&#34;img/submodule-reference-github.jpg&#34;  alt=&#34;submodule reference on github after pushing&#34;   /&gt;
+    &lt;img src=&#34;img/submodule-reference-github.jpg&#34;  alt=&#34;submodule reference on github after pushing&#34;   class=&#34;center&#34; /&gt;
     
     
       &lt;figcaption class=&#34;center&#34; &gt;submodule reference on github after pushing&lt;/figcaption&gt;
