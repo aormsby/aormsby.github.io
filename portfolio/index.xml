@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Portfolios on Adam Ormsby</title>
+    
+    <image>
+      <url>https://www.adamormsby.com/portfolio/img/rssIcon.png</url>
+      <title>Portfolios on Adam Ormsby</title>
+      <link>https://www.adamormsby.com/portfolio/</link>
+    </image>
+    
+    
+    <link>https://www.adamormsby.com/portfolio/</link>
+    <description>Recent content in Portfolios on Adam Ormsby</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Oct 2020 15:00:52 -0500</lastBuildDate>
+    
+	<atom:link href="https://www.adamormsby.com/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
