@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Adam Ormsby</title>
+    <link>https://www.adamormsby.com/posts/</link>
+    <description>Recent content in Posts on Adam Ormsby</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 21 Jun 2020 23:30:00 -0500</lastBuildDate><atom:link href="https://www.adamormsby.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build and Deploy: A Shell Script for Hugo Sites</title>
+      <link>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</link>
+      <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
+      <description>Shell Scripts are Awesome I don&amp;rsquo;t know about you, but I love writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!
+So why do this? Well, when I began working with Hugo, I ran across a rudimentary deploy script in their documentation.</description>
+      <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
+<p>I don&rsquo;t know about you, but I <em>love</em> writing code that automates my work. I finally had the chance to do just that, and now I&rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">git submodule setup</a>!</p>
+<p>So why do this? Well, when I began working with Hugo, I ran across a <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">rudimentary deploy script</a> in their documentation. Since I was still familiarizing myself with Hugo, it hadn&rsquo;t occurred to me yet to automate the build process, and I immediately fell in love with the idea. However, I could see the script would need major improvements to do what I wanted, and I was completely new to shell.</p>
+<p>At first, I struggled a bit with writing shell code (especially keeping things POSIX-compliant for portability!), but I stumbled upon the <a href="https://www.shellscript.sh/">shellscript.sh</a> tutorials and dove straight in. Thanks to those <em>fantastic</em> tutorials, I now have a sweet script to show off and perhaps even a newfound love for the shell. Apart from variable expansion struggles, it&rsquo;s really quite elegant!</p>
+<p>I find my <code>hugo-deploy.sh</code> script does help keep builds following a standard process, but I think I&rsquo;ll really see it shine when I get around to scheduling automated builds on a remote server. Exciting!</p>
+<p><a href="#the-full-script">full script at end</a></p>
+<h2 id="deploy-script-functionality">Deploy Script Functionality</h2>
+<blockquote>
+<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p>
+</blockquote>
+<h3 id="order-of-operations">Order of Operations</h3>
+<p>From start to finish, here&rsquo;s what the script does.</p>
+<ol>
+<li>Update the automatic build number (included in the git commit)</li>
+<li>Check for any user options (see below)</li>
+<li>Check if your active repo branches match your intended deploy branches
+<ul>
+<li>Production and development branches can both be set</li>
+</ul>
+</li>
+<li>Check if your local repo is up to date (no merge conflicts allowed!)</li>
+<li>(Optional) Clear out the site output folder before the Hugo build</li>
+<li>Run Hugo build command</li>
+<li>Git add, commit, and push to your specified remotes</li>
+</ol>
+<p>If any point in this process fails, the script exits with an error message detailing where the issue occurred. You&rsquo;ll have to fix the issue before running the script again. Thankfully, most of the issues are quick fixes. If you have to do a merge, that&rsquo;s on you!</p>
+<h2 id="settings-variables">&lsquo;Settings&rsquo; Variables</h2>
+<p>There are some &lsquo;settings&rsquo; variables at the top of the script that you may need to modify to match your project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># BUILD/DEPLOY SETTINGS - edit as needed for your use case</span>
+
+PUB_SUBMODULE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;public&#34;</span>         <span style="color:#75715e"># name of output folder where git submodule is located</span>
+IGNORE_FILES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;. .. .git CNAME&#34;</span> <span style="color:#75715e"># space-delimited array of files to protect when &#39;fresh&#39; option is used</span>
+DEV_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dev dev&#34;</span>         <span style="color:#75715e"># development branches to build on and push to, 1-root, 2-pubmodule</span>
+PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master master&#34;</span>  <span style="color:#75715e"># production branches to build on and push to, 1-root, 2-pubmodule</span>
+</code></pre></div><p><code>PUB_SUBMODULE</code> holds the name of the folder where your public site submodule is located. The default output folder is <code>public</code>, which is where I have my submodule for the live site. If you&rsquo;ve changed your output folder in the site config, you&rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&rsquo;ve buried your output folder then set the path accordingly (e.g. <code>my/public/build</code>).</p>
+<p><code>IGNORE_FILES</code> is used with the &lsquo;fresh&rsquo; option (see below). It acts as an array of filenames that will <em>not</em> be deleted from the output folder if you select the &lsquo;fresh&rsquo; option. It&rsquo;s mostly to protect non-Hugo files.</p>
+<p><code>PROD_BRANCHES</code> are the two production branches on which you intend to build and push your site data. The first branch name matches the preferred deploy branch for your <strong>site source data</strong> (in your root directory), and the second branch name matches the preferred deploy branch for <strong>your live site</strong> (the supposed submodule). These are the values the script uses to check your active branches in step 3 above. It&rsquo;s a nice safety check.</p>
+<p><code>DEV_BRANCHES</code> works the same way for a development build, which is enabled through the user options.</p>
+<h2 id="user-options">User Options</h2>
+<p>Sometimes you need a little customization! That&rsquo;s where my included script user options come into play. Hopefully these options can help you out a bit.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Script Options</span>
+./hugo-deploy.sh <span style="color:#f92672">[</span>-d|-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m <span style="color:#e6db74">&#34;COMMIT_MESSAGE&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -o <span style="color:#e6db74">&#34;HUGO_OPTIONS&#34;</span> <span style="color:#f92672">]</span>
+</code></pre></div><ul>
+<li><strong>-d</strong>
+&lsquo;dev&rsquo; =&gt; deploys to development branches set in DEV_BRANCHES list (default is PROD_BRANCHES)</li>
+<li><strong>-f</strong>
+&lsquo;fresh&rsquo; =&gt; deletes public directory data before rebuild (skips files in IGNORE_FILES list)</li>
+<li><strong>-m</strong>
+&lsquo;message&rsquo; =&gt; appends a custom commit message to the auto-build string, works exactly like git -m</li>
+<li><strong>-o</strong>
+&lsquo;options&rsquo; (for Hugo build) =&gt; includes Hugo build options during deploy process (default none), all <code>hugo build</code> options are valid</li>
+<li><strong>-h</strong> =&gt; &lsquo;help&rsquo;</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Usage Example</span>
+./hugo-deploy.sh -d -f -m <span style="color:#e6db74">&#34;Deploying like a rockstar!&#34;</span> -o <span style="color:#e6db74">&#34;--cleanDestinationDir&#34;</span>
+</code></pre></div><p><strong>Fun Stuff:</strong> If you rename the script file to <code>hugo-deploy.command</code>, you can run the script with a double click! I haven&rsquo;t actually tested this, but I think it just runs without options. Try it out!</p>
+<h2 id="disclaimers--seeking-shell-wisdom">Disclaimers / Seeking Shell Wisdom</h2>
+<p>I ran into some issues with this script that I couldn&rsquo;t totally avoid. Please be aware of them if you try out my script.</p>
+<ul>
+<li>
+<p><strong>Variable expansion</strong> - I&rsquo;m aware that the variables I use in my various git commands are not double-quoted. (And just in case I didn&rsquo;t notice, <a href="https://www.shellcheck.net/">ShellCheck</a> yelled about them in bright colors.) However, adding quotes or modifying the expansion caused the commands to be incorrectly formatted and resulted in failure. They work as they are now, but I&rsquo;m curious to know if there&rsquo;s a way to improve this. I&rsquo;d love to get advice from experienced shell coders.</p>
+</li>
+<li>
+<p><strong>Limited Testing</strong> - I work on Mac OS, so I <em>know</em> this script works on that system - at least on my machine! I have no idea about Windows or Linux. If you try it out, please let me know!</p>
+</li>
+</ul>
+<h2 id="the-full-script">The Full Script</h2>
+<p><a href="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh">View on Github</a></p>
+<script type="application/javascript" src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
+
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Hugo Themes - Making Modifications while Keeping the Source Up-To-Date</title>
+      <link>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</link>
+      <pubDate>Tue, 19 May 2020 18:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</guid>
+      <description>This is a continuation of a previous post - How to Set Up a Hugo Site on Github Pages - with Git Submodules! I will reference some things we did there, so be sure to check it out if you&amp;rsquo;re confused about something.
+Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &amp;lsquo;But my theme works fine!&amp;rsquo; you say. &amp;lsquo;Why would I ever need to update it?</description>
+      <content:encoded><![CDATA[<p><em>This is a continuation of a previous post - <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a> I will reference some things we did there, so be sure to check it out if you&rsquo;re confused about something.</em></p>
+<h2 id="overview">Overview</h2>
+<p>In today&rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &lsquo;But my theme works fine!&rsquo; you say. &lsquo;Why would I ever need to update it?&rsquo; Well, when you download or clone a Hugo theme from its hosted git repository, you&rsquo;re getting its latest version <em>at that point in time.</em> So even if the theme&rsquo;s creator pushes updates to the code - with fixes, new features, and outside pull requests - you&rsquo;ll still be stuck using the version you downloaded before. While this is fine in some cases, many of us want the newest updates so we can take advantage of a stronger, improved theme.</p>
+<p>The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. If you followed my previous tutorial on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">adding a theme to your Hugo site as a git submodule</a>, you already have a functional Hugo site with a (forked) theme included. Starting there, let&rsquo;s see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</p>
+<h2 id="just-the-updates-please">Just the Updates, Please</h2>
+<p>If we don&rsquo;t intend to customize a theme at all, we can keep our workflow super simple. All we need to do is add the theme repo into our project as a submodule and periodically run a few git commands to check for updates. For the moment, let&rsquo;s pretend we haven&rsquo;t forked the theme repo and see what it would be like to clone the source directly. We&rsquo;ll see an example with our fork in the next section.</p>
+<p>Here&rsquo;s a quick refresher command for adding a submodule to our project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
+</code></pre></div><blockquote>
+<p>You might be thinking you can simply run <code>git clone</code> instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&rsquo;t work here. Git doesn&rsquo;t like having <code>.git</code> files in a subdirectory without a <code>.gitmodules</code> component in the root. For more on that, see <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post.</a></p>
+</blockquote>
+<p>In the example above, we added our submodule by pulling the theme&rsquo;s source repo directly into our project. With the <code>git remote</code> command, we can easily verify that it&rsquo;s connected to the correct remote repo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; cd themes/hello-friend
+&gt; git remote --verbose
+origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</code></pre></div><figure class="align-center "><a href="img/simple-update.jpg">
+    <img loading="lazy" src="img/simple-update.jpg#center"
+         alt="one-way update directly from theme source"/> </a>
+</figure>
+
+<p>And there it is! With this setup, all we need to do is pull updates straight from the source. From the theme&rsquo;s directory, we run the following terminal commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
+&gt; git fetch origin
+&gt; git status
+<span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># pull updates and merge them automatically</span>
+&gt; git pull
+</code></pre></div><p>Since we&rsquo;re not making any theme changes in this workflow, we shouldn&rsquo;t expect any merging issues during the <code>git pull</code>. We don&rsquo;t really <em>need</em> to fetch or check the status of the repo, but it&rsquo;s always nice to see incoming changes before we bring them in.</p>
+<p>And that&rsquo;s it! Getting updates every so often is no problem if we don&rsquo;t intend to make our own customizations to a theme. But hey - customization is where the fun <em>really</em> begins.</p>
+<h2 id="updates-and-theme-customization---a-parallel-branch-workflow">Updates and Theme Customization - A Parallel Branch Workflow</h2>
+<p>Here&rsquo;s the scenario - We want to add a Hugo theme, make custom changes, and still to get updates from the theme&rsquo;s original source. The method used above doesn&rsquo;t work here for a few reasons:</p>
+<ol>
+<li><strong>We can&rsquo;t push our custom changes to the theme&rsquo;s source repo</strong>. We simply don&rsquo;t have those permissions on the repo. Our local changes will not be safely stored anywhere, and any pulled updates may not be easily mergeable.</li>
+<li><strong>Incoming updates may require merges.</strong> If we&rsquo;ve modified some of the theme files that are being updated in the source, then a simple <code>git pull</code> will not be enough to deal with the resulting conflicts.</li>
+</ol>
+<p>Thankfully, a more advanced git workflow would help deal with these issues. Remember <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#add-a-theme-to-our-site">how we set up a forked theme repo</a> in the last post? Now we get to take advantage of it. Crucially, the forked repo is <em>ours</em>, so we have full write access to it and don&rsquo;t need to worry about repo permissions. We can do whatever we want.</p>
+<h3 id="add-a-remote-repo">Add a Remote Repo</h3>
+<p>However, our fork doesn&rsquo;t automatically receive source updates either! Here, an additional step is needed to link our fork back to the source repo. Earlier, in the direct update workflow, we used the <code>git remote</code> command to verify that we had the correct remote repo connections. Running it in our forked theme directory, we see only the fork as our remote.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># my forked repo URLs as an example</span>
+&gt; git remote --verbose
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</code></pre></div><p>To get updates from the source repo, we need to add a <em>second</em> remote repo - yes, git can do this! We simply run this command in our working directory and check our remotes again to verify the connection.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># add a new remote repo connection</span>
+&gt; git remote add upstream https://github.com/panr/hugo-theme-hello-friend.git
+
+&gt; git remote --verbose
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</code></pre></div><p>Ta-da! Our local theme repo is now linked to both our forked repo <em>and</em> the source repo, which we called <code>upstream</code>. (This is a conventional label, but any name you choose is fine.) At this point, our setup already supports getting updates from the source, but the process is a little different than before.</p>
+<p>Normally, when we&rsquo;re updating directly from a single remote repo, all we need to do is <code>pull</code> the data to our local directory so that the local matches the remote. We&rsquo;ll still do that here, but we explicitly pull data from the <code>upstream</code> repo we added. We&rsquo;ll also have to make an additional <code>push</code> to our forked repo - <code>origin</code> - to update it with the new code. Here&rsquo;s how that works compared to the previous example.</p>
+<figure class="align-center "><a href="img/forked-update.jpg">
+    <img loading="lazy" src="img/forked-update.jpg#center"
+         alt="comparison of update methods"/> </a><figcaption>
+            <p>Left: simple update / Right: updating with a fork</p>
+        </figcaption>
+</figure>
+
+<p>Assuming you&rsquo;re still on your <code>master</code> branch, here are the modified commands needed to pull and push the updates.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
+&gt; git fetch upstream master
+&gt; git status
+<span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># pull updates and merge them automatically</span>
+&gt; git pull upstream master
+
+<span style="color:#75715e"># push source updates to forked repo</span>
+&gt; git push origin master
+</code></pre></div><p>With no local changes to our theme, the commands run smoothly with no errors - and we want to keep it that way! Simple is good, and an update process that doesn&rsquo;t result in merge conflicts is always nice. But how do we manage to avoid conflicts if we want to customize the theme? Simple - don&rsquo;t do your work on <code>master</code>.</p>
+<h3 id="branching-customizing-and-merging-updates">Branching, Customizing, and Merging Updates</h3>
+<p>Although you technically <em>could</em> make theme customizations on the <code>master</code> branch, this increases the chances of having to resolve merge conflicts every time you try to pull an update. It&rsquo;s fine if that&rsquo;s how you want to work, but I <em>highly</em> recommend avoiding it. In my experience, it&rsquo;s often best to keep <code>master</code> sparkly clean and do your dirty work on a different branch.</p>
+<p>For example, I do my theme in a separate branch that is always kept in parallel with <code>master</code>. I&rsquo;ve named it <code>working</code>, as it&rsquo;s the branch that I <em>work</em> in. (Not exactly clever, I know.) Since it has all of my theme customizations, it&rsquo;s also the branch that I use when I build my site. Every so often, I switch back over to <code>master</code>, go through our update process, and then explicitly merge any new theme updates from <code>master</code> into <code>working</code> so that I have all the latest features in my working  branch. Visually, it&rsquo;s kind of like this.</p>
+<figure class="align-center "><a href="img/parallel-branches.jpg">
+    <img loading="lazy" src="img/parallel-branches.jpg#center"
+         alt="parallel branch system with updates merged from master"/> </a>
+</figure>
+
+<p>This is just one possible theme customization workflow, but we can benefit from a setup like this. For example &ndash;</p>
+<ul>
+<li><strong>Our workspace is separate from our update environment.</strong> Getting theme updates will always be a painless process, and we have more control over merging when the time comes.</li>
+<li><strong>Commit histories are clearer.</strong> Histories are much easier to read if source updates and custom work don&rsquo;t get tangled up, and this can be super helpful when performing more advanced git actions on a branch.</li>
+<li><strong>All the data is on our forked repo.</strong> The customizations <em>and</em> the pulled updates all live on our fork, which means we have full control of the data.</li>
+<li><strong>We can test on <code>master</code> before merging.</strong> If we&rsquo;re unsure of how a new feature will display on our site, we can run a build using the <code>master</code> code. It&rsquo;s a nice clean test bed before performing a merge.</li>
+</ul>
+<p>The drawbacks are much the same as I mentioned in the <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#some-drawbacks">last post</a> with the addition that now we&rsquo;d have at least one more working branch to manage. However, I&rsquo;ve found this parallel branch workflow quite nice after getting more familiar with it. Perhaps you will, too.</p>
+<p>Here are the commands we can use to get our <code>working</code> branch up and running. (You can choose a better name if you&rsquo;d like.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># create a new branch and switch to it</span>
+&gt; git branch working
+&gt; git checkout working
+</code></pre></div><p>We make some changes, commit our work, and push to our forked repo (<a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#test-site-and-deploy">see these commands for help</a>). Time passes&hellip; and we want to get some updates on <code>master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># switch to master branch</span>
+&gt; git checkout master
+
+<span style="color:#75715e"># quick update</span>
+&gt; git pull upstream master
+&gt; git push origin master
+</code></pre></div><p>Finally, we switch back to <code>working</code> and merge in the updates from <code>master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># switch to working</span>
+&gt; git checkout working
+
+<span style="color:#75715e"># merge master into current branch (working)</span>
+&gt; git merge master
+</code></pre></div><p>I won&rsquo;t get into resolving a merge here, so let&rsquo;s cross our fingers and hope there are no conflicts to deal with.</p>
+<figure class="align-center "><a href="img/git-merge-conflict.jpg">
+    <img loading="lazy" src="img/git-merge-conflict.jpg#center"
+         alt="git merge conflict comic"/> </a><figcaption>
+            <p>something to look forward to :)</p>
+        </figcaption>
+</figure>
+
+<p>So yes - customizing your theme with this kind of workflow does take a bit of setup, and there are a few extra steps and things to keep track of to manage our code well. However, using git submodules and a parallel branch workflow do give us more leverage over our codebase, and I think that makes the extra work worthwhile. I&rsquo;ve been using this workflow with my site for some time, and I don&rsquo;t think I&rsquo;d change anything about it.</p>
+<p>That said, there are a number of other methods that people use for managing their themes, and it&rsquo;s worth exploring them to see what fits your needs best. I recently read a post about <a href="https://www.hugofordevelopers.com/articles/master-hugo-modules-managing-themes-as-modules/">managing your themes as Hugo modules by Nick Gracilla</a> that I found quite interesting, and I think it&rsquo;s worth checking out if you&rsquo;re looking for an alternate way of doing things.</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/"><strong>Better Deploy</strong></a> - I&rsquo;m still working on a better site deploy script! It&rsquo;s looking good so far, but it&rsquo;s not quite ready.</li>
+<li><strong>Automatic Builds</strong> - This would still be great to have, so if I get around to it I&rsquo;ll be sure to share my work.</li>
+</ul>
+<p>Until next time! ~</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>How to Set Up a Hugo Site on Github Pages - with Git Submodules!</title>
+      <link>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</link>
+      <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
+      <description>Overview I made this blog site using the Hugo static site generator because I wanted to build a simple site where I could have full control over every detail - not like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels great to have that kind of power. You probably ended up here because you want that, too.
+In this post, we&amp;rsquo;ll take a look at how to:</description>
+      <content:encoded><![CDATA[<h2 id="overview">Overview</h2>
+<p>I made this blog site using the <a href="https://www.gohugo.io">Hugo static site generator</a> because I wanted to build a simple site where I could have full control over every detail - <em>not</em> like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels <em>great</em> to have that kind of power. You probably ended up here because you want that, too.</p>
+<p>In this post, we&rsquo;ll take a look at how to:</p>
+<ul>
+<li>Create a new Hugo site</li>
+<li>Host it on Github Pages</li>
+<li>Use git submodules to separate our site&rsquo;s key directories into manageable chunks</li>
+</ul>
+<p>We&rsquo;ll also go over the benefits (and drawbacks) of using submodules in our setup, and by the end of this post, we&rsquo;ll have a new Hugo project hosted on Github Pages and ready for action.</p>
+<p><em>Please note:<br>
+I&rsquo;ll talk a little about branching inside our submodules later on. To keep things simple, you can assume that I&rsquo;ve stayed on the main &lsquo;master&rsquo; branch of each git module. Also, I work on a Mac so all of my commands are Mac-specific.</em></p>
+<h3 id="why-git-submodules">Why Git Submodules?</h3>
+<p>Every git project is stored as a versioned code repository (a repo). Git submodules allow us to reference other repos within a project, which effectively puts a project inside a project (or a repo inside a repo). The submodule&rsquo;s code can then be used by the main project, but the submodule <em><strong>maintains its own commit and branch history,</strong></em> which separates the projects and can be a pretty powerful thing.</p>
+<figure class="align-center "><a href="img/explain-submodules.jpg">
+    <img loading="lazy" src="img/explain-submodules.jpg#center"
+         alt="diagram showing how code is included using submodules with a git project"/> </a>
+</figure>
+
+<p>In a Hugo project, most of what we see is source data - the raw files we manipulate before building our site. After Hugo builds our site, our &lsquo;ready-to-publish&rsquo; data gets output to the <code>public</code> directory of our project. By turning the <code>public</code> folder into a submodule of the main project, we can treat it as a separate entity with a separate history. Let&rsquo;s see what that process looks like.</p>
+<h2 id="install-hugo-and-create-a-project">Install Hugo and Create a Project</h2>
+<p>First things first, we need to install Hugo! We&rsquo;ll run through the key Mac commands quickly here, but if you need any more help you can always check <a href="https://gohugo.io/getting-started/quick-start/">Hugo&rsquo;s &lsquo;Quick Start&rsquo; guide</a> for more details or information about installing on Windows and Linux.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Open a terminal. Alternatively, you can VSCode&#39;s terminal - it&#39;s great!</span>
+
+<span style="color:#75715e"># 2. If you don&#39;t have brew installed --</span>
+&gt; /bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># 3. Install Hugo</span>
+&gt; brew install hugo
+
+<span style="color:#75715e"># 4. Move to the directory where you want to create the project.</span>
+&gt; cd <span style="color:#f92672">[</span>MY/DIRECTORY/NAME<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># 5. Create a new Hugo project. I&#39;ll use &#34;hugo-gh&#34; as my sample name.</span>
+&gt; hugo new site <span style="color:#f92672">[</span>SITE_NAME<span style="color:#f92672">]</span>
+</code></pre></div><p>So far, we&rsquo;ve installed Hugo on our machine and created a new template project named <strong>hugo-gh</strong>. If you&rsquo;re following Hugo&rsquo;s Quick Start guide, you may be tempted to move straight on to adding a theme, running the local server, and seeing your site. We&rsquo;ll <em>absolutely</em> get to all that, but since our goal here is to use git submodules to manage the different parts of our project, it would benefit us to go through some setup steps on Github first.</p>
+<h2 id="push-project-files-to-github">Push Project Files to Github</h2>
+<p>Let&rsquo;s get our project versioned with Github right away! We&rsquo;ll need to create two repositories on Github - one to host our source code and one to host our live site data.</p>
+<h3 id="source-code-repository">Source Code Repository</h3>
+<p>Sign in to Github and create a new repository. I&rsquo;ll call mine <strong>hugo-gh-pages-source</strong>.</p>
+<figure class="align-center "><a href="img/github-new-repo.jpg">
+    <img loading="lazy" src="img/github-new-repo.jpg#center"
+         alt="create a new github repo"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/github-repo-name.jpg">
+    <img loading="lazy" src="img/github-repo-name.jpg#center"
+         alt="name the new github repo"/> </a>
+</figure>
+
+<p><em><strong>Hot tip:</strong> If we create a repo <em>without</em> a README file it&rsquo;s easier to avoid accidental history conflicts when pushing a local project to a fresh repo. We can always add one later.</em></p>
+<p>When our new empty repo is ready, go back to the terminal window and input these commands to initialize our local repo and push to Github.</p>
+<p><em>(If you already have a <code>public</code> folder in your project, delete it before doing any of this to save some headaches.)</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Enter the project folder.</span>
+&gt; cd hugo-gh
+
+<span style="color:#75715e"># 2. Initialize git locally.</span>
+&gt; git init
+
+<span style="color:#75715e"># 3. Set our new Github repo as the remote for our local project</span>
+<span style="color:#75715e"># (my sample URL - https://github.com/aormsby/hugo-gh-pages-source.git)</span>
+&gt; git remote add origin https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>SOURCE_REPO_NAME<span style="color:#f92672">]</span>.git
+
+<span style="color:#75715e"># 4. Stage all files for commit.</span>
+&gt; git add .
+
+<span style="color:#75715e"># 5. Commit files.</span>
+&gt; git commit -m <span style="color:#e6db74">&#34;committing our hugo template&#34;</span>
+
+<span style="color:#75715e"># 6. Push to the remote master</span>
+&gt; git push -u origin master
+</code></pre></div><p>And there you have it! Our project source is now pushed to our Github repo.</p>
+<figure class="align-center "><a href="img/source-pushed.jpg">
+    <img loading="lazy" src="img/source-pushed.jpg#center"
+         alt="source project pushed to Github"/> </a>
+</figure>
+
+<p>You could <em>absolutely</em> set up your source repo to be the host of your site using Github Pages, and you may have good reasons for doing so. That would require a different setup that you can find steps for on Hugo&rsquo;s <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#deployment-of-project-pages-from-docs-folder-on-master-branch">Host on Github</a> docs page. However, if we do this we ignore our chance to separate <code>public</code> into a separately versioned repo. To accomplish this, we have to create a second repository.</p>
+<h3 id="live-site-data-repository">Live Site Data Repository</h3>
+<p>Let&rsquo;s add our first submodule to the project! Remember, our goal is to separate the commit histories of our project source and our site build output to the <code>public</code> directory. First, we create another repo on Github for our public site data. I&rsquo;ll call mine <strong>hugo-gh-pages-public</strong>. In our local terminal, run the following command from the project root.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git</span>
+&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>PUBLIC_REPO_NAME<span style="color:#f92672">]</span>.git public
+</code></pre></div><p>Sweet! We now have a submodule initialized and loaded into our project under the <code>public</code> directory, and it&rsquo;s already connected to its remote origin. Let&rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&rsquo;s good to know the process.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Perform a site build and output to &#39;public/&#39; directory.</span>
+&gt; hugo
+
+<span style="color:#75715e"># 2-4.</span>
+&gt; cd public
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;first build&#34;</span>
+
+<span style="color:#75715e"># 5. Return to the project root.</span>
+&gt; cd ../
+
+<span style="color:#75715e"># 6-7.</span>
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;first build - update submodule reference&#34;</span>
+
+<span style="color:#75715e"># 8. Push the source project *and* the public submodule to Github together.</span>
+&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</code></pre></div><p>It&rsquo;s <em><strong>super important</strong></em> when we build to make sure that we commit and push <em>both</em> the public submodule and the main project. For each submodule commit, the project updates its reference to the submodule to maintain its connection to the correct commit. The <code>--recurse-submodules=on-demand</code> command pushes all of the project modules at the same time.</p>
+<figure class="align-center "><a href="img/submodule-reference-terminal.jpg">
+    <img loading="lazy" src="img/submodule-reference-terminal.jpg#center"
+         alt="submodule reference in terminal using git status command"/> </a><figcaption>
+            <p>submodule reference updated in the terminal after <code>git status</code> command</p>
+        </figcaption>
+</figure>
+
+<figure class="align-center "><a href="img/submodule-reference-github.jpg">
+    <img loading="lazy" src="img/submodule-reference-github.jpg#center"
+         alt="submodule reference on github after pushing"/> </a><figcaption>
+            <p>submodule reference on github after pushing</p>
+        </figcaption>
+</figure>
+
+<h2 id="enable-github-pages">Enable Github Pages</h2>
+<p>On Github, our <strong>hugo-gh-pages-public</strong> repo now has some data. Go to the repo settings and find the Github Pages section. Set the <strong>Source</strong> of our site to <strong>master branch</strong>.</p>
+<figure class="align-center "><a href="img/github-pages-settings.jpg">
+    <img loading="lazy" src="img/github-pages-settings.jpg#center"
+         alt="menu to update Github Pages settings to use master branch"/> </a>
+</figure>
+
+<p>With these settings, Github Pages will be able to serve our site from the repo starting with the <strong>index.html</strong> file in its root directory. The live URL for the site is built from your user name and the project name. Here&rsquo;s my sample URL - <a href="https://aormsby.github.io/hugo-gh-pages-public"><code>https://aormsby.github.io/hugo-gh-pages-public</code></a>. At this point, our site won&rsquo;t display anything except an error message since Hugo requires some page templates or a full theme to generate the pages. That&rsquo;s fine. We just wanted to add some stuff to Github so we could access the repo&rsquo;s Github Pages settings as we just did.</p>
+<h2 id="benefits-of-making-a-submodule-in-public">Benefits of Making a Submodule in &lsquo;Public&rsquo;</h2>
+<p>To recap, here&rsquo;s our project setup so far.</p>
+<figure class="align-center "><a href="img/submodules-diagram-with-public.jpg">
+    <img loading="lazy" src="img/submodules-diagram-with-public.jpg#center"
+         alt="project submodule digram with public folder"/> </a>
+</figure>
+
+<p>Let&rsquo;s take a look at some of the benefits of this system.</p>
+<ul>
+<li>
+<p><strong>No accidental deploys</strong> - With our source code separated from our site data, it&rsquo;s a lot harder to accidentally push unfinished work to our live site. Even if we make builds locally and push our source changes, we won&rsquo;t push to our <strong>hugo-gh-pages-public</strong> repo without explicitly running commands to make that happen. <em>*sigh of relief*</em></p>
+</li>
+<li>
+<p><strong>Separate rollbacks</strong> - If something goes wrong, the main project and public project can be separately rolled back to earlier commits. <em>(Just remember to commit the modified reference updates to the main module!)</em></p>
+</li>
+<li>
+<p><strong>Branch work is easier</strong> - Changing branches in our source project will not change branches in our subproject (and vice versa). This is another nice safety buffer, and it gives us more options for branching in either module.</p>
+</li>
+<li>
+<p><strong>Ready for site staging</strong> - We can easily create development branches in the <strong>public</strong> submodule that could be served as development subdomains of our site and used for testing new features.</p>
+</li>
+</ul>
+<h3 id="some-drawbacks">Some Drawbacks</h3>
+<p>Of course, it&rsquo;s always wise to assess the risks of any setup, and there are many opinions on the &lsquo;perfect system&rsquo; in the dev world - <strong>tell me about yours in the comments!</strong> To shine some light on the potential downsides of our submodule use, here are some of the concerns I&rsquo;ve thought about.</p>
+<ul>
+<li>
+<p><strong>Juggling multiple repos</strong> - With more submodules comes more administration. It doesn&rsquo;t seem so rough for me, but right now I&rsquo;m working on my own. Running interlinked, asynchronous repositories comes with its own challenges in a team setting, particularly if someone forgets to push updated submodule references to the source.</p>
+</li>
+<li>
+<p><strong>No site staging with Github Pages</strong> - While the <strong>public</strong> submodule can branch and easily store data used in a site staging system, Github Pages does not seem to support subdomains from different project branches. That&rsquo;s more of a Github Pages drawback, but it means we can&rsquo;t take full advantage of our setup just yet. Another hosting platform might offer a solution - I&rsquo;ll be looking into some options in a future post.</p>
+</li>
+</ul>
+<h2 id="add-a-theme-to-our-site">Add a Theme to Our Site</h2>
+<p>Wait, we&rsquo;re not finished just yet! Remember how our site doesn&rsquo;t display anything except an error message right now? We need some templates to get things up and running. The easiest way to get some is to add one of the many <a href="https://themes.gohugo.io/">Hugo themes</a> to our project. Since it was the first theme I used, I&rsquo;ll use the <a href="https://themes.gohugo.io/hugo-theme-hello-friend/">Hello Friend theme</a> in my example.</p>
+<p>Many guides for adding a theme - including Hugo&rsquo;s own docs - just tell you to clone the theme repo or download and copy it into your project&rsquo;s <code>themes</code> directory. But hey, <em>our</em> theme today is <em>submodules</em>, so I propose that we add a theme to our project as a <em>submodule</em> since doing so would give us some nice dev powers over the theme.</p>
+<figure class="align-center "><a href="img/submodules-diagram-with-theme.jpg">
+    <img loading="lazy" src="img/submodules-diagram-with-theme.jpg#center"
+         alt="project submodule digram with theme folder"/> </a>
+</figure>
+
+<p>Look at it this way - directly cloning a theme into our project has two major problems.</p>
+<ol>
+<li><strong>We can&rsquo;t push our commits to the theme&rsquo;s source repo, because we don&rsquo;t have permission.</strong> This means we can&rsquo;t make changes to the theme and then keep them versioned.</li>
+<li><strong>A cloned project in a subdirectory isn&rsquo;t linked with the main project.</strong> When a submodule is added to a project, the main project adds a reference to it in a file named <code>.gitmodules</code>. Without that reference, the main project and the theme project aren&rsquo;t connected, which could cause confusion or problems down the line.</li>
+<li><strong>Also, Git doesn&rsquo;t allow repos inside repos that aren&rsquo;t submodules.</strong> See <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post</a> for details.</li>
+</ol>
+<p>Let&rsquo;s solve each of those problems in one fell swoop.</p>
+<ol>
+<li>Make a fork of the <strong>Hello Friend</strong> theme so we have our own copy of it.</li>
+</ol>
+<figure class="align-center "><a href="img/fork-theme.jpg">
+    <img loading="lazy" src="img/fork-theme.jpg#center"
+         alt="fork a theme project on Github"/> </a>
+</figure>
+
+<ol start="2">
+<li>Add our forked repo as a submodule in our main project&rsquo;s <code>themes</code> folder.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Add the theme submodule from the root project folder</span>
+<span style="color:#75715e"># my sample URL - https://github.com/aormsby/F-hugo-theme-hello-friend.git</span>
+&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>FORKED_THEME_REPO_NAME<span style="color:#f92672">]</span>.git themes/hello-friend
+</code></pre></div><p>Boom! Now we have our own fork of a cool theme referenced as a submodule of our Hugo project. We can make any changes we want and push them to our own repo. I&rsquo;ll get into more advanced uses of theme submodules in another post, but for now we have the basics in place.</p>
+<p>Things won&rsquo;t be <em>quite</em> right without tweaking a few final settings, so let&rsquo;s open the <code>config.toml</code> file in our project root so we can modify a few lines.</p>
+<ol>
+<li>Add a line so our site builds using our new theme.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;hello-friend&#34;</span>
+</code></pre></div><ol start="2">
+<li>Because we&rsquo;re making a Github &lsquo;project site&rsquo; we want to change the<code>baseURL</code> to match our project URL.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">baseURL</span> = [<span style="color:#a6e22e">GITHUB_USER_NAME</span>].<span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">io</span><span style="color:#960050;background-color:#1e0010">/</span>[<span style="color:#a6e22e">PROJECT_NAME</span>]
+</code></pre></div><p>For example, mine will say <code>aormsby.github.io/hugo-gh-pages-public</code>. To understand the difference between setting up a project site and a user/organization site, see these <a href="https://pages.github.com/">Github Pages</a> and <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages">Hugo</a> docs on the matter.</p>
+<p>There are a lot more theme settings that can be adjusted in your config file, but you can explore those on your own. Let&rsquo;s deploy!</p>
+<h2 id="test-site-and-deploy">Test Site and Deploy</h2>
+<p>Running the terminal command <code>hugo server</code> in our project root spins up a local live preview of our site that can be viewed in a browser at <code>localhost:1313</code>. Run this now to check if our site is displaying anything (it should!), and then stop the process with <code>Ctrl+C</code>. Just like we did before, run the commands to build, commit, and push. <em>(Note that we didn&rsquo;t change anything in the theme, so we don&rsquo;t have to push anything in that repo.)</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; hugo
+&gt; cd public
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;build with theme&#34;</span>
+&gt; cd ../
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;build with theme - update submodule reference&#34;</span>
+&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</code></pre></div><p>After a few minutes, refresh the live site at <code>https://[USER_NAME].github.io/hugo-gh-pages-public</code> and check out your new site! Congratulations, you&rsquo;ve done it!</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>
+<p><strong>Theme Branches and Getting Updates</strong> - I&rsquo;ve worked out a nice branch-based system for continuing to get updates from the original theme repo while adding and changing things our forked theme repo. It&rsquo;s super useful. <a href="https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/">Next post!</a></p>
+</li>
+<li>
+<p><a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/"><strong>Better Deploy</strong></a> - I&rsquo;m sure you noticed that we had to use <em>a plethora</em> of terminal commands to add, commit, and push files to the main project and its submodules to maintain proper commit references. I wrote them out in this post for clarity, but this process is definitely something we can automate. Hugo&rsquo;s docs provide a <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">basic deploy script</a> to do this, and I&rsquo;m working on a greatly improved version of it that I&rsquo;ll write about when it&rsquo;s ready for action.</p>
+</li>
+<li>
+<p><strong>Custom domains / CNAME</strong> - You may want to set up a custom domain on Github Pages. Here&rsquo;s <a href="https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site">some good documentation</a> on how to do that.</p>
+</li>
+</ul>
+<p>Thanks for reading! ~</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 3</title>
+      <link>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-3/</link>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-3/</guid>
+      <description>Author&amp;rsquo;s Note: This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it. 🙂
+Part 1 | Part 2 | Part 3</description>
+      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
+<p><a href="/posts/000/adam-roams-cycling-vinales/part-1/">Part 1</a> | <a href="/posts/000/adam-roams-cycling-vinales/part-2/">Part 2</a> | <strong>Part 3</strong></p>
+<hr>
+<h2 id="the-mountain-of-madness---crossing-thresholds">The Mountain of Madness - Crossing Thresholds</h2>
+<p>At first I didn’t realize it was a mountain. All I knew was that I had ridden out past the edge of a small town to a place where the road suddenly changed. It curved back and forth, meandering upward through forested hills, becoming steeper and more narrow as I rode on. Time passed, and the shoulders of the road disappeared. I was forced to move into the auto lane, pressing tightly against the metal barriers along its hazardous edge.</p>
+<p>Unlike in Havana or on the autopista, the drivers here did not take much care to avoid me, as if the possibility of a collision wasn’t even a passing concern. When two cars met at my location, neither would pause to let the other pass and then drive safely around me. Even lone passing vehicles would drive dangerously close without slowing down, the worst offenders being the massive TransTur buses that bore down on me from the rear and often compelled me to pause and regain my composure after their passing.</p>
+<p>It wasn&rsquo;t long before I ceased riding and had to push my bike up the road. The last day and a half of motion had left me exhausted, and my legs were losing this uphill battle. I wasn’t sure how high I had climbed by then or when I would be headed back down into the valley. My view out from the hillside was obscured by tall brush, and the path forward always disappeared mysteriously around the next bend. I continued to believe that I would find salvation around every tight-packed turn, but I was always disappointed. After more than an hour I was still going up.</p>
+<figure class="align-center "><a href="img/gopr1474_fotor.jpg">
+    <img loading="lazy" src="img/gopr1474_fotor.jpg#center"
+         alt="large dead tree standing by a mountain road"/> </a>
+</figure>
+
+<p>The afternoon heat grew more intense as the naked sun endeavored to burn away any remaining shade along the road. A quiet enveloped me, and all I could hear were the sounds of my own desperate hike - heavy breathing, the light shuffle of clothing with every step forward, the smack of shoe rubber on road, and the continuous click of my bike&rsquo;s rear wheel spinning against its motionless gears. When I stopped to rest, that quiet became silence.</p>
+<p>Sitting beside the road, I closed my eyes and listened to the nothing around me. The stretch of grass I had found was just wide enough to sit facing the pavement with my legs crossed and to lay my bike beside me. Perhaps on any other day this would have been a peaceful place to kick back and contemplate life’s many joys, but now all I could think about was the fact that I was clearly climbing a mountain where I had not expected there to be one.</p>
+<p>Doubt quickly followed this admission. Did I have enough strength left to cross this mountain? Should I have hitched a ride in the last town? Why am I here on my own? Should I have even come on this trip? It had smacked of hubris to believe that I could wake up one day and suddenly ride 130 miles alone across unknown territory, particularly since my longest single ride before this had been a mere 12 miles over flat land! I had done passably well on the highway, but I certainly hadn’t been prepared to ride over a mountain. I hadn’t been prepared for any part of this journey, and if I didn’t make it to Viñales before nightfall I would be in big trouble.</p>
+<figure class="align-center "><a href="img/gopr1478.jpg">
+    <img loading="lazy" src="img/gopr1478.jpg#center"
+         alt="Adam lying on the side of road exhausted and drinking water from his pack"/> </a>
+</figure>
+
+<p>I sat wasting away in the sun, barely absorbing the rusty blue taxi that passed by only a few feet in front of my face. My muscles ached, and yet a numbness enveloped me as if my brain couldn’t decide whether or not to feel the pain coursing through my body. I felt like giving up. I felt like I was done.</p>
+<p>Somewhere inside I knew that was wrong, even stupid to consider, and I did what I could to turn to more practical thoughts. I had already ridden so far from Havana - how could I not finish this ride? How could I even consider stopping now? It occurred to me that dealing with failure here would be much more difficult than the challenge of completing my journey, and I knew that making it to Viñales was more than an imperative. I had to finish. I couldn&rsquo;t consider the alternative.</p>
+<p>Unfortunately, my body wasn’t on the same page as my determination. I was already panting just from standing and picking up my bike, and I realized how much the rest of this hike was going to hurt. Breaking the silence once more, I began walking forward. Step by step, foot by foot, I was making progress again, little bits at a time, stopping often to fall to the side of the road only to have to begin again minutes later. At each rest, the same thoughts burned themselves into my waning consciousness.</p>
+<p><em>I wasn’t prepared for this.</em><br>
+<em>I have to keep going anyway.</em></p>
+<p>Forward. And up. And forward. Always forward. The rhythm of my motion took over, and I felt as though I no longer had any real control over my body. It was walking on its own, a mechanical corpse driven by the most basic need to survive, always moving to the next point of rest whether I liked it or not. Whatever pain I felt had been eclipsed by a sheer longing for motion, and it drove me forward under the heat of the Cuban sun. I couldn’t complain - I was tired, but I was moving. At least 2 hours passed with me in that state.</p>
+<p>Then suddenly I reached the crest of the mountain. I stopped to let that soak in.</p>
+<figure class="align-center "><a href="img/gopr1483_fotor.jpg">
+    <img loading="lazy" src="img/gopr1483_fotor.jpg#center"
+         alt="view of the downhill road just over the crest of a mountain"/> </a>
+</figure>
+
+<p>The discovery of my success was like a shot of adrenaline straight to my heart. I shouted triumphantly into the sky. I took my pack off and danced around in the dirt. I laughed at this mountain road and all of the sweat, pain, and misery I had suffered during my crossing. This new energy faded quickly, but the ecstasy of the moment stayed to lift my spirits for the remainder of the ride. It wasn’t over just yet.</p>
+<p>I still had to make it to Viñales, but now I could enjoy my ride downhill!</p>
+<h2 id="finding-a-home-in-viñales">Finding a Home in Viñales</h2>
+<p>Helmet on and packs tight, I mounted my metal steed for the final descent. From the top of the path I could see a long, beautiful stretch of road heading downward in front of me. It was calling to me, inviting me to let go of the last 3 hours of misery and to move once again with great swiftness. I stepped onto my pedals and cycled forward into an empty lane. I quickly picked up speed and smiled as the wind danced happily against my cheeks, my body arched forward in anticipation of my race to the bottom of this mountain.</p>
+<p>The weight of my luggage propelled me forward with a momentum I had not anticipated, and I realized I would have to be careful not to wipe out on sharper turns. A little braking here, a slowdown there… I had everything under control. But still, I was flying! I had such an awesome ride on that beautifully smooth road and a wonderful view all the way down. But nothing was so amazing as seeing the Valle de Viñales for the first time as I rounded a corner near the bottom.</p>
+<p>The mountains I saw were wide and steady, as though they had calmly rolled out of the ground to become the backbone of Western Cuba, and a dense green forest covered everything for miles, from the low valley floor all the way to the tops of those gentle giants. This breathtaking environment was why I had come, and suddenly everything I had gone through to get here… it was all okay.</p>
+<figure class="align-center "><a href="img/gopr1487.jpg">
+    <img loading="lazy" src="img/gopr1487.jpg#center"
+         alt="mountain highway in the sun with telephone wires and mountains in the midground"/> </a>
+</figure>
+
+<p>I rode into Viñales in the late afternoon with a triumphant smile spread wide across my face. I had done it! In less than 2 days riding solo across the countryside of Cuba, I had successfully completed a 130 mile bicycle tour from Havana to Viñales! Swelling with pride, I rolled into town and searched for the parade that would greet me upon my victory.</p>
+<p>Of course, there was no parade. No one but me could be excited about what I had accomplished, in part because no one else even knew. To the locals, I was simply another tourist wandering into a town that already had plenty of them, and they went about their lives without thinking twice about my presence. But I knew what I had done, and I cheered quietly to myself on the way into town.</p>
+<figure class="align-center "><a href="img/gopr1499_fotor.jpg">
+    <img loading="lazy" src="img/gopr1499_fotor.jpg#center"
+         alt="main street intersection in Viñales"/> </a>
+</figure>
+
+<p>That sort of anticlimactic moment can be a disheartening part of traveling alone, but at the same time I knew that what I achieved on my first cross country ride had come solely by my own efforts. I had learned so much about my capabilities in the previous few days, and I’d had a great time on my ride.</p>
+<p>What other people called a ‘crazy’ idea had instead been an amazing adventure, a journey into unexplored physical and mental spaces within myself that would culminate in an experience unlike anything I’d ever known. And if being crazy is having an unquenchable desire to explore new territories, to seek challenges beyond the limits of my known abilities, and to charge relentlessly forward in the face of overwhelming doubt and fear - then yeah. I’m absolutely nuts.</p>
+<figure class="align-center "><a href="img/gopr1368.jpg">
+    <img loading="lazy" src="img/gopr1368.jpg#center"
+         alt="Adam lying in the grass on the side of a country road against his bicycle"/> </a>
+</figure>
+
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 2</title>
+      <link>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-2/</link>
+      <pubDate>Thu, 31 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-2/</guid>
+      <description>Author&amp;rsquo;s Note: This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it. 🙂
+Part 1 | Part 2 | Part 3</description>
+      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
+<p><a href="/posts/000/adam-roams-cycling-vinales/part-1/">Part 1</a> | <strong>Part 2</strong> | <a href="/posts/000/adam-roams-cycling-vinales/part-3/">Part 3</a></p>
+<hr>
+<h2 id="spending-the-night-in-a-casa-particular-or-maybe-just-an-apartment">Spending the Night in a Casa Particular (Or Maybe Just an Apartment)</h2>
+<p>I stopped at around 7 PM that first night to search for a place to stay. With the hammock and sleeping bag stuffed deep inside my pack I had dreamed of camping in the countryside and experiencing a night under the stars in Cuba. Sadly, that dream was crushed by the sheer amount of private farmland that bordered the highway for the entire ride, and I didn&rsquo;t want to get in trouble for camping on private land or government property.</p>
+<p>Eventually, I came to a little town off the autopista called Paso Real de San Diego where I found groups of relaxed locals loitering alongside the highway enjoying the cool evening air. It was here that I decided to look for a ‘casa particular’ (private home) to stay in as was common for tourists to do. All of Cuba knew that housing travelers could make them a whole lot more money than their usual jobs, and it wasn’t difficult to find someone who would help me out.</p>
+<p>Approaching two young men sitting on a bench, I asked if there were any casas particulares available in the town. They exchanged a few quick words with each other, and one of them stood up and ushered me to follow him. As we walked down the side of the road together I got a feel for the place, perhaps the Cuban equivalent of a ‘suburb’ compared to Havana. I wasn’t sure if such a thing as a suburb even existed in this country, but the place felt like a more contained civilization rather than a satellite of a large city. I suppose that made sense since I had ridden about 80 miles away from Havana that day.</p>
+
+
+
+
+<div class="google-map">
+	<iframe src='https://www.google.com/maps/d/embed?mid=1I6JmB0o0hgHtljQ7zCCYOWBDwBk' width="100%" height="480" frameborder="0" style="border-radius: 8px;"></iframe>
+</div>
+
+<p>We walked from door to door, and my guide asked about a room for the night at every place we stopped. The matrons that appeared all followed the same routine. ‘Let me go check,’ they would say. They would disappear for a moment and return only to say, ‘Sorry, we’re full tonight.’ How many other travelers were coming through this little town? Or were the locals perhaps hosting other Cubans? I wasn’t sure, but this frequent occurrence was rather disheartening as it kept happening at every home where we stopped.</p>
+<p>My guide paused for a moment, looked up at the sky thoughtfully, and asked, ’Do you want to stay with me in my apartment tonight? Only 30 CUC for the night.’ And then it hit me - I was being hustled. Surely this was a script my guide had followed more than once before, and perhaps the women along the way had been a part of his charade. I had been led through what appeared to be a town full of ‘taken’ rooms in order to make it seem like staying at this man’s apartment was my only option. The high price of 30 CUC was a dead giveaway - only a tourist could afford that.</p>
+<p>Under normal circumstances, it would have been a bad deal, but we both knew I didn’t have any other options. Begrudgingly, I agreed to follow him to his home. I was a little salty about the way I had been treated, especially since I didn’t have as much spending money as people seemed to think. I had thought that getting out of Havana would mean distancing myself from the constant stream of grifters preying on tourists who don&rsquo;t know any better, but here I was far outside the city, and I was still a target for the locals. It was frustrating.</p>
+<p>However, much of my annoyance wore off as I brought my things into the apartment and settled in. They lived on the second floor of a large complex, and as they ushered me in with smiles and hugs I couldn’t help but be swayed by the universal Cuban charm that I had witnessed many times on my trip already. These people were thrilled to have a visitor, and after the initial greetings, questions about my trip, and obligatory group photos were out of the way, their focus turned completely to hospitality. In mere minutes I had gone from cash-laden tourist to honored guest for the evening, and I knew I was as welcome in their home as family.</p>
+<figure class="align-center "><a href="img/gopr1414_fotor.jpg">
+    <img loading="lazy" src="img/gopr1414_fotor.jpg#center"
+         alt="3 people inside a home in Cuba"/> </a>
+</figure>
+
+<p>I was hungry, tired, and absolutely disgusting from my day in the sun. The mother of the house practically forced me to take her bedroom for the night, and while I unloaded my bags she prepared a bath for me - a bucket of boiled water and a bar of soap waiting for me in a half bathroom whose door always remained halfway open. I chuckled to myself at the spartan nature of things. This was definitely the adventure I had asked for.</p>
+<figure class="align-center "><a href="img/gopr1421.jpg">
+    <img loading="lazy" src="img/gopr1421.jpg#center"
+         alt="bedroom with travel bags and dirty clothes everywhere"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/gopr1423_fotor.jpg">
+    <img loading="lazy" src="img/gopr1423_fotor.jpg#center"
+         alt="dirty pants on the bed"/> </a>
+</figure>
+
+<p>After washing the grime from my body I sat down to a homemade dinner of various small dishes spread around the kitchen table. There was a surprising amount, and I was worried I might be eating all the food in their fridge. But as with everything else, I accepted that it was being offered to me as their guest, and I was pretty sure they could recoup the lost food with only a fraction of the sum I had paid them for the night. They would be okay.</p>
+<p>Filled to the brim with wonderful Cuban food, I headed straight to bed. I never quite know how tired I am until I have a full stomach, and after eating I quickly found out how much energy I had spent on the ride that day. My eyelids were heavy with sleep, and it came upon me so fast that I barely remember spending any time in the bedroom that evening. Perhaps it was for the better. I still had another day of riding before I would make it to Viñales, and it was only going to get harder as I approached my goal.</p>
+<h2 id="day-2---a-long-morning-on-the-autopista">Day 2 - A Long Morning on the Autopista</h2>
+<p>Before dawn had come, my host was knocking gently on the door to my room to see if I was awake. I sat up slowly to let the sleep spill off my aching body, and I began to dress and prepare for the day. I had really only packed 2 sets of clothing, so I donned the outfit from the day before to avoid dirtying more clothes than necessary. In the dim light of the room I gathered my bags with the help of my new friend, and we made our way downstairs.</p>
+<figure class="align-center "><a href="img/gopr1426_fotor.jpg">
+    <img loading="lazy" src="img/gopr1426_fotor.jpg#center"
+         alt="sunrise in a small town in Cuba and a bright green porch light"/> </a>
+</figure>
+
+<p>Gear secured and pack on my back, I followed my guide through a pre-dawn Paso Real de San Diego. The town was buzzing in the dark, adults headed to their jobs and children on their way to school. The students were dressed in matching uniforms and lined up elementary school fashion along building walls as they waited for their buses to arrive. They stared in awe as I walked past, a strange gringo with so many packs and on a bike headed for… where? It seemed I was their bit of intrigue for the morning, and I smiled at all of them as they watched me saunter drowsily through the town.</p>
+<p>It was surreal to see the familiar patterns these people created as their daily lives unfolded, and I felt much like a ghost sneaking through the gaps between their motion. I hadn’t existed in their world the day before, and I wouldn’t exist in it tomorrow. It was only for this brief moment in time that our paths intersected.</p>
+<p>Upon reaching a main street on the edge of town, I received directions and a fond farewell from my host. Walking down the busy road, I found the autopista just as the sun rose over Cuba that morning and began the second day of my ride to Viñales.</p>
+<figure class="align-center "><a href="img/gopr1428.jpg">
+    <img loading="lazy" src="img/gopr1428.jpg#center"
+         alt="pink sunrise over cloudy mountains in Cuban countryside"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/gopr1433_fotor.jpg">
+    <img loading="lazy" src="img/gopr1433_fotor.jpg#center"
+         alt="sunrise at the end of the road in Cuban countryside"/> </a>
+</figure>
+
+<p>It was a much harder morning than I had anticipated. Mostly, my ass hurt. I guess my bike seat hadn’t been meant for long distance rides, but since I had never done anything like this before it hadn’t occurred to me to look into it. My solution was to wrap my sweater around the seat and create a thicker, wider cushion for my bony butt to sink into during the ride.</p>
+<p>The improvised sweater pad was nice, but the truth was that I was in pain. I was sore, my thighs were weak from the day before, and my back and shoulders were starting to feel the constant weight of my 20 pound pack. Though I was making progress at much the same speed, the ride was starting to feel a bit like a slog, and my view of the endless highway began to take a toll on my mental state. I knew I still had a long way to go, so I broke the ride into small distances to help maintain my focus. I’d ride 10 miles and do a quick status check on myself, and after that I’d ride another 10 miles and repeat. The routine was working, and I stuck with it.</p>
+<p>But I was also running out of water. Cuba is not a place where you want that to happen, and pretty early in the day I had sucked my Camelbak dry for the second time on the ride. I only had two bottles left now. At the rate I was drinking I knew I would need more, but finding bottled water in Cuba is no simple task, especially in the countryside far from anywhere tourists might be looking for it. I decided it was better to search for it now before I truly needed it.</p>
+<p>I stopped at every spot along the autopista to ask where I could find some agua. Even a place that seemed to be a truck stop had none on hand, and I rode on to search the next town. Everyone I asked directed me somewhere different, and bottled water remained elusive in the heat. I knew that continuing this wild goose chase could lead me pretty far off my intended path, and I didn’t want to add any unnecessary miles to my trip. My search would go on, but it would have to be in the direction of Viñales.</p>
+<p>Worried about my resources, I thought about rationing my water and took only the smallest sips at regular intervals. Thankfully, I didn’t need to do this for long. As I continued along the autopista I came across what was perhaps the strangest rest stop I’ve encountered in my travels so far. Sitting literally on the edge of the highway was a beautiful little restaurant seemingly waiting for me to arrive. There was a patio with tables and chairs, a back area with an outdoor grill, a classic clay shingle roof, healthy green vines and plants growing everywhere around it, and even a little window with a lovely Cuban woman behind it asking me if she could get me anything.</p>
+<p>It was a place right out of a dream! And what made it so strange was that there was absolutely nothing else around it. There were no other buildings, no other people, no cars parked, nothing - just low farms as far as the eye could see, and I began to wonder what this place was doing there in the middle of nowhere. I was the only customer, and it didn’t seem like anyone would join me anytime soon. How I wish I could have eaten dinner there under the stars that night. Instead, I ordered two small bottles of water, and I drank a whole one before I even got back on my bike. Resuming the 10-mile routine I had begun earlier, I pushed on toward the horizon.</p>
+<figure class="align-center "><a href="img/gopr1461.jpg">
+    <img loading="lazy" src="img/gopr1461.jpg#center"
+         alt="dirt roadside in Cuba near telephone wires"/> </a>
+</figure>
+
+<p>My excitement mounted when I found the off ramp pointing to Viñales. I was almost there! In 20 miles I would be at my final destination, and my journey would be a success. Leaving the autopista, I encountered again the gravel and hard dirt roads of the Cuban countryside. This time I was happy for them. The curvy, pockmarked road to Viñales was a nice change of pace from the monotony of the highway, and I was starting to encounter more people along the way. Shouts filled the air as I passed by the locals.</p>
+<p>’¿Casa particular, Señor?’<br>
+‘¡No, gracias!’</p>
+<p>‘¿A dónde vas?’ (Where are you going?)<br>
+‘¡A Viñales!’<br>
+‘¡Está muy lejo!’ (It’s really far!)</p>
+<p>How far I had already ridden! If they had known I started in Havana, would they still have tried to warn me about the distance? Or would they think me crazy like all the others? From where I sat, another few miles didn’t seem like so much to go compared to the great distance I had traveled in a day and a half. I was riding high in my seat and pushing on toward Viñales, and I was ready for my destination to finally reveal itself. It was just around the corner!</p>
+<p>Except for that damn mountain.</p>
+<figure class="align-center "><a href="img/gopr1472_fotor.jpg">
+    <img loading="lazy" src="img/gopr1472_fotor.jpg#center"
+         alt="mountain view under a tree in Cuba"/> </a>
+</figure>
+
+<p><em>Concluded in <a href="/posts/000/adam-roams-cycling-vinales/part-3/">Part 3</a>!</em></p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 1</title>
+      <link>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-1/</link>
+      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-1/</guid>
+      <description>As I lay on the side of the road, the afternoon sun bearing down on me and threatening to steal away my consciousness, I could hear the throaty rumble of a motor headed my way. I barely registered the rusty blue taxi that passed little more than arm’s length in front of me, leaving a cloud of lead-laden exhaust in its wake. Exhaustion spread through me like a virus, and I sat still in the silence.</description>
+      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
+<p><strong>Part 1</strong> | <a href="/posts/000/adam-roams-cycling-vinales/part-2/">Part 2</a> | <a href="/posts/000/adam-roams-cycling-vinales/part-3/">Part 3</a></p>
+<hr>
+<p>As I lay on the side of the road, the afternoon sun bearing down on me and threatening to steal away my consciousness, I could hear the throaty rumble of a motor headed my way. I barely registered the rusty blue taxi that passed little more than arm’s length in front of me, leaving a cloud of lead-laden exhaust in its wake. Exhaustion spread through me like a virus, and I sat still in the silence.</p>
+<figure class="align-center "><a href="img/gopr1477_fotor.jpg">
+    <img loading="lazy" src="img/gopr1477_fotor.jpg#center"
+         alt="Viñales mountain road"/> </a>
+</figure>
+
+<p>I hadn’t seen this mountain coming, and it had made things difficult. I might have said that climbing it on a bicycle had been tough, but how could I know? I had given up and started pushing the bike at least an hour ago. After riding it through the countryside for 2 days, I just didn’t have the energy to pedal up the side of a mountain.</p>
+<p>I took a deep breath in the silence. My body ached, and my mind was numb from the heat. All trivial thoughts had been discarded in favor of surviving this ordeal, but now there was doubt forming in my mind. Lying in the dirt, too weak to fight back against the most dangerous of questions, I couldn’t help but ask myself -</p>
+<p><em>Am I strong enough to finish this?</em></p>
+<h2 id="how-it-all-began">How It All Began</h2>
+<p><em>Click.</em> Tickets purchased. I was going to Cuba for 2 weeks!</p>
+<p>Flight secured, I now had the important task of figuring out what I was going to do when I got there. I didn’t want to be the stereotypical Havana tourist, voluntarily sequestering myself at a beach resort or spending my time searching for exclusive nightclubs where I could drink and party all night. That’s just not how I travel. Instead, I wanted to interact personally with the locals and to discover what makes Cuba and its people special.</p>
+<p>I also wanted to step outside Havana to see a side of the country I might not normally encounter, and to that end I decided to go on a cross country bike ride. I would begin in Havana and ride my bicycle 130 miles (209 km) west to a place called Valle de Viñales (Valley of Vines), home of the best rock climbing in Cuba. I hoped that in 2 days of riding through the countryside I could gain a more rounded perspective on Cuba, and when I finished my ride I could partake in my favorite outdoor sport. It sounded awesome.</p>
+<p>But there was a problem - I didn’t know if I could actually do it. I had never ridden that far on a bike before, and I would be totally alone in unfamiliar territory. I knew I could ride for a little while in the flats of Illinois, but 130 miles across Cuba? And then back? I wasn’t sure.</p>
+<p>I pulled up a map of Cuba for guidance. Judging by the few roads I could see, it looked like there was a highway along the north coast of the island that made its way to Viñales with little elevation change. That was good news. Still, that was all the information I could find, and it made me nervous. There was no way for me to know what the road was actually like. But again and again, I followed the path from Havana to Viñales, and each time my eyes made the journey my heart skipped with excitement. I <em>had</em> to go on this ride.</p>
+
+
+
+
+<div class="google-map">
+	<iframe src='https://www.google.com/maps/d/embed?mid=1wj0ZawLLSjKgn8J3xES0NFpFsQc' width="100%" height="480" frameborder="0" style="border-radius: 8px;"></iframe>
+</div>
+
+<p>Over the next few weeks I bought all the gear I thought I would need, made arrangements to ship my bike with Spirit, and packed it into a big box for the flight to Cuba. I waited restlessly for the day of my departure, and I shared my excitement for my ride with everyone who would listen.</p>
+<p>‘You’re crazy!’ my friends said. So I knew it was a great idea.</p>
+<h2 id="first-days-in-havana">First Days in Havana</h2>
+<p>The plan was to spend 3 days in Havana and begin my long ride out to Viñales on the 4th morning of my trip. During the day I wandered around well-known parts of the city like Habana Vieja (Old Havana), the Malecón, and Vedado. It was a lot of fun to explore those areas, and I had a great time conversing with locals everywhere I went. Fishermen, fruit vendors, musicians - I even talked with someone who I didn’t realize was a <em>jinetera</em> (prostitute), but she got annoyed with my rambling and asked if I was going to make her an offer for the night. Realizing my mistake, I apologized and bought her some cigarettes for wasting her time. I got better at spotting prostitutes after that.</p>
+<p>When evening came I made friends with the other travelers in the hostel. We swapped our travel stories over dinner every night, and it was really cool to meet people from so many different parts of the world and hear about the journeys they were on. Cuba was the last stop for some, but others would continue on to places like Mexico, Panama, or the USA. With excitement, I would tell them about my grand plan to ride west and climb in the mountains of Viñales. Like my friends back home, they thought I was crazy to go on such a ride, but I could tell they were also excited for my adventure just like I was.</p>
+<figure class="align-center "><a href="img/gopr1272.jpg">
+    <img loading="lazy" src="img/gopr1272.jpg#center"
+         alt="Havana city dirt road"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/gopr1278.jpg">
+    <img loading="lazy" src="img/gopr1278.jpg#center"
+         alt="Havana city colorful buildings and cyclists"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/gopr1743.jpg">
+    <img loading="lazy" src="img/gopr1743.jpg#center"
+         alt="Cuban food dinner in Havana"/> </a>
+</figure>
+
+<p>Alas, my bike ride didn’t start quite as intended. I got extremely sick the night before I had planned to leave, and I spent many hours vomiting in the hostel bathroom. I painfully ejected all my food from the previous days, and even though I drank juice and water to keep my fluids up it seemed that I was only adding more material to be discharged minutes later. I was never able to pinpoint the cause of my illness - likely food or water - and it was a dangerous situation to be in.</p>
+<p>After 2 days of rest I still hadn’t fully recovered, but I couldn’t afford to lose any more time. No matter how I felt, I intended to make my way out of Havana in the morning.</p>
+<p>The next day I woke to the noises of the stirring city pouring in through an open window, and I rolled over to greet them with a groan. The muscles around my core were still tender, and the stifling heat of the room raised my lingering nausea to an uncomfortable level. With difficulty, I forced myself out of bed and stumbled to the balcony in search of fresh air.</p>
+<p>Outside, the pink light of the early morning sun shone softly against the dim silhouette of Central Havana, and a light, cool breeze danced its way through the waking city. I breathed deeply as the healing wind brushed across my cheeks and scattered away toward the horizon.</p>
+<p>No matter what, I had said. It was time to ride.</p>
+<figure class="align-center "><a href="img/gopr1331.jpg">
+    <img loading="lazy" src="img/gopr1331.jpg#center"
+         alt="touring bicycle inside next to elevator in Havana"/> </a>
+</figure>
+
+<h2 id="day-1---finding-the-road-to-viñales">Day 1 - Finding the Road to Viñales</h2>
+<p>Finding my way out of Havana was the first hurdle on my ride to Viñales. I had found a fantastic phone app called <a href="http://maps.me">Maps.Me</a> that provided me with a map of Cuba’s roads everywhere I went. Being an entirely offline map, I was frequently concerned that I would be navigating with inaccurate location information, but somehow it managed to know <em>exactly</em> where I was at all times and provided detailed directions every step of the way. It was pretty incredible, and I ended up putting a lot of trust in the service. Perhaps a little too much.</p>
+<p>I put in my destination and told Maps.Me to give me a bike route out of the city. It took about 2 hours to get to the edge of Havana, and the winding route south took me through areas that few tourists are likely to ever see. Stark visions of abject poverty were even clearer here than in the inner neighborhoods where tourist perception remains an outward concern. Ramshackle homes lined every street, their walls crumbling to reveal the truths of life in Havana for all those willing to see.</p>
+
+
+
+
+<div class="google-map">
+	<iframe src='https://www.google.com/maps/d/embed?mid=15sw3_dsRix07D84KErEOztoO6Mg' width="100%" height="480" frameborder="0" style="border-radius: 8px;"></iframe>
+</div>
+
+<p>Peering through windows and holes left by the decay, I spied people going about their daily lives - watching television, having a late breakfast, and even sweeping kitchen floors in an endless effort to keep out the dust of the outside world. But not all homes were so exposed, and while it seemed that many of them suffered from structural failure and even the black char of fires long past, others appeared adorned with fresh coats of paint and cheery doormats welcoming guests of all origins.</p>
+<p>It was difficult to understand how each city block could display so many conflicting signs of life and death, yet the dissonance created by the sight of these homes and the contrasting attitudes of the people living in them was a source of intense beauty. Life was certainly not perfect here, not even easy, but the universal smiles with which these people approached each dawn and the will to make things better pushed them forward and brought them hope with every new day.</p>
+<p>Leaving the last of these neighborhoods, I continued to follow my map to the edge of the city. Pedaling into an alley walled by seemingly abandoned warehouses, I came across a bridge unlike anything I had seen yet in Cuba. It was narrow, made of solid concrete with wooden fencing on either side for protection. On the left of this bridge was an untamed patch of grass, weeds, and vines. On its right was a large pile of garbage, a landfill of trash bags spilling their vile guts and threatening to flood the bridge if the mound rose any higher. At the end of the bridge was an entrance into the wilds on the edge of Havana. It was a mythical gate into the unknown lands beyond the city, a passage with a character that you could only find in a place like Cuba.</p>
+<figure class="align-center "><a href="img/gopr1333.jpg">
+    <img loading="lazy" src="img/gopr1333.jpg#center"
+         alt="path leading through garbage dump into wilderness"/> </a>
+</figure>
+
+<p>I crossed the bridge cautiously and entered the dark path, but the woods lasted only a moment. Almost immediately I was out of the trees and in the countryside, and the city of Havana had ended with such an abruptness that I felt like I had passed into another world entirely. Open pastures and farmland lined what was now a hard dirt road, and condors circled above searching for meals in the hot sun, getting hotter by the minute. I didn’t know it at the time, but my riding environment would be essentially the same for the next 110 miles or so.</p>
+<p>Nearer to Havana were many small, dense satellite towns rife with people in the streets, but as I rode further away those became less common. Most of the path was banked by empty farmland and long views to the horizon, covered by sun and the occasional white cloud. Every so often I would encounter a horse cart carrying a few locals who stared at me as I passed, but most of the time I was on my own.</p>
+<figure class="align-center "><a href="img/gopr1335_fotor.jpg">
+    <img loading="lazy" src="img/gopr1335_fotor.jpg#center"
+         alt="country road next to a wall in sunlight"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/gopr1349_fotor.jpg">
+    <img loading="lazy" src="img/gopr1349_fotor.jpg#center"
+         alt="small town in Cuba"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/gopr1340-1.jpg">
+    <img loading="lazy" src="img/gopr1340-1.jpg#center"
+         alt="dirt road in Cuba countryside with big tree"/> </a>
+</figure>
+
+<h2 id="the-deception-of-mapsme">The Deception of Maps.Me</h2>
+<p>The morning had been difficult. I still hadn’t quite shaken the feeling of nausea from being sick the last few days, and I probably hadn’t eaten enough to properly prepare for the ride ahead. Together these problems loomed over me throughout the morning, and my irritation showed itself around midday when I lost a bag at a rough railroad crossing. I trudged over to where it had fallen and decided it was time for a break.</p>
+<p>Thankfully, lunch was all that was necessary to get me back on my feet with a smile, but worry began to creep in again as I continued riding across the Cuban countryside. My map was doing an amazing job of keeping track of where I was, but as I moved further West I noticed that the bike trail it had given me was not quite what I’d thought it was. Upon closer inspection, I saw that it wanted to take me straight through the spine of a mountain range that spanned East-West through the center of the island.</p>
+
+
+
+
+<div class="google-map">
+	<iframe src='https://www.google.com/maps/d/embed?mid=1dqAtKIZf4lBudlhkfjG1oKk3ky0' width="100%" height="480" frameborder="0" style="border-radius: 8px;"></iframe>
+</div>
+
+<p>Riding through a mountain range with an 1800 ft (548 m) change in elevation (twice!) was absolutely not the ride I wanted to be on. I had willingly discarded my original plan of riding along the northern coast in favor of following a map that had more certainty about it, but somehow I had completely missed how difficult this route was going to be. I was in trouble, and I didn’t see an immediate solution to my problem.</p>
+<p>Devastated by this new information, I stopped for a break in a little town called Chacón to ask myself if a mountain ride was what I wanted to do. And that was where my luck began to improve. I was resting under the canopy of a small roadside drink shop when I caught sight of two thin silhouettes approaching from a distance. Cuban riders decked out in team cycling outfits and riding the fanciest bikes I had seen in the country rode up like they owned the place and ordered a few glasses of <em>jugos naturales</em>. They waved me over as a fellow cyclist, ordered me some juice, and asked where I was headed.</p>
+
+
+
+
+<div class="google-map">
+	<iframe src='https://www.google.com/maps/d/embed?mid=1HC1weHdUbDKpT5ROEectSI-WVGk' width="100%" height="480" frameborder="0" style="border-radius: 8px;"></iframe>
+</div>
+
+<p>When I told them in broken Spanish that I was on the way to Viñales, they said I was crazy! This was the new normal, I thought. But they also said that I was basically killing myself riding these dirt backroads - there was a much better path waiting for me just down the road. All I had to do was turn onto the <em>autopista</em> (the highway) up ahead and it would take me nearly all the way to Viñales - no turns, no crappy roads, no misleading maps.</p>
+<p>At first, I was a little confused. Wasn’t it illegal to ride on the autopista? It seemed that rule only applied in and around Havana, but that was a detail that I had been missing. Maps.Me didn’t understand that I could have ridden on the autopista the whole way, so since I asked for a bike path it created a route for me entirely without the highway in mind. The Cuban cyclists insisted that I take the autopista the rest of the way and wished me luck on the rest of my journey. I spent the next half hour or so beneath the highway in a drainage tunnel and had some food before getting underway again.</p>
+<figure class="align-center "><a href="img/gopr1386.jpg">
+    <img loading="lazy" src="img/gopr1386.jpg#center"
+         alt="drainage tunnel under highway in Cuba with bicycle next to the entrance"/> </a>
+</figure>
+
+<p>The autopista was such a gift! All of a sudden I had moved from dirt roads to the smooth, paved beauty of a highway, and what a difference that change made. Any worries I’d had about riding on the autopista were quickly gone as I began to understand how it had been laid out. There were two auto lanes in each direction of travel, separated in the middle by grassy strips, and outside these lanes was an extra stretch of pavement meant purely for non-auto use. The outer shoulders may have been lower quality pavement at times, but it was the perfect place for horse carts, pedestrians, and - of course - bicycles!</p>
+<p>My pace quickly increased on this new path, and I suddenly had fresh energy as though I’d begun my journey only moments before. I was excited about the speed and simplicity that the autopista offered, and I was happy that my ride across Cuba’s countryside was steadily improving. Though my route had changed many times already, I was still on my way to Viñales. And I was having a great time.</p>
+
+
+
+
+<div class="google-map">
+	<iframe src='https://www.google.com/maps/d/embed?mid=1Y5xkoYNRiNKGd97V8TgPk89SG48' width="100%" height="480" frameborder="0" style="border-radius: 8px;"></iframe>
+</div>
+
+<figure class="align-center "><a href="img/gopr1390.jpg">
+    <img loading="lazy" src="img/gopr1390.jpg#center"
+         alt="late afternoon sun over higwhay in Cuba"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/gopr1403.jpg">
+    <img loading="lazy" src="img/gopr1403.jpg#center"
+         alt="sunset between clouds over higwhay in Cuba"/> </a>
+</figure>
+
+<p><em>Continued in <a href="/posts/000/adam-roams-cycling-vinales/part-2/">Part 2</a>!</em></p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
