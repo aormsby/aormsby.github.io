@@ -5,8 +5,8 @@
     <link>https://www.adamormsby.com/categories/</link>
     <description>Recent content in Categories on Adam Ormsby</description>
     <image>
-      <url>https://www.adamormsby.com/site-img/profile.jpg</url>
-      <link>https://www.adamormsby.com/site-img/profile.jpg</link>
+      <url>https://www.adamormsby.com/site-icon/rssIcon.jpg</url>
+      <link>https://www.adamormsby.com/site-icon/rssIcon.jpg</link>
     </image>
     <generator>Hugo -- gohugo.io</generator><atom:link href="https://www.adamormsby.com/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
