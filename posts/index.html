@@ -18,7 +18,10 @@
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.88.1">
 <link rel=alternate type=application/rss+xml href=https://www.adamormsby.com/posts/index.xml>
-<meta property="og:title" content="Posts">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:#1d1e20;--entry:#2e2e33;--primary:rgba(255, 255, 255, 0.84);--secondary:rgba(255, 255, 255, 0.56);--tertiary:rgba(255, 255, 255, 0.16);--content:rgba(255, 255, 255, 0.74);--hljs-bg:#2e2e33;--code-bg:#37383e;--border:#333}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="Posts">
 <meta property="og:description" content="Adam Ormsby is an Android Developer. He writes about that and other things.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.adamormsby.com/posts/"><meta property="og:image" content="https://www.adamormsby.com/site-img/rssIcon.png"><meta property="og:site_name" content="Adam Ormsby">
@@ -30,10 +33,6 @@
 </head>
 <body class=list id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
-<noscript>
-<style type=text/css>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:#1d1e20;--entry:#2e2e33;--primary:rgba(255, 255, 255, 0.84);--secondary:rgba(255, 255, 255, 0.56);--tertiary:rgba(255, 255, 255, 0.16);--content:rgba(255, 255, 255, 0.74);--hljs-bg:#2e2e33;--code-bg:#37383e;--border:#333}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
 <header class=header>
 <nav class=nav>
 <div class=logo>
@@ -58,16 +57,23 @@
 </header>
 <article class=post-entry>
 <figure class=entry-cover>
+<img loading=lazy srcset="https://www.adamormsby.com/posts/000/fork-sync-with-upstream/cover_hub3ca721ab290872fa4968ac446315093_17650_360x0_resize_box_3.png 360w ,https://www.adamormsby.com/posts/000/fork-sync-with-upstream/cover_hub3ca721ab290872fa4968ac446315093_17650_480x0_resize_box_3.png 480w ,https://www.adamormsby.com/posts/000/fork-sync-with-upstream/cover.png 700w" sizes="(min-width: 768px) 720px, 100vw" src=https://www.adamormsby.com/posts/000/fork-sync-with-upstream/cover.png alt="Cover photo for Github Action: Fork Sync With Upstream" width=700 height=150>
+</figure>
+<header class=entry-header>
+<h2>Github Action: Fork Sync With Upstream
+</h2>
+</header>
+<footer class=entry-footer>Aug 14, 2020&nbsp;·&nbsp;Adam Ormsby</footer>
+<a class=entry-link aria-label="post link to Github Action: Fork Sync With Upstream" href=https://www.adamormsby.com/posts/000/fork-sync-with-upstream/></a>
+</article>
+<article class=post-entry>
+<figure class=entry-cover>
 <img loading=lazy srcset="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/cover_hu6b2764e720aece9122917ac0e4bf04ff_108232_360x0_resize_q75_box.jpg 360w ,https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/cover_hu6b2764e720aece9122917ac0e4bf04ff_108232_480x0_resize_q75_box.jpg 480w ,https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/cover_hu6b2764e720aece9122917ac0e4bf04ff_108232_720x0_resize_q75_box.jpg 720w ,https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/cover_hu6b2764e720aece9122917ac0e4bf04ff_108232_1080x0_resize_q75_box.jpg 1080w ,https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/cover.jpg 1200w" sizes="(min-width: 768px) 720px, 100vw" src=https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/cover.jpg alt="Cover photo for Build and Deploy: A Shell Script for Hugo Sites" width=1200 height=503>
 </figure>
 <header class=entry-header>
 <h2>Build and Deploy: A Shell Script for Hugo Sites
 </h2>
 </header>
-<section class=entry-content>
-<p>Shell Scripts are Awesome I don’t know about you, but I love writing code that automates my work. I finally had the chance to do just that, and now I’m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!
-So why do this? Well, when I began working with Hugo, I ran across a rudimentary deploy script in their documentation....</p>
-</section>
 <footer class=entry-footer>Jun 21, 2020&nbsp;·&nbsp;Adam Ormsby</footer>
 <a class=entry-link aria-label="post link to Build and Deploy: A Shell Script for Hugo Sites" href=https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/></a>
 </article>
@@ -79,10 +85,6 @@ So why do this? Well, when I began working with Hugo, I ran across a rudimentary
 <h2>Hugo Themes - Making Modifications while Keeping the Source Up-To-Date
 </h2>
 </header>
-<section class=entry-content>
-<p>This is a continuation of a previous post - How to Set Up a Hugo Site on Github Pages - with Git Submodules! I will reference some things we did there, so be sure to check it out if you’re confused about something.
-Overview In today’s post, I want to take a look at how we can keep our Hugo themes up-to-date. ‘But my theme works fine!’ you say. ‘Why would I ever need to update it?...</p>
-</section>
 <footer class=entry-footer>May 19, 2020&nbsp;·&nbsp;Adam Ormsby</footer>
 <a class=entry-link aria-label="post link to Hugo Themes - Making Modifications while Keeping the Source Up-To-Date" href=https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/></a>
 </article>
@@ -94,10 +96,6 @@ Overview In today’s post, I want to take a look at how we can keep our Hugo th
 <h2>How to Set Up a Hugo Site on Github Pages - with Git Submodules!
 </h2>
 </header>
-<section class=entry-content>
-<p>Overview I made this blog site using the Hugo static site generator because I wanted to build a simple site where I could have full control over every detail - not like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels great to have that kind of power. You probably ended up here because you want that, too.
-In this post, we’ll take a look at how to:...</p>
-</section>
 <footer class=entry-footer>Mar 17, 2020&nbsp;·&nbsp;Adam Ormsby</footer>
 <a class=entry-link aria-label="post link to How to Set Up a Hugo Site on Github Pages - with Git Submodules!" href=https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/></a>
 </article>
@@ -109,10 +107,6 @@ In this post, we’ll take a look at how to:...</p>
 <h2>The Road to Viñales - A Tale of Cycling in Cuba - Part 3
 </h2>
 </header>
-<section class=entry-content>
-<p>Author’s Note: This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it. 🙂
-Part 1 | Part 2 | Part 3...</p>
-</section>
 <footer class=entry-footer>Sep 02, 2017&nbsp;·&nbsp;Adam Ormsby</footer>
 <a class=entry-link aria-label="post link to The Road to Viñales - A Tale of Cycling in Cuba - Part 3" href=https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-3/></a>
 </article>
@@ -124,10 +118,6 @@ Part 1 | Part 2 | Part 3...</p>
 <h2>The Road to Viñales - A Tale of Cycling in Cuba - Part 2
 </h2>
 </header>
-<section class=entry-content>
-<p>Author’s Note: This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it. 🙂
-Part 1 | Part 2 | Part 3...</p>
-</section>
 <footer class=entry-footer>Aug 31, 2017&nbsp;·&nbsp;Adam Ormsby</footer>
 <a class=entry-link aria-label="post link to The Road to Viñales - A Tale of Cycling in Cuba - Part 2" href=https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-2/></a>
 </article>
@@ -139,9 +129,6 @@ Part 1 | Part 2 | Part 3...</p>
 <h2>The Road to Viñales - A Tale of Cycling in Cuba - Part 1
 </h2>
 </header>
-<section class=entry-content>
-<p>As I lay on the side of the road, the afternoon sun bearing down on me and threatening to steal away my consciousness, I could hear the throaty rumble of a motor headed my way. I barely registered the rusty blue taxi that passed little more than arm’s length in front of me, leaving a cloud of lead-laden exhaust in its wake. Exhaustion spread through me like a virus, and I sat still in the silence.</p>
-</section>
 <footer class=entry-footer>Aug 29, 2017&nbsp;·&nbsp;Adam Ormsby</footer>
 <a class=entry-link aria-label="post link to The Road to Viñales - A Tale of Cycling in Cuba - Part 1" href=https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-1/></a>
 </article>
