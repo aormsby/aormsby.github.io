@@ -9,7 +9,68 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 14 Aug 2020 20:00:00 -0500</lastBuildDate><atom:link href="https://www.adamormsby.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github Actions - Updated!</title>
+      <link>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</link>
+      <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</guid>
+      <description>Wow, what a year! I mean, 2021 still hasn&amp;rsquo;t been my favorite, but it&amp;rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&amp;rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.
+So without further ado, let&amp;rsquo;s jump straight into the more popular of the two!</description>
+      <content:encoded><![CDATA[<p>Wow, what a year! I mean, 2021 still hasn&rsquo;t been my favorite, but it&rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</p>
+<p>So without further ado, let&rsquo;s jump straight into the more popular of the two!</p>
+<h2 id="upstream-sync">Upstream Sync</h2>
+
+<form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+
+<p>The changes I made to this action really kicked off a whole new approach to how I write shell-based tools. The first few versions had all the code together in a single script, but as the project grew I found it was getting harder to keep track of the state of certain things. To deal with this, I split each piece of the action into its own small script and now call each step from a master script.</p>
+<p>It might seem like overkill for a little action like this, but there are real benefits to this kind of architectural change. More flexibility, better testability, and better readability are just the start. It even exposed for me the fact that syncing from private repos <em>wasn&rsquo;t ever working correctly!</em> So that&rsquo;s been fixed. For good.</p>
+<h3 id="test-mode">Test Mode</h3>
+<p>Since I split all the scripts, they&rsquo;re now more testable! And you get to test them yourself with the new local <code>test_mode</code>. I <em>love</em> this feature. After configuring your workflow, you want to be sure it&rsquo;ll work, right? Well, if you run your workflow with the test mode enabled, it will run a bunch of unit tests to determine if your configuration makes sense <em>before</em> you ever run your first sync. The action output will show you which tests are running as well as a success or failure status.</p>
+<figure class="align-center "><a href="img/sync-tests.png">
+    <img loading="lazy" src="img/sync-tests.png#center"
+         alt="Upstream Sync test mode"/> </a>
+</figure>
+
+<p>While these tests don&rsquo;t cover every possible issue, they do cover the basics. Does your upstream repo exist? Do your branches exist? Things like that. If you think more tests are needed, let me know!</p>
+<h3 id="flexible-domain">Flexible Domain</h3>
+<p>You can now change the domain from <code>github.com</code> to any other base domain if your sync repo is not on Github. Maybe this will broaden the action&rsquo;s user base? We&rsquo;ll see! Thank you to <a href="https://github.com/mathieucarbou">@mathieucarbou</a> for adding this feature.</p>
+<h3 id="fixes">Fixes</h3>
+<p>Of course there were some fixes! Nothing&rsquo;s perfect. I mentioned before that syncing from private repos was never actually working as intended, and it turned out that I was having issues setting credentials when trying to access them. So that&rsquo;s fixed! Along with that, there was a request for a GPG signing feature, which actually pushed me to discover and fix another problem &ndash; the git configuration being done by the Upstream Sync action was clashing with other actions run in the same workflow. Also fixed. Did I add GPG signing? No. But this makes it so that you can confidently <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki/GPG-Signing">add other actions</a> into your workflow to support such needs.</p>
+<h3 id="wiki">Wiki</h3>
+<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &lsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
+<h3 id="v24">v2.4</h3>
+<p>For those of you seeking minimal changes to the actions you use, I released v2.4 as a fix for the private repo issues you may have encountered previously. It also includes the <code>domain</code> input variable. While this should be good enough to get you the fixes you need, please know that I will not make any further updates to v2.</p>
+<h2 id="hugo-build-and-deploy">Hugo Build and Deploy</h2>
+
+<form action=https://github.com/aormsby/hugo-deploy-to-pages target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+
+<p>On to the second action! Hugo Build and Deploy hasn&rsquo;t had such a great showing in the past as its functionality was a bit flaky - but that&rsquo;s going to change! If you&rsquo;re seeing this post now, it means the action did its job building and publishing my site&rsquo;s updates. Inspired by my changes to Upstream Sync, I also split all of the action steps into their own scripts. It really allowed me to figure out what was going wrong with this action as well as update it to follow a more modern continuous delivery pattern when publishing. While I really don&rsquo;t expect the action to need many updates, I don&rsquo;t expect it to cause trouble anymore, either.</p>
+<h3 id="test-mode-again">Test Mode (Again)</h3>
+<p>Much like the other action, there&rsquo;s a new test mode. Specifically, this action test if your branches and repos exists, but it also <em>crucially</em> helps you determine if you&rsquo;ve set things up correctly for any sumbodules you might be publishing to. Personally, I&rsquo;m moving away from submodule publishing for Hugo websites, and I plan on sharing why in a future post. But I know I lot of you might not be, and I wanted to make sure this action supports your needs clearly and safely.</p>
+<figure class="align-center "><a href="img/deploy-tests.png">
+    <img loading="lazy" src="img/deploy-tests.png#center"
+         alt="Hugo Build and Deploy test mode"/> </a>
+</figure>
+
+<h3 id="branched-builds">Branched Builds</h3>
+<p>Along with changes to the project, I&rsquo;ve also made big changes to the action output. Previously, the action made site builds and pushed the changes to the same branch it got the source code from. That&rsquo;s a problem because on some level that branch is pretty likely to be an active development branch. For many reasons, modern CD patterns dictate that development and release should remain separate. The updated deploy action fully supports that kind of separation.</p>
+<p>Now when you configure the action, you choose your <code>source-branch</code> to <em>pull from</em>, and your <code>release_branch</code> to <em>build to</em>. The biggest benefit of this change is that you&rsquo;ll now have a totally separate branch just for tracking your release history, and you won&rsquo;t have any auto-build commit pollution in your working branches. Good stuff.</p>
+<h3 id="wiki-again">Wiki (Again)</h3>
+<p>See the pattern here? Good releases have documentation. <a href="https://github.com/aormsby/hugo-deploy-to-pages/wiki">https://github.com/aormsby/hugo-deploy-to-pages/wiki</a></p>
+<h3 id="known-issue---shallow-clones">Known Issue - Shallow Clones</h3>
+<p>Trying to get proper merges when using shallow clones during checkout has quite a problem. Thankfully, it doesn&rsquo;t prevent the action from working, but it does mean you have checkout with fetch-depth: &lsquo;0&rsquo; and pull the entire commit history when that may not be desirable behavior. See <a href="https://github.com/aormsby/hugo-deploy-to-pages/wiki/Git-Shallow-Clone-Challenge">Git Shallow Clone Challenge</a> for details, and maybe you can help.</p>
+<h2 id="reach-out">Reach Out</h2>
+<p>I&rsquo;m super thrilled to have some regular users of both of these actions, and I do my best to check in on their health every so often. If you have any questions, issues, or suggestions, I invite you to reach out by commenting here or opening an issue directly on these repositories.</p>
+<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. 🙂</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Github Action: Fork Sync With Upstream</title>
       <link>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</link>
