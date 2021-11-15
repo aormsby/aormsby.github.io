@@ -9,7 +9,277 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo Shortcodes Module</title>
+      <link>https://www.adamormsby.com/posts/009-hugo-shortcodes-module/</link>
+      <pubDate>Mon, 15 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/009-hugo-shortcodes-module/</guid>
+      <description>Hey, small announcement! I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module. I filled the starter repo with some of the shortcodes I&amp;rsquo;ve made for my own site, and I&amp;rsquo;d love for it to become a place where everybody can share theirs with everyone. Theme-agnostic shortcodes are best, of course, but I really have no guidelines for additions right now.</description>
+      <content:encoded><![CDATA[<p>Hey, small announcement! I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module. I filled the starter repo with some of the shortcodes I&rsquo;ve made for my own site, and I&rsquo;d love for it to become a place where everybody can share theirs with everyone. Theme-agnostic shortcodes are best, of course, but I really have no guidelines for additions right now. Let&rsquo;s see where it goes!</p>
+
+<form action=https://github.com/aormsby/hugo-shortcodes target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+
+<p>Just as a sample, here are the shortcodes I&rsquo;ve added so far &ndash;</p>
+<h2 id="github-project-button">Github Project Button</h2>
+<p>{{&lt; github-links &ldquo;aormsby/hugo-shortcodes&rdquo; &gt;}}
+
+<form action=https://github.com/aormsby/hugo-shortcodes target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+</p>
+<h2 id="buy-me-a-coffee">Buy Me a Coffee</h2>
+<p>{{&lt; coffee-full aormsby &gt;}}
+
+  <span class="icon-link">
+    <a href="https://www.buymeacoffee.com/aormsby" target="_blank">
+      <img src="https://cdn.buymeacoffee.com/buttons/default-green.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" >
+    </a>
+  </span>
+
+</p>
+<h2 id="google-my-maps">Google &lsquo;My Maps&rsquo;</h2>
+<p>{{&lt; mygmap id=&ldquo;1wj0ZawLLSjKgn8J3xES0NFpFsQc&rdquo; &gt;}}
+
+
+
+
+<div class="google-map">
+	<iframe src='https://www.google.com/maps/d/embed?mid=1wj0ZawLLSjKgn8J3xES0NFpFsQc' width="100%" height="480" frameborder="0" style="border-radius: 8px;"></iframe>
+</div>
+</p>
+<h2 id="google-maps">Google Maps</h2>
+<p>{{&lt; gmap mode=&ldquo;place&rdquo; query=&ldquo;madagascar&rdquo; language=&ldquo;fr&rdquo;  &gt;}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="google-map">
+	<iframe src=https://www.google.com/maps/embed/v1/place?key&#61;AIzaSyDwVHJSaIXxEXrGYMoXH7RYlDe8vPNrOog&amp;q&#61;madagascar&amp;language&#61;fr width="100%" height=480 frameborder="0" style="border-radius: 8px;">
+	</iframe>
+</div>
+</p>
+<p>{{&lt; gmap mode=&ldquo;view&rdquo; center=&ldquo;37.4218,-122.0840&rdquo; zoom=&ldquo;18&rdquo; maptype=&ldquo;satellite&rdquo; &gt;}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="google-map">
+	<iframe src=https://www.google.com/maps/embed/v1/view?key&#61;AIzaSyDwVHJSaIXxEXrGYMoXH7RYlDe8vPNrOog&amp;center&#61;37.4218,-122.0840&amp;zoom&#61;18&amp;maptype&#61;satellite&amp;language&#61;en width="100%" height=480 frameborder="0" style="border-radius: 8px;">
+	</iframe>
+</div>
+</p>
+<p>{{&lt; gmap mode=&ldquo;streetview&rdquo; location=&ldquo;37.4218,-122.0840&rdquo; heading=&ldquo;210&rdquo; pitch=&ldquo;30&rdquo; fov=&ldquo;100&rdquo; &gt;}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="google-map">
+	<iframe src=https://www.google.com/maps/embed/v1/streetview?key&#61;AIzaSyDwVHJSaIXxEXrGYMoXH7RYlDe8vPNrOog&amp;language&#61;en&amp;location&#61;37.4218,-122.0840&amp;heading&#61;210&amp;pitch&#61;30&amp;fov&#61;100 width="100%" height=480 frameborder="0" style="border-radius: 8px;">
+	</iframe>
+</div>
+</p>
+<h2 id="unity-game---web">Unity Game - Web</h2>
+<p>(Fullscreen recommended - &lsquo;esc&rsquo; to exit)</p>
+<p>{{&lt; unity project=&ldquo;ArmyDillos-web&rdquo; aspect=&ldquo;16:10&rdquo; &gt;}}
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+
+
+
+<link rel="stylesheet" href="ArmyDillos-web/TemplateData/style.css">
+<script src="ArmyDillos-web/TemplateData/UnityProgress.js"></script>
+<script src="ArmyDillos-web/Build/UnityLoader.js"></script>
+<script type="text/javascript">
+    
+        function LoadUnity() {
+            var unityInstance = UnityLoader.instantiate("unityContainer", "ArmyDillos-web/Build/ArmyDillos-web.json", {onProgress: UnityProgress});
+            document.getElementById("unity-fullscreen").addEventListener("click", function() {
+                unityInstance.SetFullscreen(1);
+            });
+        }
+    
+</script>
+
+<div class="webgl-content" style="all: inherit; margin: 25px auto; position: relative; width: 100%; padding-top: 62.5%;">
+    <div id="unityContainer" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; height: calc(100% - 38px);">
+        <div style="display: flex; justify-content: center; height: 100%; background-color: rgba(30, 144,255, 0.5);">
+            <button onclick="LoadUnity()" style="width: 40%; height: 30%; margin: auto; font-size: 2em">Click to Load Unity Web Player</button>
+            <div id=device-error style="display: none; margin: auto"><span style="font-size: 2em">Sorry, device not supported.</span></div>
+        </div>
+    </div>
+    <div class="unity-footer">
+         <div class="webgl-logo"></div> 
+        <div class="fullscreen" id="unity-fullscreen"></div> 
+        <div class="title">
+            
+                
+                    ArmyDillos!
+                
+            
+        </div>
+    </div>
+</div>
+</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Github Actions - Updated!</title>
       <link>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</link>
