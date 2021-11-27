@@ -9,11 +9,111 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Aug 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>advent of code</title>
+      <link>https://www.adamormsby.com/tags/advent-of-code/</link>
+      <pubDate>Mon, 22 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/advent-of-code/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://www.adamormsby.com/tags/python/</link>
+      <pubDate>Mon, 22 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/python/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://www.adamormsby.com/tags/hugo/</link>
+      <pubDate>Mon, 15 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/hugo/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>automation</title>
+      <link>https://www.adamormsby.com/tags/automation/</link>
+      <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/automation/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://www.adamormsby.com/tags/git/</link>
+      <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/git/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://www.adamormsby.com/tags/github/</link>
+      <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/github/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>open source</title>
+      <link>https://www.adamormsby.com/tags/open-source/</link>
+      <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/open-source/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>submodules</title>
+      <link>https://www.adamormsby.com/tags/submodules/</link>
+      <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/submodules/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>jamstack</title>
+      <link>https://www.adamormsby.com/tags/jamstack/</link>
+      <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/jamstack/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>https://www.adamormsby.com/tags/shell/</link>
+      <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/shell/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
     <item>
       <title>cuba</title>
       <link>https://www.adamormsby.com/tags/cuba/</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/tags/cuba/</guid>
       <description></description>
@@ -23,7 +123,7 @@
     <item>
       <title>cycling</title>
       <link>https://www.adamormsby.com/tags/cycling/</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/tags/cycling/</guid>
       <description></description>
@@ -33,7 +133,7 @@
     <item>
       <title>life abroad</title>
       <link>https://www.adamormsby.com/tags/life-abroad/</link>
-      <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/tags/life-abroad/</guid>
       <description></description>

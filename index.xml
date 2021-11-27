@@ -16,8 +16,7 @@
       <pubDate>Mon, 22 Nov 2021 06:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/posts/010-aoc-2020/</guid>
-      <description>Advent of Code is almost here! For the uninitiated, Advent of Code is a December-long code challenge with awesome new puzzles to solve every day from December 1st to 25th. The puzzles are hard. But that&amp;rsquo;s what makes them so fun!
-You might be asking yourself &amp;ndash; What&amp;rsquo;s so great about a month of code challenges? Aren&amp;rsquo;t most code challenges usually kind of dumb and boring? Yes. Absolutely. Most bite-size code challenges are basically someone online writing a problem they think is clever, but instead it has no basis in reality and doesn&amp;rsquo;t make you think critically about anything.</description>
+      <description>Advent of Code is almost here! Read on for my Python solutions from 2020.</description>
       <content:encoded><![CDATA[<p><a href="https://adventofcode.com/">Advent of Code</a> is almost here! For the uninitiated, Advent of Code is a December-long code challenge with awesome new puzzles to solve every day from December 1st to 25th. The puzzles are <em>hard.</em> But that&rsquo;s what makes them so fun!</p>
 <p>You might be asking yourself &ndash; What&rsquo;s so great about a month of code challenges? Aren&rsquo;t most code challenges usually kind of dumb and boring? Yes. Absolutely. Most bite-size code challenges are basically someone online writing a problem they think is clever, but instead it has no basis in reality and doesn&rsquo;t make you think critically about anything. (I do not have a high opinion of most code challenges. 💩)</p>
 <p>Advent of Code is different! The problems are more long-form, are great at educating about real-world concepts, and they make you think - really <em>think</em> - about your implementations, especially when brute-forcing something in your program would result in an hours-long runtime just to get your solution. There were several times last year I thought I&rsquo;d solved a problem only to have to rewrite my code from scratch - mostly when part 2 of the problem asked for something I didn&rsquo;t expect. It&rsquo;s super enjoyable, and I highly recommend you join everyone online this year and give it a shot.</p>
@@ -65,7 +64,7 @@ You might be asking yourself &amp;ndash; What&amp;rsquo;s so great about a month
       <pubDate>Mon, 15 Nov 2021 06:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/posts/009-hugo-shortcodes-module/</guid>
-      <description>Hey, small announcement! I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module. I filled the starter repo with some of the shortcodes I&amp;rsquo;ve made for my own site, and I&amp;rsquo;d love for it to become a place where everybody can share theirs with everyone. Theme-agnostic shortcodes are best, of course, but I really have no guidelines for additions right now.</description>
+      <description>I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module.</description>
       <content:encoded><![CDATA[<p>Hey, small announcement! I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module. I filled the starter repo with some of the shortcodes I&rsquo;ve made for my own site, and I&rsquo;d love for it to become a place where everybody can share theirs with everyone. Theme-agnostic shortcodes are best, of course, but I really have no guidelines for additions right now. Let&rsquo;s see where it goes!</p>
 
 <form action=https://github.com/aormsby/hugo-shortcodes target="_blank">
@@ -335,8 +334,7 @@ You might be asking yourself &amp;ndash; What&amp;rsquo;s so great about a month
       <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</guid>
-      <description>Wow, what a year! I mean, 2021 still hasn&amp;rsquo;t been my favorite, but it&amp;rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&amp;rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.
-So without further ado, let&amp;rsquo;s jump straight into the more popular of the two!</description>
+      <description>I&amp;rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</description>
       <content:encoded><![CDATA[<p>Wow, what a year! I mean, 2021 still hasn&rsquo;t been my favorite, but it&rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</p>
 <p>So without further ado, let&rsquo;s jump straight into the more popular of the two!</p>
 <h2 id="upstream-sync">Upstream Sync</h2>
@@ -396,8 +394,7 @@ So without further ado, let&amp;rsquo;s jump straight into the more popular of t
       <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</guid>
-      <description>View on Github  These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&amp;rsquo;s available now on the Github Marketplace if you want to try it out - Fork Sync With Upstream. Let&amp;rsquo;s see what it does!
-How It Works Remember my post on making modifications to a Hugo theme?</description>
+      <description>These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. Let&amp;rsquo;s see what it does!</description>
       <content:encoded><![CDATA[
 <form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
     <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
@@ -459,8 +456,7 @@ How It Works Remember my post on making modifications to a Hugo theme?</descript
       <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
-      <description>Shell Scripts are Awesome I don&amp;rsquo;t know about you, but I love writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!
-So why do this? Well, when I began working with Hugo, I ran across a rudimentary deploy script in their documentation.</description>
+      <description>I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!</description>
       <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
 <p>I don&rsquo;t know about you, but I <em>love</em> writing code that automates my work. I finally had the chance to do just that, and now I&rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">git submodule setup</a>!</p>
 <p>So why do this? Well, when I began working with Hugo, I ran across a <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">rudimentary deploy script</a> in their documentation. Since I was still familiarizing myself with Hugo, it hadn&rsquo;t occurred to me yet to automate the build process, and I immediately fell in love with the idea. However, I could see the script would need major improvements to do what I wanted, and I was completely new to shell.</p>
@@ -540,8 +536,7 @@ PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#3
       <pubDate>Tue, 19 May 2020 18:30:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</guid>
-      <description>This is a continuation of a previous post - How to Set Up a Hugo Site on Github Pages - with Git Submodules! I will reference some things we did there, so be sure to check it out if you&amp;rsquo;re confused about something.
-Overview In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &amp;lsquo;But my theme works fine!&amp;rsquo; you say. &amp;lsquo;Why would I ever need to update it?</description>
+      <description>In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. We&amp;rsquo;ll see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</description>
       <content:encoded><![CDATA[<p><em>This is a continuation of a previous post - <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a> I will reference some things we did there, so be sure to check it out if you&rsquo;re confused about something.</em></p>
 <h2 id="overview">Overview</h2>
 <p>In today&rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &lsquo;But my theme works fine!&rsquo; you say. &lsquo;Why would I ever need to update it?&rsquo; Well, when you download or clone a Hugo theme from its hosted git repository, you&rsquo;re getting its latest version <em>at that point in time.</em> So even if the theme&rsquo;s creator pushes updates to the code - with fixes, new features, and outside pull requests - you&rsquo;ll still be stuck using the version you downloaded before. While this is fine in some cases, many of us want the newest updates so we can take advantage of a stronger, improved theme.</p>
@@ -674,8 +669,7 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
       <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
       
       <guid>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
-      <description>Overview I made this blog site using the Hugo static site generator because I wanted to build a simple site where I could have full control over every detail - not like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels great to have that kind of power. You probably ended up here because you want that, too.
-In this post, we&amp;rsquo;ll take a look at how to:</description>
+      <description>This blog was made with Hugo, hosted on Github Pages, and harnesses the power of git submodules to separate source code from live site data. This tutorial shows you how I got all these systems to work together nicely and how you can use these tools to take more control of your site.</description>
       <content:encoded><![CDATA[<h2 id="overview">Overview</h2>
 <p>I made this blog site using the <a href="https://www.gohugo.io">Hugo static site generator</a> because I wanted to build a simple site where I could have full control over every detail - <em>not</em> like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels <em>great</em> to have that kind of power. You probably ended up here because you want that, too.</p>
 <p>In this post, we&rsquo;ll take a look at how to:</p>
@@ -904,8 +898,7 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
       <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-3/</guid>
-      <description>Author&amp;rsquo;s Note: This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it. 🙂
-Part 1 | Part 2 | Part 3</description>
+      <description>At first I didn’t realize it was a mountain. All I knew was that I had ridden out past the edge of a small town to a place where the road suddenly changed. It curved back and forth, meandering upward through forested hills, becoming steeper and more narrow as I rode on. Time passed, and the shoulders of the road disappeared.</description>
       <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
 <p><a href="/posts/000/adam-roams-cycling-vinales/part-1/">Part 1</a> | <a href="/posts/000/adam-roams-cycling-vinales/part-2/">Part 2</a> | <strong>Part 3</strong></p>
 <hr>
@@ -972,8 +965,7 @@ Part 1 | Part 2 | Part 3</description>
       <pubDate>Thu, 31 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-2/</guid>
-      <description>Author&amp;rsquo;s Note: This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it. 🙂
-Part 1 | Part 2 | Part 3</description>
+      <description>I stopped at around 7 PM that first night to search for a place to stay. With the hammock and sleeping bag stuffed deep inside my pack I had dreamed of camping in the countryside and experiencing a night under the stars in Cuba. Sadly, that dream was crushed by the sheer amount of private farmland that bordered the highway for the entire ride, and I didn&amp;rsquo;t want to get in trouble for camping on private land or government property.</description>
       <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
 <p><a href="/posts/000/adam-roams-cycling-vinales/part-1/">Part 1</a> | <strong>Part 2</strong> | <a href="/posts/000/adam-roams-cycling-vinales/part-3/">Part 3</a></p>
 <hr>

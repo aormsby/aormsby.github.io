@@ -5,14 +5,35 @@
     <loc>https://www.adamormsby.com/</loc>
     <lastmod>2021-11-22T06:00:00-06:00</lastmod>
   </url><url>
+    <loc>https://www.adamormsby.com/tags/advent-of-code/</loc>
+    <lastmod>2021-11-22T06:00:00-06:00</lastmod>
+  </url><url>
     <loc>https://www.adamormsby.com/posts/010-aoc-2020/</loc>
     <lastmod>2021-11-22T06:00:00-06:00</lastmod>
   </url><url>
     <loc>https://www.adamormsby.com/posts/</loc>
     <lastmod>2021-11-22T06:00:00-06:00</lastmod>
   </url><url>
+    <loc>https://www.adamormsby.com/tags/python/</loc>
+    <lastmod>2021-11-22T06:00:00-06:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/</loc>
+    <lastmod>2021-11-22T06:00:00-06:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/hugo/</loc>
+    <lastmod>2021-11-15T06:00:00-06:00</lastmod>
+  </url><url>
     <loc>https://www.adamormsby.com/posts/009-hugo-shortcodes-module/</loc>
     <lastmod>2021-11-15T06:00:00-06:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/automation/</loc>
+    <lastmod>2021-11-08T06:00:00-06:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/git/</loc>
+    <lastmod>2021-11-08T06:00:00-06:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/github/</loc>
+    <lastmod>2021-11-08T06:00:00-06:00</lastmod>
   </url><url>
     <loc>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</loc>
     <lastmod>2021-11-08T06:00:00-06:00</lastmod>
@@ -20,7 +41,19 @@
     <loc>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</loc>
     <lastmod>2021-09-10T20:00:00-05:00</lastmod>
   </url><url>
+    <loc>https://www.adamormsby.com/tags/open-source/</loc>
+    <lastmod>2021-09-10T20:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/submodules/</loc>
+    <lastmod>2021-09-10T20:00:00-05:00</lastmod>
+  </url><url>
     <loc>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</loc>
+    <lastmod>2020-06-21T23:30:00-05:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/jamstack/</loc>
+    <lastmod>2020-06-21T23:30:00-05:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/shell/</loc>
     <lastmod>2020-06-21T23:30:00-05:00</lastmod>
   </url><url>
     <loc>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</loc>
@@ -29,23 +62,20 @@
     <loc>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</loc>
     <lastmod>2020-03-17T22:30:00+07:00</lastmod>
   </url><url>
+    <loc>https://www.adamormsby.com/tags/cuba/</loc>
+    <lastmod>2017-09-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/cycling/</loc>
+    <lastmod>2017-09-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://www.adamormsby.com/tags/life-abroad/</loc>
+    <lastmod>2017-09-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-3/</loc>
     <lastmod>2017-09-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-2/</loc>
     <lastmod>2017-08-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.adamormsby.com/tags/cuba/</loc>
-    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.adamormsby.com/tags/cycling/</loc>
-    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.adamormsby.com/tags/life-abroad/</loc>
-    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://www.adamormsby.com/tags/</loc>
-    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-1/</loc>
     <lastmod>2017-08-29T00:00:00+00:00</lastmod>

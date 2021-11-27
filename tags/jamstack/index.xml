@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>jamstack on Adam Ormsby</title>
+    <link>https://www.adamormsby.com/tags/jamstack/</link>
+    <description>Recent content in jamstack on Adam Ormsby</description>
+    <image>
+      <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
+      <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 21 Jun 2020 23:30:00 -0500</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/jamstack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build and Deploy: A Shell Script for Hugo Sites</title>
+      <link>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</link>
+      <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
+      <description>I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!</description>
+      <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
+<p>I don&rsquo;t know about you, but I <em>love</em> writing code that automates my work. I finally had the chance to do just that, and now I&rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">git submodule setup</a>!</p>
+<p>So why do this? Well, when I began working with Hugo, I ran across a <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">rudimentary deploy script</a> in their documentation. Since I was still familiarizing myself with Hugo, it hadn&rsquo;t occurred to me yet to automate the build process, and I immediately fell in love with the idea. However, I could see the script would need major improvements to do what I wanted, and I was completely new to shell.</p>
+<p>At first, I struggled a bit with writing shell code (especially keeping things POSIX-compliant for portability!), but I stumbled upon the <a href="https://www.shellscript.sh/">shellscript.sh</a> tutorials and dove straight in. Thanks to those <em>fantastic</em> tutorials, I now have a sweet script to show off and perhaps even a newfound love for the shell. Apart from variable expansion struggles, it&rsquo;s really quite elegant!</p>
+<p>I find my <code>hugo-deploy.sh</code> script does help keep builds following a standard process, but I think I&rsquo;ll really see it shine when I get around to scheduling automated builds on a remote server. Exciting!</p>
+<p><a href="#the-full-script">full script at end</a></p>
+<h2 id="deploy-script-functionality">Deploy Script Functionality</h2>
+<blockquote>
+<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p>
+</blockquote>
+<h3 id="order-of-operations">Order of Operations</h3>
+<p>From start to finish, here&rsquo;s what the script does.</p>
+<ol>
+<li>Update the automatic build number (included in the git commit)</li>
+<li>Check for any user options (see below)</li>
+<li>Check if your active repo branches match your intended deploy branches
+<ul>
+<li>Production and development branches can both be set</li>
+</ul>
+</li>
+<li>Check if your local repo is up to date (no merge conflicts allowed!)</li>
+<li>(Optional) Clear out the site output folder before the Hugo build</li>
+<li>Run Hugo build command</li>
+<li>Git add, commit, and push to your specified remotes</li>
+</ol>
+<p>If any point in this process fails, the script exits with an error message detailing where the issue occurred. You&rsquo;ll have to fix the issue before running the script again. Thankfully, most of the issues are quick fixes. If you have to do a merge, that&rsquo;s on you!</p>
+<h2 id="settings-variables">&lsquo;Settings&rsquo; Variables</h2>
+<p>There are some &lsquo;settings&rsquo; variables at the top of the script that you may need to modify to match your project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># BUILD/DEPLOY SETTINGS - edit as needed for your use case</span>
+
+PUB_SUBMODULE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;public&#34;</span>         <span style="color:#75715e"># name of output folder where git submodule is located</span>
+IGNORE_FILES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;. .. .git CNAME&#34;</span> <span style="color:#75715e"># space-delimited array of files to protect when &#39;fresh&#39; option is used</span>
+DEV_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dev dev&#34;</span>         <span style="color:#75715e"># development branches to build on and push to, 1-root, 2-pubmodule</span>
+PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master master&#34;</span>  <span style="color:#75715e"># production branches to build on and push to, 1-root, 2-pubmodule</span>
+</code></pre></div><p><code>PUB_SUBMODULE</code> holds the name of the folder where your public site submodule is located. The default output folder is <code>public</code>, which is where I have my submodule for the live site. If you&rsquo;ve changed your output folder in the site config, you&rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&rsquo;ve buried your output folder then set the path accordingly (e.g. <code>my/public/build</code>).</p>
+<p><code>IGNORE_FILES</code> is used with the &lsquo;fresh&rsquo; option (see below). It acts as an array of filenames that will <em>not</em> be deleted from the output folder if you select the &lsquo;fresh&rsquo; option. It&rsquo;s mostly to protect non-Hugo files.</p>
+<p><code>PROD_BRANCHES</code> are the two production branches on which you intend to build and push your site data. The first branch name matches the preferred deploy branch for your <strong>site source data</strong> (in your root directory), and the second branch name matches the preferred deploy branch for <strong>your live site</strong> (the supposed submodule). These are the values the script uses to check your active branches in step 3 above. It&rsquo;s a nice safety check.</p>
+<p><code>DEV_BRANCHES</code> works the same way for a development build, which is enabled through the user options.</p>
+<h2 id="user-options">User Options</h2>
+<p>Sometimes you need a little customization! That&rsquo;s where my included script user options come into play. Hopefully these options can help you out a bit.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Script Options</span>
+./hugo-deploy.sh <span style="color:#f92672">[</span>-d|-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m <span style="color:#e6db74">&#34;COMMIT_MESSAGE&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -o <span style="color:#e6db74">&#34;HUGO_OPTIONS&#34;</span> <span style="color:#f92672">]</span>
+</code></pre></div><ul>
+<li><strong>-d</strong>
+&lsquo;dev&rsquo; =&gt; deploys to development branches set in DEV_BRANCHES list (default is PROD_BRANCHES)</li>
+<li><strong>-f</strong>
+&lsquo;fresh&rsquo; =&gt; deletes public directory data before rebuild (skips files in IGNORE_FILES list)</li>
+<li><strong>-m</strong>
+&lsquo;message&rsquo; =&gt; appends a custom commit message to the auto-build string, works exactly like git -m</li>
+<li><strong>-o</strong>
+&lsquo;options&rsquo; (for Hugo build) =&gt; includes Hugo build options during deploy process (default none), all <code>hugo build</code> options are valid</li>
+<li><strong>-h</strong> =&gt; &lsquo;help&rsquo;</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Usage Example</span>
+./hugo-deploy.sh -d -f -m <span style="color:#e6db74">&#34;Deploying like a rockstar!&#34;</span> -o <span style="color:#e6db74">&#34;--cleanDestinationDir&#34;</span>
+</code></pre></div><p><strong>Fun Stuff:</strong> If you rename the script file to <code>hugo-deploy.command</code>, you can run the script with a double click! I haven&rsquo;t actually tested this, but I think it just runs without options. Try it out!</p>
+<h2 id="disclaimers--seeking-shell-wisdom">Disclaimers / Seeking Shell Wisdom</h2>
+<p>I ran into some issues with this script that I couldn&rsquo;t totally avoid. Please be aware of them if you try out my script.</p>
+<ul>
+<li>
+<p><strong>Variable expansion</strong> - I&rsquo;m aware that the variables I use in my various git commands are not double-quoted. (And just in case I didn&rsquo;t notice, <a href="https://www.shellcheck.net/">ShellCheck</a> yelled about them in bright colors.) However, adding quotes or modifying the expansion caused the commands to be incorrectly formatted and resulted in failure. They work as they are now, but I&rsquo;m curious to know if there&rsquo;s a way to improve this. I&rsquo;d love to get advice from experienced shell coders.</p>
+</li>
+<li>
+<p><strong>Limited Testing</strong> - I work on Mac OS, so I <em>know</em> this script works on that system - at least on my machine! I have no idea about Windows or Linux. If you try it out, please let me know!</p>
+</li>
+</ul>
+<h2 id="the-full-script">The Full Script</h2>
+<p><a href="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh">View on Github</a></p>
+<script type="application/javascript" src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
+
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Hugo Themes - Making Modifications while Keeping the Source Up-To-Date</title>
+      <link>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</link>
+      <pubDate>Tue, 19 May 2020 18:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</guid>
+      <description>In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. We&amp;rsquo;ll see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</description>
+      <content:encoded><![CDATA[<p><em>This is a continuation of a previous post - <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a> I will reference some things we did there, so be sure to check it out if you&rsquo;re confused about something.</em></p>
+<h2 id="overview">Overview</h2>
+<p>In today&rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &lsquo;But my theme works fine!&rsquo; you say. &lsquo;Why would I ever need to update it?&rsquo; Well, when you download or clone a Hugo theme from its hosted git repository, you&rsquo;re getting its latest version <em>at that point in time.</em> So even if the theme&rsquo;s creator pushes updates to the code - with fixes, new features, and outside pull requests - you&rsquo;ll still be stuck using the version you downloaded before. While this is fine in some cases, many of us want the newest updates so we can take advantage of a stronger, improved theme.</p>
+<p>The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. If you followed my previous tutorial on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">adding a theme to your Hugo site as a git submodule</a>, you already have a functional Hugo site with a (forked) theme included. Starting there, let&rsquo;s see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</p>
+<h2 id="just-the-updates-please">Just the Updates, Please</h2>
+<p>If we don&rsquo;t intend to customize a theme at all, we can keep our workflow super simple. All we need to do is add the theme repo into our project as a submodule and periodically run a few git commands to check for updates. For the moment, let&rsquo;s pretend we haven&rsquo;t forked the theme repo and see what it would be like to clone the source directly. We&rsquo;ll see an example with our fork in the next section.</p>
+<p>Here&rsquo;s a quick refresher command for adding a submodule to our project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
+</code></pre></div><blockquote>
+<p>You might be thinking you can simply run <code>git clone</code> instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&rsquo;t work here. Git doesn&rsquo;t like having <code>.git</code> files in a subdirectory without a <code>.gitmodules</code> component in the root. For more on that, see <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post.</a></p>
+</blockquote>
+<p>In the example above, we added our submodule by pulling the theme&rsquo;s source repo directly into our project. With the <code>git remote</code> command, we can easily verify that it&rsquo;s connected to the correct remote repo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; cd themes/hello-friend
+&gt; git remote --verbose
+origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</code></pre></div><figure class="align-center "><a href="img/simple-update.jpg">
+    <img loading="lazy" src="img/simple-update.jpg#center"
+         alt="one-way update directly from theme source"/> </a>
+</figure>
+
+<p>And there it is! With this setup, all we need to do is pull updates straight from the source. From the theme&rsquo;s directory, we run the following terminal commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
+&gt; git fetch origin
+&gt; git status
+<span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># pull updates and merge them automatically</span>
+&gt; git pull
+</code></pre></div><p>Since we&rsquo;re not making any theme changes in this workflow, we shouldn&rsquo;t expect any merging issues during the <code>git pull</code>. We don&rsquo;t really <em>need</em> to fetch or check the status of the repo, but it&rsquo;s always nice to see incoming changes before we bring them in.</p>
+<p>And that&rsquo;s it! Getting updates every so often is no problem if we don&rsquo;t intend to make our own customizations to a theme. But hey - customization is where the fun <em>really</em> begins.</p>
+<h2 id="updates-and-theme-customization---a-parallel-branch-workflow">Updates and Theme Customization - A Parallel Branch Workflow</h2>
+<p>Here&rsquo;s the scenario - We want to add a Hugo theme, make custom changes, and still to get updates from the theme&rsquo;s original source. The method used above doesn&rsquo;t work here for a few reasons:</p>
+<ol>
+<li><strong>We can&rsquo;t push our custom changes to the theme&rsquo;s source repo</strong>. We simply don&rsquo;t have those permissions on the repo. Our local changes will not be safely stored anywhere, and any pulled updates may not be easily mergeable.</li>
+<li><strong>Incoming updates may require merges.</strong> If we&rsquo;ve modified some of the theme files that are being updated in the source, then a simple <code>git pull</code> will not be enough to deal with the resulting conflicts.</li>
+</ol>
+<p>Thankfully, a more advanced git workflow would help deal with these issues. Remember <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#add-a-theme-to-our-site">how we set up a forked theme repo</a> in the last post? Now we get to take advantage of it. Crucially, the forked repo is <em>ours</em>, so we have full write access to it and don&rsquo;t need to worry about repo permissions. We can do whatever we want.</p>
+<h3 id="add-a-remote-repo">Add a Remote Repo</h3>
+<p>However, our fork doesn&rsquo;t automatically receive source updates either! Here, an additional step is needed to link our fork back to the source repo. Earlier, in the direct update workflow, we used the <code>git remote</code> command to verify that we had the correct remote repo connections. Running it in our forked theme directory, we see only the fork as our remote.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># my forked repo URLs as an example</span>
+&gt; git remote --verbose
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</code></pre></div><p>To get updates from the source repo, we need to add a <em>second</em> remote repo - yes, git can do this! We simply run this command in our working directory and check our remotes again to verify the connection.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># add a new remote repo connection</span>
+&gt; git remote add upstream https://github.com/panr/hugo-theme-hello-friend.git
+
+&gt; git remote --verbose
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</code></pre></div><p>Ta-da! Our local theme repo is now linked to both our forked repo <em>and</em> the source repo, which we called <code>upstream</code>. (This is a conventional label, but any name you choose is fine.) At this point, our setup already supports getting updates from the source, but the process is a little different than before.</p>
+<p>Normally, when we&rsquo;re updating directly from a single remote repo, all we need to do is <code>pull</code> the data to our local directory so that the local matches the remote. We&rsquo;ll still do that here, but we explicitly pull data from the <code>upstream</code> repo we added. We&rsquo;ll also have to make an additional <code>push</code> to our forked repo - <code>origin</code> - to update it with the new code. Here&rsquo;s how that works compared to the previous example.</p>
+<figure class="align-center "><a href="img/forked-update.jpg">
+    <img loading="lazy" src="img/forked-update.jpg#center"
+         alt="comparison of update methods"/> </a><figcaption>
+            <p>Left: simple update / Right: updating with a fork</p>
+        </figcaption>
+</figure>
+
+<p>Assuming you&rsquo;re still on your <code>master</code> branch, here are the modified commands needed to pull and push the updates.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
+&gt; git fetch upstream master
+&gt; git status
+<span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># pull updates and merge them automatically</span>
+&gt; git pull upstream master
+
+<span style="color:#75715e"># push source updates to forked repo</span>
+&gt; git push origin master
+</code></pre></div><p>With no local changes to our theme, the commands run smoothly with no errors - and we want to keep it that way! Simple is good, and an update process that doesn&rsquo;t result in merge conflicts is always nice. But how do we manage to avoid conflicts if we want to customize the theme? Simple - don&rsquo;t do your work on <code>master</code>.</p>
+<h3 id="branching-customizing-and-merging-updates">Branching, Customizing, and Merging Updates</h3>
+<p>Although you technically <em>could</em> make theme customizations on the <code>master</code> branch, this increases the chances of having to resolve merge conflicts every time you try to pull an update. It&rsquo;s fine if that&rsquo;s how you want to work, but I <em>highly</em> recommend avoiding it. In my experience, it&rsquo;s often best to keep <code>master</code> sparkly clean and do your dirty work on a different branch.</p>
+<p>For example, I do my theme in a separate branch that is always kept in parallel with <code>master</code>. I&rsquo;ve named it <code>working</code>, as it&rsquo;s the branch that I <em>work</em> in. (Not exactly clever, I know.) Since it has all of my theme customizations, it&rsquo;s also the branch that I use when I build my site. Every so often, I switch back over to <code>master</code>, go through our update process, and then explicitly merge any new theme updates from <code>master</code> into <code>working</code> so that I have all the latest features in my working  branch. Visually, it&rsquo;s kind of like this.</p>
+<figure class="align-center "><a href="img/parallel-branches.jpg">
+    <img loading="lazy" src="img/parallel-branches.jpg#center"
+         alt="parallel branch system with updates merged from master"/> </a>
+</figure>
+
+<p>This is just one possible theme customization workflow, but we can benefit from a setup like this. For example &ndash;</p>
+<ul>
+<li><strong>Our workspace is separate from our update environment.</strong> Getting theme updates will always be a painless process, and we have more control over merging when the time comes.</li>
+<li><strong>Commit histories are clearer.</strong> Histories are much easier to read if source updates and custom work don&rsquo;t get tangled up, and this can be super helpful when performing more advanced git actions on a branch.</li>
+<li><strong>All the data is on our forked repo.</strong> The customizations <em>and</em> the pulled updates all live on our fork, which means we have full control of the data.</li>
+<li><strong>We can test on <code>master</code> before merging.</strong> If we&rsquo;re unsure of how a new feature will display on our site, we can run a build using the <code>master</code> code. It&rsquo;s a nice clean test bed before performing a merge.</li>
+</ul>
+<p>The drawbacks are much the same as I mentioned in the <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#some-drawbacks">last post</a> with the addition that now we&rsquo;d have at least one more working branch to manage. However, I&rsquo;ve found this parallel branch workflow quite nice after getting more familiar with it. Perhaps you will, too.</p>
+<p>Here are the commands we can use to get our <code>working</code> branch up and running. (You can choose a better name if you&rsquo;d like.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># create a new branch and switch to it</span>
+&gt; git branch working
+&gt; git checkout working
+</code></pre></div><p>We make some changes, commit our work, and push to our forked repo (<a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#test-site-and-deploy">see these commands for help</a>). Time passes&hellip; and we want to get some updates on <code>master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># switch to master branch</span>
+&gt; git checkout master
+
+<span style="color:#75715e"># quick update</span>
+&gt; git pull upstream master
+&gt; git push origin master
+</code></pre></div><p>Finally, we switch back to <code>working</code> and merge in the updates from <code>master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># switch to working</span>
+&gt; git checkout working
+
+<span style="color:#75715e"># merge master into current branch (working)</span>
+&gt; git merge master
+</code></pre></div><p>I won&rsquo;t get into resolving a merge here, so let&rsquo;s cross our fingers and hope there are no conflicts to deal with.</p>
+<figure class="align-center "><a href="img/git-merge-conflict.jpg">
+    <img loading="lazy" src="img/git-merge-conflict.jpg#center"
+         alt="git merge conflict comic"/> </a><figcaption>
+            <p>something to look forward to :)</p>
+        </figcaption>
+</figure>
+
+<p>So yes - customizing your theme with this kind of workflow does take a bit of setup, and there are a few extra steps and things to keep track of to manage our code well. However, using git submodules and a parallel branch workflow do give us more leverage over our codebase, and I think that makes the extra work worthwhile. I&rsquo;ve been using this workflow with my site for some time, and I don&rsquo;t think I&rsquo;d change anything about it.</p>
+<p>That said, there are a number of other methods that people use for managing their themes, and it&rsquo;s worth exploring them to see what fits your needs best. I recently read a post about <a href="https://www.hugofordevelopers.com/articles/master-hugo-modules-managing-themes-as-modules/">managing your themes as Hugo modules by Nick Gracilla</a> that I found quite interesting, and I think it&rsquo;s worth checking out if you&rsquo;re looking for an alternate way of doing things.</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/"><strong>Better Deploy</strong></a> - I&rsquo;m still working on a better site deploy script! It&rsquo;s looking good so far, but it&rsquo;s not quite ready.</li>
+<li><strong>Automatic Builds</strong> - This would still be great to have, so if I get around to it I&rsquo;ll be sure to share my work.</li>
+</ul>
+<p>Until next time! ~</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>How to Set Up a Hugo Site on Github Pages - with Git Submodules!</title>
+      <link>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</link>
+      <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
+      <description>This blog was made with Hugo, hosted on Github Pages, and harnesses the power of git submodules to separate source code from live site data. This tutorial shows you how I got all these systems to work together nicely and how you can use these tools to take more control of your site.</description>
+      <content:encoded><![CDATA[<h2 id="overview">Overview</h2>
+<p>I made this blog site using the <a href="https://www.gohugo.io">Hugo static site generator</a> because I wanted to build a simple site where I could have full control over every detail - <em>not</em> like using Wordpress, Squarespace, or Wix. With Hugo, I can add and remove templates and functionality at will, and it feels <em>great</em> to have that kind of power. You probably ended up here because you want that, too.</p>
+<p>In this post, we&rsquo;ll take a look at how to:</p>
+<ul>
+<li>Create a new Hugo site</li>
+<li>Host it on Github Pages</li>
+<li>Use git submodules to separate our site&rsquo;s key directories into manageable chunks</li>
+</ul>
+<p>We&rsquo;ll also go over the benefits (and drawbacks) of using submodules in our setup, and by the end of this post, we&rsquo;ll have a new Hugo project hosted on Github Pages and ready for action.</p>
+<p><em>Please note:<br>
+I&rsquo;ll talk a little about branching inside our submodules later on. To keep things simple, you can assume that I&rsquo;ve stayed on the main &lsquo;master&rsquo; branch of each git module. Also, I work on a Mac so all of my commands are Mac-specific.</em></p>
+<h3 id="why-git-submodules">Why Git Submodules?</h3>
+<p>Every git project is stored as a versioned code repository (a repo). Git submodules allow us to reference other repos within a project, which effectively puts a project inside a project (or a repo inside a repo). The submodule&rsquo;s code can then be used by the main project, but the submodule <em><strong>maintains its own commit and branch history,</strong></em> which separates the projects and can be a pretty powerful thing.</p>
+<figure class="align-center "><a href="img/explain-submodules.jpg">
+    <img loading="lazy" src="img/explain-submodules.jpg#center"
+         alt="diagram showing how code is included using submodules with a git project"/> </a>
+</figure>
+
+<p>In a Hugo project, most of what we see is source data - the raw files we manipulate before building our site. After Hugo builds our site, our &lsquo;ready-to-publish&rsquo; data gets output to the <code>public</code> directory of our project. By turning the <code>public</code> folder into a submodule of the main project, we can treat it as a separate entity with a separate history. Let&rsquo;s see what that process looks like.</p>
+<h2 id="install-hugo-and-create-a-project">Install Hugo and Create a Project</h2>
+<p>First things first, we need to install Hugo! We&rsquo;ll run through the key Mac commands quickly here, but if you need any more help you can always check <a href="https://gohugo.io/getting-started/quick-start/">Hugo&rsquo;s &lsquo;Quick Start&rsquo; guide</a> for more details or information about installing on Windows and Linux.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Open a terminal. Alternatively, you can VSCode&#39;s terminal - it&#39;s great!</span>
+
+<span style="color:#75715e"># 2. If you don&#39;t have brew installed --</span>
+&gt; /bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># 3. Install Hugo</span>
+&gt; brew install hugo
+
+<span style="color:#75715e"># 4. Move to the directory where you want to create the project.</span>
+&gt; cd <span style="color:#f92672">[</span>MY/DIRECTORY/NAME<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># 5. Create a new Hugo project. I&#39;ll use &#34;hugo-gh&#34; as my sample name.</span>
+&gt; hugo new site <span style="color:#f92672">[</span>SITE_NAME<span style="color:#f92672">]</span>
+</code></pre></div><p>So far, we&rsquo;ve installed Hugo on our machine and created a new template project named <strong>hugo-gh</strong>. If you&rsquo;re following Hugo&rsquo;s Quick Start guide, you may be tempted to move straight on to adding a theme, running the local server, and seeing your site. We&rsquo;ll <em>absolutely</em> get to all that, but since our goal here is to use git submodules to manage the different parts of our project, it would benefit us to go through some setup steps on Github first.</p>
+<h2 id="push-project-files-to-github">Push Project Files to Github</h2>
+<p>Let&rsquo;s get our project versioned with Github right away! We&rsquo;ll need to create two repositories on Github - one to host our source code and one to host our live site data.</p>
+<h3 id="source-code-repository">Source Code Repository</h3>
+<p>Sign in to Github and create a new repository. I&rsquo;ll call mine <strong>hugo-gh-pages-source</strong>.</p>
+<figure class="align-center "><a href="img/github-new-repo.jpg">
+    <img loading="lazy" src="img/github-new-repo.jpg#center"
+         alt="create a new github repo"/> </a>
+</figure>
+
+<figure class="align-center "><a href="img/github-repo-name.jpg">
+    <img loading="lazy" src="img/github-repo-name.jpg#center"
+         alt="name the new github repo"/> </a>
+</figure>
+
+<p><em><strong>Hot tip:</strong> If we create a repo <em>without</em> a README file it&rsquo;s easier to avoid accidental history conflicts when pushing a local project to a fresh repo. We can always add one later.</em></p>
+<p>When our new empty repo is ready, go back to the terminal window and input these commands to initialize our local repo and push to Github.</p>
+<p><em>(If you already have a <code>public</code> folder in your project, delete it before doing any of this to save some headaches.)</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Enter the project folder.</span>
+&gt; cd hugo-gh
+
+<span style="color:#75715e"># 2. Initialize git locally.</span>
+&gt; git init
+
+<span style="color:#75715e"># 3. Set our new Github repo as the remote for our local project</span>
+<span style="color:#75715e"># (my sample URL - https://github.com/aormsby/hugo-gh-pages-source.git)</span>
+&gt; git remote add origin https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>SOURCE_REPO_NAME<span style="color:#f92672">]</span>.git
+
+<span style="color:#75715e"># 4. Stage all files for commit.</span>
+&gt; git add .
+
+<span style="color:#75715e"># 5. Commit files.</span>
+&gt; git commit -m <span style="color:#e6db74">&#34;committing our hugo template&#34;</span>
+
+<span style="color:#75715e"># 6. Push to the remote master</span>
+&gt; git push -u origin master
+</code></pre></div><p>And there you have it! Our project source is now pushed to our Github repo.</p>
+<figure class="align-center "><a href="img/source-pushed.jpg">
+    <img loading="lazy" src="img/source-pushed.jpg#center"
+         alt="source project pushed to Github"/> </a>
+</figure>
+
+<p>You could <em>absolutely</em> set up your source repo to be the host of your site using Github Pages, and you may have good reasons for doing so. That would require a different setup that you can find steps for on Hugo&rsquo;s <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#deployment-of-project-pages-from-docs-folder-on-master-branch">Host on Github</a> docs page. However, if we do this we ignore our chance to separate <code>public</code> into a separately versioned repo. To accomplish this, we have to create a second repository.</p>
+<h3 id="live-site-data-repository">Live Site Data Repository</h3>
+<p>Let&rsquo;s add our first submodule to the project! Remember, our goal is to separate the commit histories of our project source and our site build output to the <code>public</code> directory. First, we create another repo on Github for our public site data. I&rsquo;ll call mine <strong>hugo-gh-pages-public</strong>. In our local terminal, run the following command from the project root.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git</span>
+&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>PUBLIC_REPO_NAME<span style="color:#f92672">]</span>.git public
+</code></pre></div><p>Sweet! We now have a submodule initialized and loaded into our project under the <code>public</code> directory, and it&rsquo;s already connected to its remote origin. Let&rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&rsquo;s good to know the process.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Perform a site build and output to &#39;public/&#39; directory.</span>
+&gt; hugo
+
+<span style="color:#75715e"># 2-4.</span>
+&gt; cd public
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;first build&#34;</span>
+
+<span style="color:#75715e"># 5. Return to the project root.</span>
+&gt; cd ../
+
+<span style="color:#75715e"># 6-7.</span>
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;first build - update submodule reference&#34;</span>
+
+<span style="color:#75715e"># 8. Push the source project *and* the public submodule to Github together.</span>
+&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</code></pre></div><p>It&rsquo;s <em><strong>super important</strong></em> when we build to make sure that we commit and push <em>both</em> the public submodule and the main project. For each submodule commit, the project updates its reference to the submodule to maintain its connection to the correct commit. The <code>--recurse-submodules=on-demand</code> command pushes all of the project modules at the same time.</p>
+<figure class="align-center "><a href="img/submodule-reference-terminal.jpg">
+    <img loading="lazy" src="img/submodule-reference-terminal.jpg#center"
+         alt="submodule reference in terminal using git status command"/> </a><figcaption>
+            <p>submodule reference updated in the terminal after <code>git status</code> command</p>
+        </figcaption>
+</figure>
+
+<figure class="align-center "><a href="img/submodule-reference-github.jpg">
+    <img loading="lazy" src="img/submodule-reference-github.jpg#center"
+         alt="submodule reference on github after pushing"/> </a><figcaption>
+            <p>submodule reference on github after pushing</p>
+        </figcaption>
+</figure>
+
+<h2 id="enable-github-pages">Enable Github Pages</h2>
+<p>On Github, our <strong>hugo-gh-pages-public</strong> repo now has some data. Go to the repo settings and find the Github Pages section. Set the <strong>Source</strong> of our site to <strong>master branch</strong>.</p>
+<figure class="align-center "><a href="img/github-pages-settings.jpg">
+    <img loading="lazy" src="img/github-pages-settings.jpg#center"
+         alt="menu to update Github Pages settings to use master branch"/> </a>
+</figure>
+
+<p>With these settings, Github Pages will be able to serve our site from the repo starting with the <strong>index.html</strong> file in its root directory. The live URL for the site is built from your user name and the project name. Here&rsquo;s my sample URL - <a href="https://aormsby.github.io/hugo-gh-pages-public"><code>https://aormsby.github.io/hugo-gh-pages-public</code></a>. At this point, our site won&rsquo;t display anything except an error message since Hugo requires some page templates or a full theme to generate the pages. That&rsquo;s fine. We just wanted to add some stuff to Github so we could access the repo&rsquo;s Github Pages settings as we just did.</p>
+<h2 id="benefits-of-making-a-submodule-in-public">Benefits of Making a Submodule in &lsquo;Public&rsquo;</h2>
+<p>To recap, here&rsquo;s our project setup so far.</p>
+<figure class="align-center "><a href="img/submodules-diagram-with-public.jpg">
+    <img loading="lazy" src="img/submodules-diagram-with-public.jpg#center"
+         alt="project submodule digram with public folder"/> </a>
+</figure>
+
+<p>Let&rsquo;s take a look at some of the benefits of this system.</p>
+<ul>
+<li>
+<p><strong>No accidental deploys</strong> - With our source code separated from our site data, it&rsquo;s a lot harder to accidentally push unfinished work to our live site. Even if we make builds locally and push our source changes, we won&rsquo;t push to our <strong>hugo-gh-pages-public</strong> repo without explicitly running commands to make that happen. <em>*sigh of relief*</em></p>
+</li>
+<li>
+<p><strong>Separate rollbacks</strong> - If something goes wrong, the main project and public project can be separately rolled back to earlier commits. <em>(Just remember to commit the modified reference updates to the main module!)</em></p>
+</li>
+<li>
+<p><strong>Branch work is easier</strong> - Changing branches in our source project will not change branches in our subproject (and vice versa). This is another nice safety buffer, and it gives us more options for branching in either module.</p>
+</li>
+<li>
+<p><strong>Ready for site staging</strong> - We can easily create development branches in the <strong>public</strong> submodule that could be served as development subdomains of our site and used for testing new features.</p>
+</li>
+</ul>
+<h3 id="some-drawbacks">Some Drawbacks</h3>
+<p>Of course, it&rsquo;s always wise to assess the risks of any setup, and there are many opinions on the &lsquo;perfect system&rsquo; in the dev world - <strong>tell me about yours in the comments!</strong> To shine some light on the potential downsides of our submodule use, here are some of the concerns I&rsquo;ve thought about.</p>
+<ul>
+<li>
+<p><strong>Juggling multiple repos</strong> - With more submodules comes more administration. It doesn&rsquo;t seem so rough for me, but right now I&rsquo;m working on my own. Running interlinked, asynchronous repositories comes with its own challenges in a team setting, particularly if someone forgets to push updated submodule references to the source.</p>
+</li>
+<li>
+<p><strong>No site staging with Github Pages</strong> - While the <strong>public</strong> submodule can branch and easily store data used in a site staging system, Github Pages does not seem to support subdomains from different project branches. That&rsquo;s more of a Github Pages drawback, but it means we can&rsquo;t take full advantage of our setup just yet. Another hosting platform might offer a solution - I&rsquo;ll be looking into some options in a future post.</p>
+</li>
+</ul>
+<h2 id="add-a-theme-to-our-site">Add a Theme to Our Site</h2>
+<p>Wait, we&rsquo;re not finished just yet! Remember how our site doesn&rsquo;t display anything except an error message right now? We need some templates to get things up and running. The easiest way to get some is to add one of the many <a href="https://themes.gohugo.io/">Hugo themes</a> to our project. Since it was the first theme I used, I&rsquo;ll use the <a href="https://themes.gohugo.io/hugo-theme-hello-friend/">Hello Friend theme</a> in my example.</p>
+<p>Many guides for adding a theme - including Hugo&rsquo;s own docs - just tell you to clone the theme repo or download and copy it into your project&rsquo;s <code>themes</code> directory. But hey, <em>our</em> theme today is <em>submodules</em>, so I propose that we add a theme to our project as a <em>submodule</em> since doing so would give us some nice dev powers over the theme.</p>
+<figure class="align-center "><a href="img/submodules-diagram-with-theme.jpg">
+    <img loading="lazy" src="img/submodules-diagram-with-theme.jpg#center"
+         alt="project submodule digram with theme folder"/> </a>
+</figure>
+
+<p>Look at it this way - directly cloning a theme into our project has two major problems.</p>
+<ol>
+<li><strong>We can&rsquo;t push our commits to the theme&rsquo;s source repo, because we don&rsquo;t have permission.</strong> This means we can&rsquo;t make changes to the theme and then keep them versioned.</li>
+<li><strong>A cloned project in a subdirectory isn&rsquo;t linked with the main project.</strong> When a submodule is added to a project, the main project adds a reference to it in a file named <code>.gitmodules</code>. Without that reference, the main project and the theme project aren&rsquo;t connected, which could cause confusion or problems down the line.</li>
+<li><strong>Also, Git doesn&rsquo;t allow repos inside repos that aren&rsquo;t submodules.</strong> See <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post</a> for details.</li>
+</ol>
+<p>Let&rsquo;s solve each of those problems in one fell swoop.</p>
+<ol>
+<li>Make a fork of the <strong>Hello Friend</strong> theme so we have our own copy of it.</li>
+</ol>
+<figure class="align-center "><a href="img/fork-theme.jpg">
+    <img loading="lazy" src="img/fork-theme.jpg#center"
+         alt="fork a theme project on Github"/> </a>
+</figure>
+
+<ol start="2">
+<li>Add our forked repo as a submodule in our main project&rsquo;s <code>themes</code> folder.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Add the theme submodule from the root project folder</span>
+<span style="color:#75715e"># my sample URL - https://github.com/aormsby/F-hugo-theme-hello-friend.git</span>
+&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>FORKED_THEME_REPO_NAME<span style="color:#f92672">]</span>.git themes/hello-friend
+</code></pre></div><p>Boom! Now we have our own fork of a cool theme referenced as a submodule of our Hugo project. We can make any changes we want and push them to our own repo. I&rsquo;ll get into more advanced uses of theme submodules in another post, but for now we have the basics in place.</p>
+<p>Things won&rsquo;t be <em>quite</em> right without tweaking a few final settings, so let&rsquo;s open the <code>config.toml</code> file in our project root so we can modify a few lines.</p>
+<ol>
+<li>Add a line so our site builds using our new theme.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;hello-friend&#34;</span>
+</code></pre></div><ol start="2">
+<li>Because we&rsquo;re making a Github &lsquo;project site&rsquo; we want to change the<code>baseURL</code> to match our project URL.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">baseURL</span> = [<span style="color:#a6e22e">GITHUB_USER_NAME</span>].<span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">io</span><span style="color:#960050;background-color:#1e0010">/</span>[<span style="color:#a6e22e">PROJECT_NAME</span>]
+</code></pre></div><p>For example, mine will say <code>aormsby.github.io/hugo-gh-pages-public</code>. To understand the difference between setting up a project site and a user/organization site, see these <a href="https://pages.github.com/">Github Pages</a> and <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages">Hugo</a> docs on the matter.</p>
+<p>There are a lot more theme settings that can be adjusted in your config file, but you can explore those on your own. Let&rsquo;s deploy!</p>
+<h2 id="test-site-and-deploy">Test Site and Deploy</h2>
+<p>Running the terminal command <code>hugo server</code> in our project root spins up a local live preview of our site that can be viewed in a browser at <code>localhost:1313</code>. Run this now to check if our site is displaying anything (it should!), and then stop the process with <code>Ctrl+C</code>. Just like we did before, run the commands to build, commit, and push. <em>(Note that we didn&rsquo;t change anything in the theme, so we don&rsquo;t have to push anything in that repo.)</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; hugo
+&gt; cd public
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;build with theme&#34;</span>
+&gt; cd ../
+&gt; git add .
+&gt; git commit -m <span style="color:#e6db74">&#34;build with theme - update submodule reference&#34;</span>
+&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</code></pre></div><p>After a few minutes, refresh the live site at <code>https://[USER_NAME].github.io/hugo-gh-pages-public</code> and check out your new site! Congratulations, you&rsquo;ve done it!</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>
+<p><strong>Theme Branches and Getting Updates</strong> - I&rsquo;ve worked out a nice branch-based system for continuing to get updates from the original theme repo while adding and changing things our forked theme repo. It&rsquo;s super useful. <a href="https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/">Next post!</a></p>
+</li>
+<li>
+<p><a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/"><strong>Better Deploy</strong></a> - I&rsquo;m sure you noticed that we had to use <em>a plethora</em> of terminal commands to add, commit, and push files to the main project and its submodules to maintain proper commit references. I wrote them out in this post for clarity, but this process is definitely something we can automate. Hugo&rsquo;s docs provide a <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">basic deploy script</a> to do this, and I&rsquo;m working on a greatly improved version of it that I&rsquo;ll write about when it&rsquo;s ready for action.</p>
+</li>
+<li>
+<p><strong>Custom domains / CNAME</strong> - You may want to set up a custom domain on Github Pages. Here&rsquo;s <a href="https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site">some good documentation</a> on how to do that.</p>
+</li>
+</ul>
+<p>Thanks for reading! ~</p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

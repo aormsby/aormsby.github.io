@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>automation on Adam Ormsby</title>
+    <link>https://www.adamormsby.com/tags/automation/</link>
+    <description>Recent content in automation on Adam Ormsby</description>
+    <image>
+      <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
+      <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github Actions - Updated!</title>
+      <link>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</link>
+      <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</guid>
+      <description>I&amp;rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</description>
+      <content:encoded><![CDATA[<p>Wow, what a year! I mean, 2021 still hasn&rsquo;t been my favorite, but it&rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</p>
+<p>So without further ado, let&rsquo;s jump straight into the more popular of the two!</p>
+<h2 id="upstream-sync">Upstream Sync</h2>
+
+<form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+
+<p>The changes I made to this action really kicked off a whole new approach to how I write shell-based tools. The first few versions had all the code together in a single script, but as the project grew I found it was getting harder to keep track of the state of certain things. To deal with this, I split each piece of the action into its own small script and now call each step from a master script.</p>
+<p>It might seem like overkill for a little action like this, but there are real benefits to this kind of architectural change. More flexibility, better testability, and better readability are just the start. It even exposed for me the fact that syncing from private repos <em>wasn&rsquo;t ever working correctly!</em> So that&rsquo;s been fixed. For good.</p>
+<h3 id="test-mode">Test Mode</h3>
+<p>Since I split all the scripts, they&rsquo;re now more testable! And you get to test them yourself with the new local <code>test_mode</code>. I <em>love</em> this feature. After configuring your workflow, you want to be sure it&rsquo;ll work, right? Well, if you run your workflow with the test mode enabled, it will run a bunch of unit tests to determine if your configuration makes sense <em>before</em> you ever run your first sync. The action output will show you which tests are running as well as a success or failure status.</p>
+<figure class="align-center "><a href="img/sync-tests.png">
+    <img loading="lazy" src="img/sync-tests.png#center"
+         alt="Upstream Sync test mode"/> </a>
+</figure>
+
+<p>While these tests don&rsquo;t cover every possible issue, they do cover the basics. Does your upstream repo exist? Do your branches exist? Things like that. If you think more tests are needed, let me know!</p>
+<h3 id="flexible-domain">Flexible Domain</h3>
+<p>You can now change the domain from <code>github.com</code> to any other base domain if your sync repo is not on Github. Maybe this will broaden the action&rsquo;s user base? We&rsquo;ll see! Thank you to <a href="https://github.com/mathieucarbou">@mathieucarbou</a> for adding this feature.</p>
+<h3 id="fixes">Fixes</h3>
+<p>Of course there were some fixes! Nothing&rsquo;s perfect. I mentioned before that syncing from private repos was never actually working as intended, and it turned out that I was having issues setting credentials when trying to access them. So that&rsquo;s fixed! Along with that, there was a request for a GPG signing feature, which actually pushed me to discover and fix another problem &ndash; the git configuration being done by the Upstream Sync action was clashing with other actions run in the same workflow. Also fixed. Did I add GPG signing? No. But this makes it so that you can confidently <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki/GPG-Signing">add other actions</a> into your workflow to support such needs.</p>
+<h3 id="wiki">Wiki</h3>
+<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &lsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
+<h3 id="v24">v2.4</h3>
+<p>For those of you seeking minimal changes to the actions you use, I released v2.4 as a fix for the private repo issues you may have encountered previously. It also includes the <code>domain</code> input variable. While this should be good enough to get you the fixes you need, please know that I will not make any further updates to v2.</p>
+<h2 id="hugo-build-and-deploy">Hugo Build and Deploy</h2>
+
+<form action=https://github.com/aormsby/hugo-deploy-to-pages target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+
+<p>On to the second action! Hugo Build and Deploy hasn&rsquo;t had such a great showing in the past as its functionality was a bit flaky - but that&rsquo;s going to change! If you&rsquo;re seeing this post now, it means the action did its job building and publishing my site&rsquo;s updates. Inspired by my changes to Upstream Sync, I also split all of the action steps into their own scripts. It really allowed me to figure out what was going wrong with this action as well as update it to follow a more modern continuous delivery pattern when publishing. While I really don&rsquo;t expect the action to need many updates, I don&rsquo;t expect it to cause trouble anymore, either.</p>
+<h3 id="test-mode-again">Test Mode (Again)</h3>
+<p>Much like the other action, there&rsquo;s a new test mode. Specifically, this action test if your branches and repos exists, but it also <em>crucially</em> helps you determine if you&rsquo;ve set things up correctly for any sumbodules you might be publishing to. Personally, I&rsquo;m moving away from submodule publishing for Hugo websites, and I plan on sharing why in a future post. But I know I lot of you might not be, and I wanted to make sure this action supports your needs clearly and safely.</p>
+<figure class="align-center "><a href="img/deploy-tests.png">
+    <img loading="lazy" src="img/deploy-tests.png#center"
+         alt="Hugo Build and Deploy test mode"/> </a>
+</figure>
+
+<h3 id="branched-builds">Branched Builds</h3>
+<p>Along with changes to the project, I&rsquo;ve also made big changes to the action output. Previously, the action made site builds and pushed the changes to the same branch it got the source code from. That&rsquo;s a problem because on some level that branch is pretty likely to be an active development branch. For many reasons, modern CD patterns dictate that development and release should remain separate. The updated deploy action fully supports that kind of separation.</p>
+<p>Now when you configure the action, you choose your <code>source-branch</code> to <em>pull from</em>, and your <code>release_branch</code> to <em>build to</em>. The biggest benefit of this change is that you&rsquo;ll now have a totally separate branch just for tracking your release history, and you won&rsquo;t have any auto-build commit pollution in your working branches. Good stuff.</p>
+<h3 id="wiki-again">Wiki (Again)</h3>
+<p>See the pattern here? Good releases have documentation. <a href="https://github.com/aormsby/hugo-deploy-to-pages/wiki">https://github.com/aormsby/hugo-deploy-to-pages/wiki</a></p>
+<h3 id="known-issue---shallow-clones">Known Issue - Shallow Clones</h3>
+<p>Trying to get proper merges when using shallow clones during checkout has quite a problem. Thankfully, it doesn&rsquo;t prevent the action from working, but it does mean you have checkout with fetch-depth: &lsquo;0&rsquo; and pull the entire commit history when that may not be desirable behavior. See <a href="https://github.com/aormsby/hugo-deploy-to-pages/wiki/Git-Shallow-Clone-Challenge">Git Shallow Clone Challenge</a> for details, and maybe you can help.</p>
+<h2 id="reach-out">Reach Out</h2>
+<p>I&rsquo;m super thrilled to have some regular users of both of these actions, and I do my best to check in on their health every so often. If you have any questions, issues, or suggestions, I invite you to reach out by commenting here or opening an issue directly on these repositories.</p>
+<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. 🙂</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Github Action: Fork Sync With Upstream</title>
+      <link>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</link>
+      <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</guid>
+      <description>These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. Let&amp;rsquo;s see what it does!</description>
+      <content:encoded><![CDATA[
+<form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+
+<p>These days, automation is key to saving time and minimizing errors. But if you&rsquo;ve never worked with automation, it&rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&rsquo;s available now on the Github Marketplace if you want to try it out - <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>. Let&rsquo;s see what it does!</p>
+<h2 id="how-it-works">How It Works</h2>
+<p>Remember my post on <a href="https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/">making modifications to a Hugo theme</a>? We forked a theme repository and saw how to make custom modifications to our local version of it. Whenever we wanted to pull updates from the source repo, we ran a bunch of git commands to pull new commits from the upstream repo and then push them to our fork. Syncing with commands like that is all well and good, but let&rsquo;s save ourselves a little time by automating that process.</p>
+<p>The Fork Sync With Upstream action takes care of all those updates for us without any work on our part. At its core, the action is a shell script that runs on a Github server and automatically does the following:</p>
+<ul>
+<li>Checkout your fork (needed for the sync process)</li>
+<li>Set the upstream repo to pull updates from</li>
+<li>Check if there are any new commits to sync (and print the commit information)</li>
+<li>Pull from the upstream repo</li>
+<li>Push to the target branch of the target repo</li>
+</ul>
+<p>Just add my action to a Github workflow file in your repo, and <em>voila!</em> All that update work you were doing manually is now automated!</p>
+<h2 id="running-the-fork-sync">Running the Fork Sync</h2>
+<p>If you&rsquo;ve never made a Github workflow before, it&rsquo;s a little bit confusing to figure out at first. (At least, it all was for me.) I recommend reading some of the <a href="https://docs.github.com/en/actions">Github Actions documentation</a> to get a better feel for how all the pieces work together.</p>
+<p>For those looking for a quick sample workflow, here&rsquo;s the one I&rsquo;m using in <a href="https://github.com/aormsby/F-hugo-theme-hello-friend">my fork of Hello Friend</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">on</span>:
+  <span style="color:#f92672">schedule</span>:
+    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
+    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
+
+<span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">sync_with_upstream</span>:
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
+
+    <span style="color:#f92672">steps</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
+      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+      <span style="color:#f92672">with</span>:
+        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
+      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
+      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
+      <span style="color:#f92672">with</span>:
+        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
+        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
+      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
+</code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
+<h2 id="behind-the-scenes">Behind The Scenes</h2>
+<p>Just some extra dev notes if you&rsquo;re interested. 🙂</p>
+<p>Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&rsquo;s more familiar to me, and I don&rsquo;t need to run this action in any specific Docker-simulated environment.</p>
+<p>The <code>action.yaml</code> file declares all the input variables needed for the action and then runs <code>main.js</code>. At the moment, <code>main.js</code> exists only to run the shell script <code>upstream-sync.sh</code>, which is where the sync really happens. This could change in the future.</p>
+<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &lsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
+<p>Anyway, try it out! Let me know how you like it. I&rsquo;m also planning on turning my <a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/">shell deploy script</a> into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!</p>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Build and Deploy: A Shell Script for Hugo Sites</title>
+      <link>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</link>
+      <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
+      <description>I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!</description>
+      <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
+<p>I don&rsquo;t know about you, but I <em>love</em> writing code that automates my work. I finally had the chance to do just that, and now I&rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">git submodule setup</a>!</p>
+<p>So why do this? Well, when I began working with Hugo, I ran across a <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">rudimentary deploy script</a> in their documentation. Since I was still familiarizing myself with Hugo, it hadn&rsquo;t occurred to me yet to automate the build process, and I immediately fell in love with the idea. However, I could see the script would need major improvements to do what I wanted, and I was completely new to shell.</p>
+<p>At first, I struggled a bit with writing shell code (especially keeping things POSIX-compliant for portability!), but I stumbled upon the <a href="https://www.shellscript.sh/">shellscript.sh</a> tutorials and dove straight in. Thanks to those <em>fantastic</em> tutorials, I now have a sweet script to show off and perhaps even a newfound love for the shell. Apart from variable expansion struggles, it&rsquo;s really quite elegant!</p>
+<p>I find my <code>hugo-deploy.sh</code> script does help keep builds following a standard process, but I think I&rsquo;ll really see it shine when I get around to scheduling automated builds on a remote server. Exciting!</p>
+<p><a href="#the-full-script">full script at end</a></p>
+<h2 id="deploy-script-functionality">Deploy Script Functionality</h2>
+<blockquote>
+<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p>
+</blockquote>
+<h3 id="order-of-operations">Order of Operations</h3>
+<p>From start to finish, here&rsquo;s what the script does.</p>
+<ol>
+<li>Update the automatic build number (included in the git commit)</li>
+<li>Check for any user options (see below)</li>
+<li>Check if your active repo branches match your intended deploy branches
+<ul>
+<li>Production and development branches can both be set</li>
+</ul>
+</li>
+<li>Check if your local repo is up to date (no merge conflicts allowed!)</li>
+<li>(Optional) Clear out the site output folder before the Hugo build</li>
+<li>Run Hugo build command</li>
+<li>Git add, commit, and push to your specified remotes</li>
+</ol>
+<p>If any point in this process fails, the script exits with an error message detailing where the issue occurred. You&rsquo;ll have to fix the issue before running the script again. Thankfully, most of the issues are quick fixes. If you have to do a merge, that&rsquo;s on you!</p>
+<h2 id="settings-variables">&lsquo;Settings&rsquo; Variables</h2>
+<p>There are some &lsquo;settings&rsquo; variables at the top of the script that you may need to modify to match your project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># BUILD/DEPLOY SETTINGS - edit as needed for your use case</span>
+
+PUB_SUBMODULE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;public&#34;</span>         <span style="color:#75715e"># name of output folder where git submodule is located</span>
+IGNORE_FILES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;. .. .git CNAME&#34;</span> <span style="color:#75715e"># space-delimited array of files to protect when &#39;fresh&#39; option is used</span>
+DEV_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dev dev&#34;</span>         <span style="color:#75715e"># development branches to build on and push to, 1-root, 2-pubmodule</span>
+PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master master&#34;</span>  <span style="color:#75715e"># production branches to build on and push to, 1-root, 2-pubmodule</span>
+</code></pre></div><p><code>PUB_SUBMODULE</code> holds the name of the folder where your public site submodule is located. The default output folder is <code>public</code>, which is where I have my submodule for the live site. If you&rsquo;ve changed your output folder in the site config, you&rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&rsquo;ve buried your output folder then set the path accordingly (e.g. <code>my/public/build</code>).</p>
+<p><code>IGNORE_FILES</code> is used with the &lsquo;fresh&rsquo; option (see below). It acts as an array of filenames that will <em>not</em> be deleted from the output folder if you select the &lsquo;fresh&rsquo; option. It&rsquo;s mostly to protect non-Hugo files.</p>
+<p><code>PROD_BRANCHES</code> are the two production branches on which you intend to build and push your site data. The first branch name matches the preferred deploy branch for your <strong>site source data</strong> (in your root directory), and the second branch name matches the preferred deploy branch for <strong>your live site</strong> (the supposed submodule). These are the values the script uses to check your active branches in step 3 above. It&rsquo;s a nice safety check.</p>
+<p><code>DEV_BRANCHES</code> works the same way for a development build, which is enabled through the user options.</p>
+<h2 id="user-options">User Options</h2>
+<p>Sometimes you need a little customization! That&rsquo;s where my included script user options come into play. Hopefully these options can help you out a bit.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Script Options</span>
+./hugo-deploy.sh <span style="color:#f92672">[</span>-d|-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m <span style="color:#e6db74">&#34;COMMIT_MESSAGE&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -o <span style="color:#e6db74">&#34;HUGO_OPTIONS&#34;</span> <span style="color:#f92672">]</span>
+</code></pre></div><ul>
+<li><strong>-d</strong>
+&lsquo;dev&rsquo; =&gt; deploys to development branches set in DEV_BRANCHES list (default is PROD_BRANCHES)</li>
+<li><strong>-f</strong>
+&lsquo;fresh&rsquo; =&gt; deletes public directory data before rebuild (skips files in IGNORE_FILES list)</li>
+<li><strong>-m</strong>
+&lsquo;message&rsquo; =&gt; appends a custom commit message to the auto-build string, works exactly like git -m</li>
+<li><strong>-o</strong>
+&lsquo;options&rsquo; (for Hugo build) =&gt; includes Hugo build options during deploy process (default none), all <code>hugo build</code> options are valid</li>
+<li><strong>-h</strong> =&gt; &lsquo;help&rsquo;</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Usage Example</span>
+./hugo-deploy.sh -d -f -m <span style="color:#e6db74">&#34;Deploying like a rockstar!&#34;</span> -o <span style="color:#e6db74">&#34;--cleanDestinationDir&#34;</span>
+</code></pre></div><p><strong>Fun Stuff:</strong> If you rename the script file to <code>hugo-deploy.command</code>, you can run the script with a double click! I haven&rsquo;t actually tested this, but I think it just runs without options. Try it out!</p>
+<h2 id="disclaimers--seeking-shell-wisdom">Disclaimers / Seeking Shell Wisdom</h2>
+<p>I ran into some issues with this script that I couldn&rsquo;t totally avoid. Please be aware of them if you try out my script.</p>
+<ul>
+<li>
+<p><strong>Variable expansion</strong> - I&rsquo;m aware that the variables I use in my various git commands are not double-quoted. (And just in case I didn&rsquo;t notice, <a href="https://www.shellcheck.net/">ShellCheck</a> yelled about them in bright colors.) However, adding quotes or modifying the expansion caused the commands to be incorrectly formatted and resulted in failure. They work as they are now, but I&rsquo;m curious to know if there&rsquo;s a way to improve this. I&rsquo;d love to get advice from experienced shell coders.</p>
+</li>
+<li>
+<p><strong>Limited Testing</strong> - I work on Mac OS, so I <em>know</em> this script works on that system - at least on my machine! I have no idea about Windows or Linux. If you try it out, please let me know!</p>
+</li>
+</ul>
+<h2 id="the-full-script">The Full Script</h2>
+<p><a href="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh">View on Github</a></p>
+<script type="application/javascript" src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
+
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
