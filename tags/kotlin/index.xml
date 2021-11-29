@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>kotlin on Adam Ormsby</title>
+    <link>https://www.adamormsby.com/tags/kotlin/</link>
+    <description>Recent content in kotlin on Adam Ormsby</description>
+    <image>
+      <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
+      <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 28 Nov 2021 12:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advent of Code 2021 - Kotlin</title>
+      <link>https://www.adamormsby.com/posts/011-aoc-2021/</link>
+      <pubDate>Sun, 28 Nov 2021 12:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/011-aoc-2021/</guid>
+      <description>Two days to Advent of Code 2021! Get your IDEs ready!</description>
+      <content:encoded><![CDATA[<p>Yo, what up devs??? <a href="https://adventofcode.com/">Advent of Code 2021</a> is knocking at your door! I&rsquo;m super excited to take part in these wonderful long-form code challenges again this year, and I hope you join me for the ride. My weapon of choice this year is Kotlin! (Interested in 2020 Kotlin solutions? <a href="https://kotlinlang.org/docs/advent-of-code.html">These are cool.</a>)</p>
+<p>See that list down there? I&rsquo;ll fill it up with solutions as the days go by. But I&rsquo;d love to see how you solve your problems, too! Add links in the comments if you feel like sharing. Merry Christmas! 🎄 🎅 🎄 🎅 🎄</p>
+<h2 id="advent-of-code-2021---kotlin-solutions">Advent of Code 2021 - Kotlin Solutions</h2>
+
+<form action=https://github.com/aormsby/advent-Of-code-2021 target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+</form>
+
+<ul>
+<li>Day 1</li>
+<li>Day 2</li>
+<li>Day 3</li>
+<li>Day 4</li>
+<li>Day 5</li>
+<li>Day 6</li>
+<li>Day 7</li>
+<li>Day 8</li>
+<li>Day 9</li>
+<li>Day 10</li>
+<li>Day 11</li>
+<li>Day 12</li>
+<li>Day 13</li>
+<li>Day 14</li>
+<li>Day 15</li>
+<li>Day 16</li>
+<li>Day 17</li>
+<li>Day 18</li>
+<li>Day 19</li>
+<li>Day 20</li>
+<li>Day 21</li>
+<li>Day 22</li>
+<li>Day 23</li>
+<li>Day 24</li>
+<li>Day 25</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
