@@ -20,17 +20,18 @@
       <content:encoded><![CDATA[<p>Yo, what up devs??? <a href="https://adventofcode.com/">Advent of Code 2021</a> is knocking at your door! I&rsquo;m super excited to take part in these wonderful long-form code challenges again this year, and I hope you join me for the ride. My weapon of choice this year is Kotlin! (Interested in 2020 Kotlin solutions? <a href="https://kotlinlang.org/docs/advent-of-code.html">These are cool.</a>)</p>
 <p>See that list down there? I&rsquo;ll fill it up with solutions as the days go by. But I&rsquo;d love to see how you solve your problems, too! Add links in the comments if you feel like sharing. Merry Christmas! 🎄 🎅 🎄 🎅 🎄</p>
 <h2 id="advent-of-code-2021---kotlin-solutions">Advent of Code 2021 - Kotlin Solutions</h2>
+<p>If you spot a helper you aren&rsquo;t familiar with, it&rsquo;s because I wrote some Utils that I share across the project for use in multiple challenges. Please steal them!</p>
 
 <form action=https://github.com/aormsby/advent-Of-code-2021 target="_blank">
     <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
 </form>
 
 <ul>
-<li>Day 1</li>
-<li>Day 2</li>
-<li>Day 3</li>
-<li>Day 4</li>
-<li>Day 5</li>
+<li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d1_SonarSweep/SonarSweep.kt">Day 1 - Sonar Sweep</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d2_Dive/Dive.kt">Day 2 - Dive!</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d3_BinaryDiagnostic/BinaryDiagnostic.kt">Day 3 - Binary Diagnostic</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d4_GiantSquid/GiantSquid.kt">Day 4 - Giant Squid</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d5_HydrothermalVenture/HydrothermalVenture.kt">Day 5 - Hydrothermal Venture</a></li>
 <li>Day 6</li>
 <li>Day 7</li>
 <li>Day 8</li>
