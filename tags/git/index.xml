@@ -9,7 +9,87 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Dec 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using Hugo Modules Instead of Git Submodules</title>
+      <link>https://www.adamormsby.com/posts/012-hugo-modules/</link>
+      <pubDate>Mon, 13 Dec 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/012-hugo-modules/</guid>
+      <description>Hey there, folks! I know I&amp;rsquo;m a little late to this party, but it&amp;rsquo;s time I talked about working with Hugo Modules.</description>
+      <content:encoded><![CDATA[<p>Hey there, folks! I know I&rsquo;m a little late to this party, but it&rsquo;s time I talked about working with Hugo Modules. Sometime last year I wrote a post on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a>, but let&rsquo;s be honest - that&rsquo;s a lot of work. Setting up git submodules and managing them over time can be a headache, especially for larger projects, and that kind of configuration just brings in a lot of overhead you may not want to deal with long term. For a more manageable project, I now recommend Hugo modules.</p>
+<h2 id="benefits-of-hugo-modules">Benefits of Hugo Modules</h2>
+<p>The Hugo module system is powered by Go modules, which I don&rsquo;t really know anything about. Feel free to explore that on your own. What I do know is this &ndash;</p>
+<p><strong>Hugo modules are:</strong></p>
+<ul>
+<li>quick to configure</li>
+<li>less work to implement in your project repo</li>
+<li>great for customizing your site&rsquo;s look without needing to fork a full theme</li>
+<li>an awesome way to share open-source code for Hugo</li>
+</ul>
+<p>No more managing git submodules. No more using complex commit/push/pull schemes to work with your site repository. No more confusion about how to modify and build somebody&rsquo;s theme to fit your specific project needs. Everything you were using git submodules for can (and probably should) be converted to using Hugo modules.</p>
+<h2 id="how-to-configure-a-hugo-module">How to Configure a Hugo Module</h2>
+<p>If all you want is to include a module in your project, setup is super simple. In your project configuration file (<code>config.toml</code> or yaml or whatever), add the path to the module you want to import. For online resources, add a full URL. For local resources, add a filepath.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">module</span>]
+  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/hugo-shortcodes&#34;</span>
+  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/hugo-custom-layouts&#34;</span>
+  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/papermod-custom&#34;</span>
+  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/adityatelange/hugo-PaperMod&#34;</span>
+</code></pre></div><p>A few things to take note of:</p>
+<ul>
+<li>This example is toml. Yaml has different syntax.</li>
+<li>This is just configuration. You still need to initialize Hugo modules. (More on that shortly.)</li>
+<li>The order of your modules is important!</li>
+</ul>
+<p>Modules on the bottom will get loaded first, so keep anything you don&rsquo;t want overridden higher up in the module chain. All conflicting files during module import will use the <em>last file loaded</em>. If you want to override anything from a module you can use this bottom-to-top loading to your advantage. I show an example of this later on.</p>
+<p>Next, you have to tell your project that you want to import these modules on build and how to import them. In your terminal, run the following commands in order &ndash;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; hugo mod init github.com/&lt;your_username&gt;/&lt;your_project&gt;
+<span style="color:#75715e"># initializes the hugo module system in your project (I used my repo URL here, any string seems fine)</span>
+
+&gt; hugo mod get
+<span style="color:#75715e"># gets a reference to the latest version of each module, stored in &#39;go.mod&#39;</span>
+
+&gt; hugo mod vendor
+<span style="color:#75715e"># optional, downloads a local copy of the modules</span>
+</code></pre></div><p>Now when you build your site, the Hugo module system pulls data from all of the paths in your configuration file and makes a build with all of the data from the included modules. This could be extra layouts, assets, i18n data, shortcodes, etc., and it&rsquo;s all included in your site without a whole bunch of extra setup.</p>
+<p>Keep in mind that the stored module references in <code>go.mod</code> are references to a specific commit on a github repo, not a branch. You should be able to configure these by modifying the references (or perhaps there&rsquo;s a command for it I don&rsquo;t know), but maybe think before you do. If you point to a branch head, for example, every build could pull in new changes you haven&rsquo;t vetted for your site. Sticking with a specific commit hash is probably better here. You can run <code>hugo mod get -u</code> to update references to all of your modules, but keep in mind this does not update the local &lsquo;vendor&rsquo; copies. You have to run <code>hugo mod vendor</code> again for that.</p>
+<p>A note on <code>hugo mod vendor</code> - So far I&rsquo;ve seen two benefits of downloading local copies of your modules.</p>
+<ol>
+<li>You can see all of the assets you&rsquo;re building from local module folders and modify them as you wish. I&rsquo;ve found it nice to play around with theme settings and then save the changes in my own modules to override them. Vendorizing creates a code playground for you in this way.</li>
+<li>If you ever want to save a specific module configuration as part of a git commit, vendorizing allows you to include the modules at the state they&rsquo;re in when you last confirmed a good build. It&rsquo;s handy.</li>
+</ol>
+<p>There&rsquo;s a lot more you can configure with Hugo modules, but I never needed more than this for a simple site like mine. If you want to explore your options, I encourage you to check out <a href="https://gohugo.io/hugo-modules/">Hugo&rsquo;s module docs</a> for more information.</p>
+<h2 id="how-modules-can-help-you">How Modules Can Help You</h2>
+<p>As you saw before, I have four different modules I import for this site. Each has a different use case that has helped me organize my site and my assets better, and I want to share them here to give you some ideas on how you can take advantage of modules, too.</p>
+<h3 id="basic-theme-customizations">Basic Theme Customizations</h3>
+<p>I&rsquo;m currently using the Paper Mod theme as the core of my layouts, but I wanted to customize a few pieces. If I was using git submodules like I used to, making customizations would have required forking the theme setting up a branch for my changes and referencing my entire theme fork as a submodule. But that&rsquo;s overkill for a few small changes.</p>
+<p>Instead of that, I created my own module called <code>papermod-custom</code> where I have a few custom layout files&hellip; and nothing else. Seriously, my module only has 4 files. This works because of the bottom-to-top module imports we talked about earlier. First, I import the core theme module that contains the base theme. Then my customizations are imported, and <em>since I named my layouts the same as in the core theme module</em>, any conflicting files are overridden with my customizations.</p>
+<p>Boom. Customized theme with little to no effort.</p>
+<p>My <code>papermod-custom</code> file hierarchy &ndash;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">papermod-custom     #root
+ |-assets
+   |-css
+     |-extended
+       |-userCustom.css     # new file, additional styling
+ |-layouts
+   |-_default
+     |-project-list.html    # new file, additional layout
+   |-partials
+     |-home_info.html       # name conflict, overrides core theme file
+     |-social_icons.html    # name conflict, overrides core theme file
+</code></pre></div><h3 id="common-site-code">Common Site Code</h3>
+<p>Let&rsquo;s say you have 10 Hugo sites that you&rsquo;re managing, and you have the same layout file in each of them. It&rsquo;s an awesome layout file - why wouldn&rsquo;t you reuse it? Well, instead of updating it 10 times whenever you feel it needs a change, you can save it in your own Hugo module that you import into all of those projects.</p>
+<p>Perfect example - I like <a href="https://adamormsby.com/404">my 404 page</a>, and I always want to enable disqus comments. I can put those two layout files into my <code>hugo-custom-layouts</code> module and import them wherever I want. Modules make it easy to share things.</p>
+<h3 id="additional-elements">Additional Elements</h3>
+<p>I like shortcodes, and I want to add someone&rsquo;s public shortcodes to my site. If I start a collection of shortcodes and make it a Hugo module - <a href="https://github.com/aormsby/hugo-shortcodes">like so</a> - I can add them to any project with a quick module import. It&rsquo;s not just true of shortcodes, of course. Any kind of Hugo-supported asset can be thrown into a module for a quick addition to your project.</p>
+<p>I hope this shows you that Hugo modules are pretty fantastic to work with and how much nicer they are than git submodules. If I&rsquo;d known that a year ago, maybe I never would have written about git submodules! No matter. We&rsquo;re here now, and that&rsquo;s what counts! Happy coding!</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Github Actions - Updated!</title>
       <link>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</link>

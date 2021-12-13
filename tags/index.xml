@@ -9,7 +9,37 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 28 Nov 2021 12:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Dec 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git</title>
+      <link>https://www.adamormsby.com/tags/git/</link>
+      <pubDate>Mon, 13 Dec 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/git/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://www.adamormsby.com/tags/hugo/</link>
+      <pubDate>Mon, 13 Dec 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/hugo/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>submodules</title>
+      <link>https://www.adamormsby.com/tags/submodules/</link>
+      <pubDate>Mon, 13 Dec 2021 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/tags/submodules/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
     <item>
       <title>advent of code</title>
       <link>https://www.adamormsby.com/tags/advent-of-code/</link>
@@ -41,31 +71,11 @@
     </item>
     
     <item>
-      <title>hugo</title>
-      <link>https://www.adamormsby.com/tags/hugo/</link>
-      <pubDate>Mon, 15 Nov 2021 06:00:00 -0600</pubDate>
-      
-      <guid>https://www.adamormsby.com/tags/hugo/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
       <title>automation</title>
       <link>https://www.adamormsby.com/tags/automation/</link>
       <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
       
       <guid>https://www.adamormsby.com/tags/automation/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>https://www.adamormsby.com/tags/git/</link>
-      <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
-      
-      <guid>https://www.adamormsby.com/tags/git/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
@@ -86,16 +96,6 @@
       <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
       
       <guid>https://www.adamormsby.com/tags/open-source/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>submodules</title>
-      <link>https://www.adamormsby.com/tags/submodules/</link>
-      <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
-      
-      <guid>https://www.adamormsby.com/tags/submodules/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
