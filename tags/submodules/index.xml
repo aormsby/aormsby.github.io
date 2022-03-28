@@ -98,8 +98,11 @@
       <guid>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</guid>
       <description>These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. Let&amp;rsquo;s see what it does!</description>
       <content:encoded><![CDATA[
+
+
+
 <form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <p>These days, automation is key to saving time and minimizing errors. But if you&rsquo;ve never worked with automation, it&rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&rsquo;s available now on the Github Marketplace if you want to try it out - <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>. Let&rsquo;s see what it does!</p>

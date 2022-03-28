@@ -9,7 +9,139 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 13 Dec 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Mar 2022 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Localization - Formatting Dates on Android</title>
+      <link>https://www.adamormsby.com/posts/013-android-localization-formatting-dates/</link>
+      <pubDate>Mon, 28 Mar 2022 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/013-android-localization-formatting-dates/</guid>
+      <description>Hey everybody, let&amp;rsquo;s talk localization! Today, I want to look at date formatting for Android applications. When you want to display a date in your app, you have to keep in mind that your customers in different locales will expect dates to look the way they&amp;rsquo;re used to seeing them. But while there are a lot of date formatting options on Android, they aren&amp;rsquo;t all robust enough to &amp;lsquo;just work&amp;rsquo; the way you need them to. I&amp;rsquo;ll show you a how to get you exactly the format you want every time.</description>
+      <content:encoded><![CDATA[<p>Hey everybody, let&rsquo;s talk localization! It&rsquo;s a passion of mine that I&rsquo;d like to spend more time on, and I want to share some tips and tricks I&rsquo;ve picked up in my work. Hopefully, this is only the first of many localization posts to come. Keep an eye out for more in the future!</p>
+
+
+
+
+<form action=https://github.com/aormsby/android-l10n-samples target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View  &#39;Android Localization Samples&#39;  on Github</button>
+</form>
+
+<p>Today, I want to look at <em><strong>date formatting</strong></em> for Android applications. When you want to display a date in your app, you have to keep in mind that your customers in different locales will expect dates to look the way they&rsquo;re used to seeing them. But while there are a lot of date formatting options on Android, they aren&rsquo;t all robust enough to &lsquo;just work&rsquo; the way you need them to.</p>
+<p>So first, let&rsquo;s take a look at two common solutions that aren&rsquo;t as great as they seem. Then I&rsquo;ll show you a how to get you exactly the format you want every time.</p>
+<h2 id="localdate-localtime-localdatetime---from-javatime">LocalDate, LocalTime, LocalDateTime - from java.time</h2>
+<p>These newer Java 8 time classes were built to take the place of the old, clunky <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Date.html">Date</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html">Calendar</a>, and <a href="https://docs.oracle.com/javase/7/docs/api/java/text/DateFormat.html">DateFormat</a> classes - which you should <em>never</em> rely on completely for localized dates because they&rsquo;re junk. But this new <em>java.time</em> library is supposed to take care of all the problems developers had with the old ones. So&hellip; problem solved?</p>
+<p>Maybe for Java devs, but this newer library only works with <em>API 26 or higher</em> on Android. Many projects still support older APIs, so these libraries simply aren&rsquo;t an option them. However, if you don&rsquo;t have to worry about that, give these a shot! I&rsquo;ll see if I can spend some time with these in the future and share my thoughts.</p>
+<h2 id="simpledateformat---from-javatext">SimpleDateFormat - from java.text</h2>
+<p>A <em>ton</em> of Android projects take advantage of <a href="https://developer.android.com/reference/java/text/SimpleDateFormat">SimpleDateFormat</a>, and why wouldn&rsquo;t you? Even the Android docs say this class is <code>for formatting and parsing dates in a locale-sensitive manner</code>. Sounds great, right? Well, I think it&rsquo;s a bit of a trap.</p>
+<p>Java&rsquo;s SimpleDateFormat is a really attractive solution for anyone who previously tried the DateFormat class and found the formatting options to be really restrictive. DateFormat supports a limited number of <em>pre-determined</em> date-time arrangements, and plenty of desirable options are missing - like showing the month and date without the year. (The year is <em>always there</em>! Augh!! Hair pulling madness.) But with SimpleDateFormat, you can use a string value to explicitly build your own date format.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">val</span> myFormat = SimpleDateFormat(<span style="color:#e6db74">&#34;MMMM dd, yyyy&#34;</span>)
+<span style="color:#75715e">// no locale specified, uses Locale.getDefault()
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">val</span> date = Date()
+println(myFormat.parse(date))
+
+<span style="color:#75715e">/* sample output
+</span><span style="color:#75715e">en_US, USA -- December 07, 2008
+</span><span style="color:#75715e">fr_FR, France -- décembre 07, 2008
+</span><span style="color:#75715e">*/</span>
+</code></pre></div><p>Super easy, right? Well, if you have keen eyes and you&rsquo;re familiar with the date format in France, you&rsquo;ve already noticed the sample output would be incorrect for that region. France puts the day number before the month!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">wrong -&gt; décembre 07, 2008
+right -&gt; 07 décembre 2008
+</code></pre></div><p><strong>And that&rsquo;s the trap.</strong> The main reason to use SimpleDateFormat is to create your own format, but when you create your own format, it&rsquo;s not really &lsquo;locale-sensitive&rsquo; after all! And that&rsquo;s a bit of a contradiction, I think.</p>
+<p>In the end, your hard-coded string is the problem, and no matter what locale your app is running in, that format never changes to match. Now, there&rsquo;s a way around this - you can extract your format string into a <code>strings.xml</code> resource file and add a &lsquo;translated&rsquo; version of the format in the French resource.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- res/values-en/strings.xml --&gt;</span>
+<span style="color:#f92672">&lt;string</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;date_format_1&#34;</span><span style="color:#f92672">&gt;</span>MMMM dd, yyyy<span style="color:#f92672">&lt;/string&gt;</span>
+
+<span style="color:#75715e">&lt;!-- res/values-fr/strings.xml --&gt;</span>
+<span style="color:#f92672">&lt;string</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;date_format_1&#34;</span><span style="color:#f92672">&gt;</span>dd MMMM yyyy<span style="color:#f92672">&lt;/string&gt;</span>
+</code></pre></div><p>This works fine, and it might seem reasonable at first. But if your project needs 10 different date formats in 10 different languages&hellip; that&rsquo;s already 100 formatting strings you need to add to your resources and keep track of over time.</p>
+<p>If you need that kind of specificity, give it a shot! But I don&rsquo;t think you do, and I&rsquo;m about to prove it. Let&rsquo;s take a look a look at DateUtils - the tool that does all this junk for you.</p>
+<h2 id="dateutils">DateUtils</h2>
+<p><a href="https://developer.android.com/reference/android/text/format/DateUtils">DateUtils</a> is the absolute <em>bomb</em> for date formatting on Android. It&rsquo;s flexible, robust, and aboslutely <em>is</em> sensitive to your customer&rsquo;s active locale. In fact, you&rsquo;re not even allowed to specify the locale being used when you format with DateUtils, and for the large majority of common date formatting needs, this is absolutely what you want. You want the system to handle most things for you, and DateUtils does this well.</p>
+<p>The flexibility in using DateUtils comes from its bitmask formatting flags. They allow you to specify <em>exactly</em> which date or time components you want to appear in your formatted date value, but instead of showing up in the order you choose (like with the string from before), they act as simple on/off switches independent of order or locale. Here&rsquo;s an example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">println(
+  DateUtils.formatDateTime(
+    context,    <span style="color:#75715e">// needs a Context
+</span><span style="color:#75715e"></span>    myDate,     <span style="color:#75715e">// the Date object to format
+</span><span style="color:#75715e"></span>    DateUtils.FORMAT_SHOW_DATE  <span style="color:#75715e">// the format flag for showind &#39;date&#39; (includes year)
+</span><span style="color:#75715e"></span>  )
+}
+
+<span style="color:#75715e">/* output:
+</span><span style="color:#75715e">en_US -&gt; September 25, 2005
+</span><span style="color:#75715e">fr_FR -&gt; 25 septembre 2005
+</span><span style="color:#75715e">zh_CN -&gt; 2005年9月25日
+</span><span style="color:#75715e">*/</span>
+</code></pre></div><p>Let&rsquo;s break this down a bit:</p>
+<ul>
+<li><code>DateUtils.formatDateTime</code> outputs a <code>String</code> value</li>
+<li>First param is a <code>Context</code></li>
+<li>Second param is the <code>Date</code> you want to format</li>
+<li>Third param is the set of format flags you want to apply to the Date</li>
+</ul>
+<p>And that&rsquo;s it! No explicit format strings, no translated format resources, no locale problems! It <em>just works.</em></p>
+<p>Let&rsquo;s see how you can use the bit flags to remove the year now.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NO_YEAR
+
+<span style="color:#75715e">/* output:
+</span><span style="color:#75715e">en_US -&gt; September 25
+</span><span style="color:#75715e">fr_FR -&gt; 25 septembre
+</span><span style="color:#75715e">zh_CN -&gt; 9月25日
+</span><span style="color:#75715e">*/</span>
+</code></pre></div><p>The <code>or</code> bit operator takes both of the flags, combines them, and outputs a format with both flags enabled. This works with <em>any</em> number of formatting flags, including things like word abbreviations, numeric dates, showing weekdays, showing time, hiding the month, etc. Here are <a href="https://developer.android.com/reference/android/text/format/DateUtils#constants_1">all the available flags</a> for you.</p>
+<p>DateUtils is truly the most flexible, easy-to-use, <em>built-in</em> date formatter I&rsquo;ve come across for Android projects. If you aren&rsquo;t using it yet, you should <em>really</em> think about switching to it today.</p>
+<h2 id="dateutils-and-kotlin-extension-functions">DateUtils and Kotlin Extension Functions</h2>
+<p>Want to supercharge your use of DateUtils? Use it in some Kotlin extension functions! Here are some fantastic samples from the Github project linked at the top of this post. These are ready for use in your project today!</p>
+<p>Show only the time:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTime(context: Context): String =
+    DateUtils.formatDateTime(context, time, DateUtils.FORMAT_SHOW_TIME)
+</code></pre></div><p>Show date with year, numeric and abbreviation options:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asDateWithYear(
+    context: Context,
+    numeric: Boolean = <span style="color:#66d9ef">false</span>,
+    abbreviated: Boolean = <span style="color:#66d9ef">false</span>
+): String {
+    <span style="color:#66d9ef">var</span> formatFlags = DateUtils.FORMAT_SHOW_DATE
+    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
+    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH
+
+    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+}
+</code></pre></div><p>Dynamically show the time (if date is today) or the date (if date is not today):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTimeOrRecentDate(): String =
+    DateUtils.formatSameDayTime(
+        time,
+        Date().time,
+        DateFormat.LONG,
+        DateFormat.SHORT
+    ).toString()
+</code></pre></div><p>And something <em>super</em> flexible!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.flexFormatted(
+    context: Context,
+    showWeekday: Boolean = <span style="color:#66d9ef">false</span>,
+    showMonth: Boolean = <span style="color:#66d9ef">true</span>,
+    showMonthDay: Boolean = <span style="color:#66d9ef">true</span>,
+    showYear: Boolean = <span style="color:#66d9ef">false</span>,
+    showTime: Boolean = <span style="color:#66d9ef">false</span>,
+    numeric: Boolean = <span style="color:#66d9ef">false</span>,
+    abbreviated: Boolean = <span style="color:#66d9ef">false</span>,
+): String {
+    <span style="color:#66d9ef">var</span> formatFlags = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// starts blank
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (showWeekday) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_WEEKDAY
+    <span style="color:#66d9ef">if</span> (showMonth) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_DATE
+    <span style="color:#66d9ef">if</span> (!showMonthDay) formatFlags = formatFlags or DateUtils.FORMAT_NO_MONTH_DAY
+    <span style="color:#66d9ef">if</span> (!showYear) formatFlags = formatFlags or DateUtils.FORMAT_NO_YEAR
+    <span style="color:#66d9ef">if</span> (showTime) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_TIME
+    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
+    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH or DateUtils.FORMAT_ABBREV_WEEKDAY
+
+    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+}
+</code></pre></div><hr>
+<p>Thanks for reading! I hope this little trip into the world of localization was as fun for you as it was for me. Please - ask questions, give opinions, and share your ideas in the comments! I&rsquo;d love to swap date formatting stories with you. Cheers!</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Using Hugo Modules Instead of Git Submodules</title>
       <link>https://www.adamormsby.com/posts/012-hugo-modules/</link>
@@ -102,8 +234,11 @@
 <h2 id="advent-of-code-2021---kotlin-solutions">Advent of Code 2021 - Kotlin Solutions</h2>
 <p>If you spot a helper you aren&rsquo;t familiar with, it&rsquo;s because I wrote some Utils that I share across the project for use in multiple challenges. Please steal them!</p>
 
+
+
+
 <form action=https://github.com/aormsby/advent-Of-code-2021 target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <ul>
@@ -128,7 +263,7 @@
 <li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d19_BeaconScanner/BeaconScanner.kt">Day 19 - Beacon Scanner</a></li>
 <li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d20_TrenchMap/TrenchMap.kt">Day 20 - Trench Map</a></li>
 <li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d21_DiracDice/DiracDice.kt">Day 21 - Dirac Dice</a></li>
-<li>Day 22</li>
+<li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d22_ReactorReboot/ReactorReboot.kt">Day 22 - Reactor Reboot</a></li>
 <li>Day 23</li>
 <li>Day 24</li>
 <li>Day 25</li>
@@ -149,8 +284,11 @@
 <p>I participated in my first AoC last year, and I had an absolute blast! I sort of taught myself Python while doing the challenges, which may have added significant difficulty, but I think I did alright in the end. Here are my dubious solutions if you&rsquo;re curious. Hope you join me for this year!</p>
 <h2 id="advent-of-code-2020---some-python-solutions">Advent of Code 2020 - Some Python Solutions</h2>
 
+
+
+
 <form action=https://github.com/aormsby/Advent-Of-Code-2020 target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <ul>
@@ -193,16 +331,22 @@
       <description>I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module.</description>
       <content:encoded><![CDATA[<p>Hey, small announcement! I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module. I filled the starter repo with some of the shortcodes I&rsquo;ve made for my own site, and I&rsquo;d love for it to become a place where everybody can share theirs with everyone. Theme-agnostic shortcodes are best, of course, but I really have no guidelines for additions right now. Let&rsquo;s see where it goes!</p>
 
+
+
+
 <form action=https://github.com/aormsby/hugo-shortcodes target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <p>Just as a sample, here are the shortcodes I&rsquo;ve added so far &ndash;</p>
 <h2 id="github-project-button">Github Project Button</h2>
 <p>{{&lt; github-links &ldquo;aormsby/hugo-shortcodes&rdquo; &gt;}}
 
+
+
+
 <form action=https://github.com/aormsby/hugo-shortcodes target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 </p>
 <h2 id="buy-me-a-coffee">Buy Me a Coffee</h2>
@@ -465,8 +609,11 @@
 <p>So without further ado, let&rsquo;s jump straight into the more popular of the two!</p>
 <h2 id="upstream-sync">Upstream Sync</h2>
 
+
+
+
 <form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <p>The changes I made to this action really kicked off a whole new approach to how I write shell-based tools. The first few versions had all the code together in a single script, but as the project grew I found it was getting harder to keep track of the state of certain things. To deal with this, I split each piece of the action into its own small script and now call each step from a master script.</p>
@@ -489,8 +636,11 @@
 <p>For those of you seeking minimal changes to the actions you use, I released v2.4 as a fix for the private repo issues you may have encountered previously. It also includes the <code>domain</code> input variable. While this should be good enough to get you the fixes you need, please know that I will not make any further updates to v2.</p>
 <h2 id="hugo-build-and-deploy">Hugo Build and Deploy</h2>
 
+
+
+
 <form action=https://github.com/aormsby/hugo-deploy-to-pages target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <p>On to the second action! Hugo Build and Deploy hasn&rsquo;t had such a great showing in the past as its functionality was a bit flaky - but that&rsquo;s going to change! If you&rsquo;re seeing this post now, it means the action did its job building and publishing my site&rsquo;s updates. Inspired by my changes to Upstream Sync, I also split all of the action steps into their own scripts. It really allowed me to figure out what was going wrong with this action as well as update it to follow a more modern continuous delivery pattern when publishing. While I really don&rsquo;t expect the action to need many updates, I don&rsquo;t expect it to cause trouble anymore, either.</p>
@@ -522,8 +672,11 @@
       <guid>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</guid>
       <description>These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. Let&amp;rsquo;s see what it does!</description>
       <content:encoded><![CDATA[
+
+
+
 <form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <p>These days, automation is key to saving time and minimizing errors. But if you&rsquo;ve never worked with automation, it&rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&rsquo;s available now on the Github Marketplace if you want to try it out - <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>. Let&rsquo;s see what it does!</p>

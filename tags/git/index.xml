@@ -101,8 +101,11 @@
 <p>So without further ado, let&rsquo;s jump straight into the more popular of the two!</p>
 <h2 id="upstream-sync">Upstream Sync</h2>
 
+
+
+
 <form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <p>The changes I made to this action really kicked off a whole new approach to how I write shell-based tools. The first few versions had all the code together in a single script, but as the project grew I found it was getting harder to keep track of the state of certain things. To deal with this, I split each piece of the action into its own small script and now call each step from a master script.</p>
@@ -125,8 +128,11 @@
 <p>For those of you seeking minimal changes to the actions you use, I released v2.4 as a fix for the private repo issues you may have encountered previously. It also includes the <code>domain</code> input variable. While this should be good enough to get you the fixes you need, please know that I will not make any further updates to v2.</p>
 <h2 id="hugo-build-and-deploy">Hugo Build and Deploy</h2>
 
+
+
+
 <form action=https://github.com/aormsby/hugo-deploy-to-pages target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <p>On to the second action! Hugo Build and Deploy hasn&rsquo;t had such a great showing in the past as its functionality was a bit flaky - but that&rsquo;s going to change! If you&rsquo;re seeing this post now, it means the action did its job building and publishing my site&rsquo;s updates. Inspired by my changes to Upstream Sync, I also split all of the action steps into their own scripts. It really allowed me to figure out what was going wrong with this action as well as update it to follow a more modern continuous delivery pattern when publishing. While I really don&rsquo;t expect the action to need many updates, I don&rsquo;t expect it to cause trouble anymore, either.</p>

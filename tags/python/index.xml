@@ -23,8 +23,11 @@
 <p>I participated in my first AoC last year, and I had an absolute blast! I sort of taught myself Python while doing the challenges, which may have added significant difficulty, but I think I did alright in the end. Here are my dubious solutions if you&rsquo;re curious. Hope you join me for this year!</p>
 <h2 id="advent-of-code-2020---some-python-solutions">Advent of Code 2020 - Some Python Solutions</h2>
 
+
+
+
 <form action=https://github.com/aormsby/Advent-Of-Code-2020 target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <ul>

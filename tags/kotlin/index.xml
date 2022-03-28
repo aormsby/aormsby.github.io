@@ -22,8 +22,11 @@
 <h2 id="advent-of-code-2021---kotlin-solutions">Advent of Code 2021 - Kotlin Solutions</h2>
 <p>If you spot a helper you aren&rsquo;t familiar with, it&rsquo;s because I wrote some Utils that I share across the project for use in multiple challenges. Please steal them!</p>
 
+
+
+
 <form action=https://github.com/aormsby/advent-Of-code-2021 target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View on Github</button>
+    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
 </form>
 
 <ul>
@@ -48,7 +51,7 @@
 <li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d19_BeaconScanner/BeaconScanner.kt">Day 19 - Beacon Scanner</a></li>
 <li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d20_TrenchMap/TrenchMap.kt">Day 20 - Trench Map</a></li>
 <li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d21_DiracDice/DiracDice.kt">Day 21 - Dirac Dice</a></li>
-<li>Day 22</li>
+<li><a href="https://github.com/aormsby/advent-of-code-2021/blob/main/src/main/kotlin/d22_ReactorReboot/ReactorReboot.kt">Day 22 - Reactor Reboot</a></li>
 <li>Day 23</li>
 <li>Day 24</li>
 <li>Day 25</li>
