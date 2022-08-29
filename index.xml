@@ -34,45 +34,45 @@
 <h2 id="simpledateformat---from-javatext">SimpleDateFormat - from java.text</h2>
 <p>A <em>ton</em> of Android projects take advantage of <a href="https://developer.android.com/reference/java/text/SimpleDateFormat">SimpleDateFormat</a>, and why wouldn&rsquo;t you? Even the Android docs say this class is <code>for formatting and parsing dates in a locale-sensitive manner</code>. Sounds great, right? Well, I think it&rsquo;s a bit of a trap.</p>
 <p>Java&rsquo;s SimpleDateFormat is a really attractive solution for anyone who previously tried the DateFormat class and found the formatting options to be really restrictive. DateFormat supports a limited number of <em>pre-determined</em> date-time arrangements, and plenty of desirable options are missing - like showing the month and date without the year. (The year is <em>always there</em>! Augh!! Hair pulling madness.) But with SimpleDateFormat, you can use a string value to explicitly build your own date format.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">val</span> myFormat = SimpleDateFormat(<span style="color:#e6db74">&#34;MMMM dd, yyyy&#34;</span>)
-<span style="color:#75715e">// no locale specified, uses Locale.getDefault()
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">val</span> date = Date()
-println(myFormat.parse(date))
-
-<span style="color:#75715e">/* sample output
-</span><span style="color:#75715e">en_US, USA -- December 07, 2008
-</span><span style="color:#75715e">fr_FR, France -- décembre 07, 2008
-</span><span style="color:#75715e">*/</span>
-</code></pre></div><p>Super easy, right? Well, if you have keen eyes and you&rsquo;re familiar with the date format in France, you&rsquo;ve already noticed the sample output would be incorrect for that region. France puts the day number before the month!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">wrong -&gt; décembre 07, 2008
-right -&gt; 07 décembre 2008
-</code></pre></div><p><strong>And that&rsquo;s the trap.</strong> The main reason to use SimpleDateFormat is to create your own format, but when you create your own format, it&rsquo;s not really &lsquo;locale-sensitive&rsquo; after all! And that&rsquo;s a bit of a contradiction, I think.</p>
-<p>In the end, your hard-coded string is the problem, and no matter what locale your app is running in, that format never changes to match. Now, there&rsquo;s a way around this - you can extract your format string into a <code>strings.xml</code> resource file and add a &lsquo;translated&rsquo; version of the format in the French resource.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;!-- res/values-en/strings.xml --&gt;</span>
-<span style="color:#f92672">&lt;string</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;date_format_1&#34;</span><span style="color:#f92672">&gt;</span>MMMM dd, yyyy<span style="color:#f92672">&lt;/string&gt;</span>
-
-<span style="color:#75715e">&lt;!-- res/values-fr/strings.xml --&gt;</span>
-<span style="color:#f92672">&lt;string</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;date_format_1&#34;</span><span style="color:#f92672">&gt;</span>dd MMMM yyyy<span style="color:#f92672">&lt;/string&gt;</span>
-</code></pre></div><p>This works fine, and it might seem reasonable at first. But if your project needs 10 different date formats in 10 different languages&hellip; that&rsquo;s already 100 formatting strings you need to add to your resources and keep track of over time.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> myFormat = SimpleDateFormat(<span style="color:#e6db74">&#34;MMMM dd, yyyy&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// no locale specified, uses Locale.getDefault()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> date = Date()
+</span></span><span style="display:flex;"><span>println(myFormat.parse(date))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* sample output
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">en_US, USA -- December 07, 2008
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">fr_FR, France -- décembre 07, 2008
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>Super easy, right? Well, if you have keen eyes and you&rsquo;re familiar with the date format in France, you&rsquo;ve already noticed the sample output would be incorrect for that region. France puts the day number before the month!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>wrong -&gt; décembre 07, 2008
+</span></span><span style="display:flex;"><span>right -&gt; 07 décembre 2008
+</span></span></code></pre></div><p><strong>And that&rsquo;s the trap.</strong> The main reason to use SimpleDateFormat is to create your own format, but when you create your own format, it&rsquo;s not really &rsquo;locale-sensitive&rsquo; after all! And that&rsquo;s a bit of a contradiction, I think.</p>
+<p>In the end, your hard-coded string is the problem, and no matter what locale your app is running in, that format never changes to match. Now, there&rsquo;s a way around this - you can extract your format string into a <code>strings.xml</code> resource file and add a &rsquo;translated&rsquo; version of the format in the French resource.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- res/values-en/strings.xml --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;string</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;date_format_1&#34;</span><span style="color:#f92672">&gt;</span>MMMM dd, yyyy<span style="color:#f92672">&lt;/string&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- res/values-fr/strings.xml --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;string</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;date_format_1&#34;</span><span style="color:#f92672">&gt;</span>dd MMMM yyyy<span style="color:#f92672">&lt;/string&gt;</span>
+</span></span></code></pre></div><p>This works fine, and it might seem reasonable at first. But if your project needs 10 different date formats in 10 different languages&hellip; that&rsquo;s already 100 formatting strings you need to add to your resources and keep track of over time.</p>
 <p>If you need that kind of specificity, give it a shot! But I don&rsquo;t think you do, and I&rsquo;m about to prove it. Let&rsquo;s take a look a look at DateUtils - the tool that does all this junk for you.</p>
 <h2 id="dateutils">DateUtils</h2>
 <p><a href="https://developer.android.com/reference/android/text/format/DateUtils">DateUtils</a> is the absolute <em>bomb</em> for date formatting on Android. It&rsquo;s flexible, robust, and aboslutely <em>is</em> sensitive to your customer&rsquo;s active locale. In fact, you&rsquo;re not even allowed to specify the locale being used when you format with DateUtils, and for the large majority of common date formatting needs, this is absolutely what you want. You want the system to handle most things for you, and DateUtils does this well.</p>
 <p>The flexibility in using DateUtils comes from its bitmask formatting flags. They allow you to specify <em>exactly</em> which date or time components you want to appear in your formatted date value, but instead of showing up in the order you choose (like with the string from before), they act as simple on/off switches independent of order or locale. Here&rsquo;s an example.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">println(
-  DateUtils.formatDateTime(
-    context,    <span style="color:#75715e">// needs a Context
-</span><span style="color:#75715e"></span>    myDate,     <span style="color:#75715e">// the Date object to format
-</span><span style="color:#75715e"></span>    DateUtils.FORMAT_SHOW_DATE  <span style="color:#75715e">// the format flag for showind &#39;date&#39; (includes year)
-</span><span style="color:#75715e"></span>  )
-}
-
-<span style="color:#75715e">/* output:
-</span><span style="color:#75715e">en_US -&gt; September 25, 2005
-</span><span style="color:#75715e">fr_FR -&gt; 25 septembre 2005
-</span><span style="color:#75715e">zh_CN -&gt; 2005年9月25日
-</span><span style="color:#75715e">*/</span>
-</code></pre></div><p>Let&rsquo;s break this down a bit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(
+</span></span><span style="display:flex;"><span>  DateUtils.formatDateTime(
+</span></span><span style="display:flex;"><span>    context,    <span style="color:#75715e">// needs a Context
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    myDate,     <span style="color:#75715e">// the Date object to format
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    DateUtils.FORMAT_SHOW_DATE  <span style="color:#75715e">// the format flag for showind &#39;date&#39; (includes year)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* output:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">en_US -&gt; September 25, 2005
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">fr_FR -&gt; 25 septembre 2005
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">zh_CN -&gt; 2005年9月25日
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>Let&rsquo;s break this down a bit:</p>
 <ul>
 <li><code>DateUtils.formatDateTime</code> outputs a <code>String</code> value</li>
 <li>First param is a <code>Context</code></li>
@@ -81,63 +81,63 @@ right -&gt; 07 décembre 2008
 </ul>
 <p>And that&rsquo;s it! No explicit format strings, no translated format resources, no locale problems! It <em>just works.</em></p>
 <p>Let&rsquo;s see how you can use the bit flags to remove the year now.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NO_YEAR
-
-<span style="color:#75715e">/* output:
-</span><span style="color:#75715e">en_US -&gt; September 25
-</span><span style="color:#75715e">fr_FR -&gt; 25 septembre
-</span><span style="color:#75715e">zh_CN -&gt; 9月25日
-</span><span style="color:#75715e">*/</span>
-</code></pre></div><p>The <code>or</code> bit operator takes both of the flags, combines them, and outputs a format with both flags enabled. This works with <em>any</em> number of formatting flags, including things like word abbreviations, numeric dates, showing weekdays, showing time, hiding the month, etc. Here are <a href="https://developer.android.com/reference/android/text/format/DateUtils#constants_1">all the available flags</a> for you.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NO_YEAR
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* output:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">en_US -&gt; September 25
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">fr_FR -&gt; 25 septembre
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">zh_CN -&gt; 9月25日
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>The <code>or</code> bit operator takes both of the flags, combines them, and outputs a format with both flags enabled. This works with <em>any</em> number of formatting flags, including things like word abbreviations, numeric dates, showing weekdays, showing time, hiding the month, etc. Here are <a href="https://developer.android.com/reference/android/text/format/DateUtils#constants_1">all the available flags</a> for you.</p>
 <p>DateUtils is truly the most flexible, easy-to-use, <em>built-in</em> date formatter I&rsquo;ve come across for Android projects. If you aren&rsquo;t using it yet, you should <em>really</em> think about switching to it today.</p>
 <h2 id="dateutils-and-kotlin-extension-functions">DateUtils and Kotlin Extension Functions</h2>
 <p>Want to supercharge your use of DateUtils? Use it in some Kotlin extension functions! Here are some fantastic samples from the Github project linked at the top of this post. These are ready for use in your project today!</p>
 <p>Show only the time:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTime(context: Context): String =
-    DateUtils.formatDateTime(context, time, DateUtils.FORMAT_SHOW_TIME)
-</code></pre></div><p>Show date with year, numeric and abbreviation options:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asDateWithYear(
-    context: Context,
-    numeric: Boolean = <span style="color:#66d9ef">false</span>,
-    abbreviated: Boolean = <span style="color:#66d9ef">false</span>
-): String {
-    <span style="color:#66d9ef">var</span> formatFlags = DateUtils.FORMAT_SHOW_DATE
-    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
-    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH
-
-    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
-}
-</code></pre></div><p>Dynamically show the time (if date is today) or the date (if date is not today):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTimeOrRecentDate(): String =
-    DateUtils.formatSameDayTime(
-        time,
-        Date().time,
-        DateFormat.LONG,
-        DateFormat.SHORT
-    ).toString()
-</code></pre></div><p>And something <em>super</em> flexible!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.flexFormatted(
-    context: Context,
-    showWeekday: Boolean = <span style="color:#66d9ef">false</span>,
-    showMonth: Boolean = <span style="color:#66d9ef">true</span>,
-    showMonthDay: Boolean = <span style="color:#66d9ef">true</span>,
-    showYear: Boolean = <span style="color:#66d9ef">false</span>,
-    showTime: Boolean = <span style="color:#66d9ef">false</span>,
-    numeric: Boolean = <span style="color:#66d9ef">false</span>,
-    abbreviated: Boolean = <span style="color:#66d9ef">false</span>,
-): String {
-    <span style="color:#66d9ef">var</span> formatFlags = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// starts blank
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (showWeekday) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_WEEKDAY
-    <span style="color:#66d9ef">if</span> (showMonth) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_DATE
-    <span style="color:#66d9ef">if</span> (!showMonthDay) formatFlags = formatFlags or DateUtils.FORMAT_NO_MONTH_DAY
-    <span style="color:#66d9ef">if</span> (!showYear) formatFlags = formatFlags or DateUtils.FORMAT_NO_YEAR
-    <span style="color:#66d9ef">if</span> (showTime) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_TIME
-    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
-    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH or DateUtils.FORMAT_ABBREV_WEEKDAY
-
-    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
-}
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTime(context: Context): String =
+</span></span><span style="display:flex;"><span>    DateUtils.formatDateTime(context, time, DateUtils.FORMAT_SHOW_TIME)
+</span></span></code></pre></div><p>Show date with year, numeric and abbreviation options:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asDateWithYear(
+</span></span><span style="display:flex;"><span>    context: Context,
+</span></span><span style="display:flex;"><span>    numeric: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    abbreviated: Boolean = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = DateUtils.FORMAT_SHOW_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Dynamically show the time (if date is today) or the date (if date is not today):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTimeOrRecentDate(): String =
+</span></span><span style="display:flex;"><span>    DateUtils.formatSameDayTime(
+</span></span><span style="display:flex;"><span>        time,
+</span></span><span style="display:flex;"><span>        Date().time,
+</span></span><span style="display:flex;"><span>        DateFormat.LONG,
+</span></span><span style="display:flex;"><span>        DateFormat.SHORT
+</span></span><span style="display:flex;"><span>    ).toString()
+</span></span></code></pre></div><p>And something <em>super</em> flexible!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.flexFormatted(
+</span></span><span style="display:flex;"><span>    context: Context,
+</span></span><span style="display:flex;"><span>    showWeekday: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    showMonth: Boolean = <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    showMonthDay: Boolean = <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    showYear: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    showTime: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    numeric: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    abbreviated: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// starts blank
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (showWeekday) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_WEEKDAY
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showMonth) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showMonthDay) formatFlags = formatFlags or DateUtils.FORMAT_NO_MONTH_DAY
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showYear) formatFlags = formatFlags or DateUtils.FORMAT_NO_YEAR
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showTime) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_TIME
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH or DateUtils.FORMAT_ABBREV_WEEKDAY
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <p>Thanks for reading! I hope this little trip into the world of localization was as fun for you as it was for me. Please - ask questions, give opinions, and share your ideas in the comments! I&rsquo;d love to swap date formatting stories with you. Cheers!</p>
 ]]></content:encoded>
     </item>
@@ -162,16 +162,16 @@ right -&gt; 07 décembre 2008
 <p>No more managing git submodules. No more using complex commit/push/pull schemes to work with your site repository. No more confusion about how to modify and build somebody&rsquo;s theme to fit your specific project needs. Everything you were using git submodules for can (and probably should) be converted to using Hugo modules.</p>
 <h2 id="how-to-configure-a-hugo-module">How to Configure a Hugo Module</h2>
 <p>If all you want is to include a module in your project, setup is super simple. In your project configuration file (<code>config.toml</code> or yaml or whatever), add the path to the module you want to import. For online resources, add a full URL. For local resources, add a filepath.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">module</span>]
-  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
-    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/hugo-shortcodes&#34;</span>
-  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
-    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/hugo-custom-layouts&#34;</span>
-  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
-    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/papermod-custom&#34;</span>
-  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
-    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/adityatelange/hugo-PaperMod&#34;</span>
-</code></pre></div><p>A few things to take note of:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">module</span>]
+</span></span><span style="display:flex;"><span>  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/hugo-shortcodes&#34;</span>
+</span></span><span style="display:flex;"><span>  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/hugo-custom-layouts&#34;</span>
+</span></span><span style="display:flex;"><span>  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/aormsby/papermod-custom&#34;</span>
+</span></span><span style="display:flex;"><span>  [[<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">imports</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;github.com/adityatelange/hugo-PaperMod&#34;</span>
+</span></span></code></pre></div><p>A few things to take note of:</p>
 <ul>
 <li>This example is toml. Yaml has different syntax.</li>
 <li>This is just configuration. You still need to initialize Hugo modules. (More on that shortly.)</li>
@@ -179,15 +179,15 @@ right -&gt; 07 décembre 2008
 </ul>
 <p>Modules on the bottom will get loaded first, so keep anything you don&rsquo;t want overridden higher up in the module chain. All conflicting files during module import will use the <em>last file loaded</em>. If you want to override anything from a module you can use this bottom-to-top loading to your advantage. I show an example of this later on.</p>
 <p>Next, you have to tell your project that you want to import these modules on build and how to import them. In your terminal, run the following commands in order &ndash;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; hugo mod init github.com/&lt;your_username&gt;/&lt;your_project&gt;
-<span style="color:#75715e"># initializes the hugo module system in your project (I used my repo URL here, any string seems fine)</span>
-
-&gt; hugo mod get
-<span style="color:#75715e"># gets a reference to the latest version of each module, stored in &#39;go.mod&#39;</span>
-
-&gt; hugo mod vendor
-<span style="color:#75715e"># optional, downloads a local copy of the modules</span>
-</code></pre></div><p>Now when you build your site, the Hugo module system pulls data from all of the paths in your configuration file and makes a build with all of the data from the included modules. This could be extra layouts, assets, i18n data, shortcodes, etc., and it&rsquo;s all included in your site without a whole bunch of extra setup.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; hugo mod init github.com/&lt;your_username&gt;/&lt;your_project&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># initializes the hugo module system in your project (I used my repo URL here, any string seems fine)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; hugo mod get
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># gets a reference to the latest version of each module, stored in &#39;go.mod&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; hugo mod vendor
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># optional, downloads a local copy of the modules</span>
+</span></span></code></pre></div><p>Now when you build your site, the Hugo module system pulls data from all of the paths in your configuration file and makes a build with all of the data from the included modules. This could be extra layouts, assets, i18n data, shortcodes, etc., and it&rsquo;s all included in your site without a whole bunch of extra setup.</p>
 <p>Keep in mind that the stored module references in <code>go.mod</code> are references to a specific commit on a github repo, not a branch. You should be able to configure these by modifying the references (or perhaps there&rsquo;s a command for it I don&rsquo;t know), but maybe think before you do. If you point to a branch head, for example, every build could pull in new changes you haven&rsquo;t vetted for your site. Sticking with a specific commit hash is probably better here. You can run <code>hugo mod get -u</code> to update references to all of your modules, but keep in mind this does not update the local &lsquo;vendor&rsquo; copies. You have to run <code>hugo mod vendor</code> again for that.</p>
 <p>A note on <code>hugo mod vendor</code> - So far I&rsquo;ve seen two benefits of downloading local copies of your modules.</p>
 <ol>
@@ -202,18 +202,18 @@ right -&gt; 07 décembre 2008
 <p>Instead of that, I created my own module called <code>papermod-custom</code> where I have a few custom layout files&hellip; and nothing else. Seriously, my module only has 4 files. This works because of the bottom-to-top module imports we talked about earlier. First, I import the core theme module that contains the base theme. Then my customizations are imported, and <em>since I named my layouts the same as in the core theme module</em>, any conflicting files are overridden with my customizations.</p>
 <p>Boom. Customized theme with little to no effort.</p>
 <p>My <code>papermod-custom</code> file hierarchy &ndash;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">papermod-custom     #root
- |-assets
-   |-css
-     |-extended
-       |-userCustom.css     # new file, additional styling
- |-layouts
-   |-_default
-     |-project-list.html    # new file, additional layout
-   |-partials
-     |-home_info.html       # name conflict, overrides core theme file
-     |-social_icons.html    # name conflict, overrides core theme file
-</code></pre></div><h3 id="common-site-code">Common Site Code</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>papermod-custom     #root
+</span></span><span style="display:flex;"><span> |-assets
+</span></span><span style="display:flex;"><span>   |-css
+</span></span><span style="display:flex;"><span>     |-extended
+</span></span><span style="display:flex;"><span>       |-userCustom.css     # new file, additional styling
+</span></span><span style="display:flex;"><span> |-layouts
+</span></span><span style="display:flex;"><span>   |-_default
+</span></span><span style="display:flex;"><span>     |-project-list.html    # new file, additional layout
+</span></span><span style="display:flex;"><span>   |-partials
+</span></span><span style="display:flex;"><span>     |-home_info.html       # name conflict, overrides core theme file
+</span></span><span style="display:flex;"><span>     |-social_icons.html    # name conflict, overrides core theme file
+</span></span></code></pre></div><h3 id="common-site-code">Common Site Code</h3>
 <p>Let&rsquo;s say you have 10 Hugo sites that you&rsquo;re managing, and you have the same layout file in each of them. It&rsquo;s an awesome layout file - why wouldn&rsquo;t you reuse it? Well, instead of updating it 10 times whenever you feel it needs a change, you can save it in your own Hugo module that you import into all of those projects.</p>
 <p>Perfect example - I like <a href="https://adamormsby.com/404">my 404 page</a>, and I always want to enable disqus comments. I can put those two layout files into my <code>hugo-custom-layouts</code> module and import them wherever I want. Modules make it easy to share things.</p>
 <h3 id="additional-elements">Additional Elements</h3>
@@ -537,7 +537,7 @@ right -&gt; 07 décembre 2008
 </div>
 </p>
 <h2 id="unity-game---web">Unity Game - Web</h2>
-<p>(Fullscreen recommended - &lsquo;esc&rsquo; to exit)</p>
+<p>(Fullscreen recommended - &rsquo;esc&rsquo; to exit)</p>
 <p>{{&lt; unity project=&ldquo;ArmyDillos-web&rdquo; aspect=&ldquo;16:10&rdquo; &gt;}}
 
 
@@ -631,7 +631,7 @@ right -&gt; 07 décembre 2008
 <h3 id="fixes">Fixes</h3>
 <p>Of course there were some fixes! Nothing&rsquo;s perfect. I mentioned before that syncing from private repos was never actually working as intended, and it turned out that I was having issues setting credentials when trying to access them. So that&rsquo;s fixed! Along with that, there was a request for a GPG signing feature, which actually pushed me to discover and fix another problem &ndash; the git configuration being done by the Upstream Sync action was clashing with other actions run in the same workflow. Also fixed. Did I add GPG signing? No. But this makes it so that you can confidently <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki/GPG-Signing">add other actions</a> into your workflow to support such needs.</p>
 <h3 id="wiki">Wiki</h3>
-<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &lsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
+<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &rsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
 <h3 id="v24">v2.4</h3>
 <p>For those of you seeking minimal changes to the actions you use, I released v2.4 as a fix for the private repo issues you may have encountered previously. It also includes the <code>domain</code> input variable. While this should be good enough to get you the fixes you need, please know that I will not make any further updates to v2.</p>
 <h2 id="hugo-build-and-deploy">Hugo Build and Deploy</h2>
@@ -694,37 +694,37 @@ right -&gt; 07 décembre 2008
 <h2 id="running-the-fork-sync">Running the Fork Sync</h2>
 <p>If you&rsquo;ve never made a Github workflow before, it&rsquo;s a little bit confusing to figure out at first. (At least, it all was for me.) I recommend reading some of the <a href="https://docs.github.com/en/actions">Github Actions documentation</a> to get a better feel for how all the pieces work together.</p>
 <p>For those looking for a quick sample workflow, here&rsquo;s the one I&rsquo;m using in <a href="https://github.com/aormsby/F-hugo-theme-hello-friend">my fork of Hello Friend</a>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">on</span>:
-  <span style="color:#f92672">schedule</span>:
-    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
-    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
-
-<span style="color:#f92672">jobs</span>:
-  <span style="color:#f92672">sync_with_upstream</span>:
-    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
-    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
-
-    <span style="color:#f92672">steps</span>:
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
-      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
-      <span style="color:#f92672">with</span>:
-        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
-
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
-      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
-      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
-      <span style="color:#f92672">with</span>:
-        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
-        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
-
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
-      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
-</code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">sync_with_upstream</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
+</span></span></code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
 <h2 id="behind-the-scenes">Behind The Scenes</h2>
 <p>Just some extra dev notes if you&rsquo;re interested. 🙂</p>
 <p>Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&rsquo;s more familiar to me, and I don&rsquo;t need to run this action in any specific Docker-simulated environment.</p>
 <p>The <code>action.yaml</code> file declares all the input variables needed for the action and then runs <code>main.js</code>. At the moment, <code>main.js</code> exists only to run the shell script <code>upstream-sync.sh</code>, which is where the sync really happens. This could change in the future.</p>
-<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &lsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
+<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &rsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
 <p>Anyway, try it out! Let me know how you like it. I&rsquo;m also planning on turning my <a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/">shell deploy script</a> into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!</p>
 ]]></content:encoded>
     </item>
@@ -764,21 +764,21 @@ right -&gt; 07 décembre 2008
 <p>If any point in this process fails, the script exits with an error message detailing where the issue occurred. You&rsquo;ll have to fix the issue before running the script again. Thankfully, most of the issues are quick fixes. If you have to do a merge, that&rsquo;s on you!</p>
 <h2 id="settings-variables">&lsquo;Settings&rsquo; Variables</h2>
 <p>There are some &lsquo;settings&rsquo; variables at the top of the script that you may need to modify to match your project.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># BUILD/DEPLOY SETTINGS - edit as needed for your use case</span>
-
-PUB_SUBMODULE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;public&#34;</span>         <span style="color:#75715e"># name of output folder where git submodule is located</span>
-IGNORE_FILES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;. .. .git CNAME&#34;</span> <span style="color:#75715e"># space-delimited array of files to protect when &#39;fresh&#39; option is used</span>
-DEV_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dev dev&#34;</span>         <span style="color:#75715e"># development branches to build on and push to, 1-root, 2-pubmodule</span>
-PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master master&#34;</span>  <span style="color:#75715e"># production branches to build on and push to, 1-root, 2-pubmodule</span>
-</code></pre></div><p><code>PUB_SUBMODULE</code> holds the name of the folder where your public site submodule is located. The default output folder is <code>public</code>, which is where I have my submodule for the live site. If you&rsquo;ve changed your output folder in the site config, you&rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&rsquo;ve buried your output folder then set the path accordingly (e.g. <code>my/public/build</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># BUILD/DEPLOY SETTINGS - edit as needed for your use case</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PUB_SUBMODULE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;public&#34;</span>         <span style="color:#75715e"># name of output folder where git submodule is located</span>
+</span></span><span style="display:flex;"><span>IGNORE_FILES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;. .. .git CNAME&#34;</span> <span style="color:#75715e"># space-delimited array of files to protect when &#39;fresh&#39; option is used</span>
+</span></span><span style="display:flex;"><span>DEV_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dev dev&#34;</span>         <span style="color:#75715e"># development branches to build on and push to, 1-root, 2-pubmodule</span>
+</span></span><span style="display:flex;"><span>PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master master&#34;</span>  <span style="color:#75715e"># production branches to build on and push to, 1-root, 2-pubmodule</span>
+</span></span></code></pre></div><p><code>PUB_SUBMODULE</code> holds the name of the folder where your public site submodule is located. The default output folder is <code>public</code>, which is where I have my submodule for the live site. If you&rsquo;ve changed your output folder in the site config, you&rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&rsquo;ve buried your output folder then set the path accordingly (e.g. <code>my/public/build</code>).</p>
 <p><code>IGNORE_FILES</code> is used with the &lsquo;fresh&rsquo; option (see below). It acts as an array of filenames that will <em>not</em> be deleted from the output folder if you select the &lsquo;fresh&rsquo; option. It&rsquo;s mostly to protect non-Hugo files.</p>
 <p><code>PROD_BRANCHES</code> are the two production branches on which you intend to build and push your site data. The first branch name matches the preferred deploy branch for your <strong>site source data</strong> (in your root directory), and the second branch name matches the preferred deploy branch for <strong>your live site</strong> (the supposed submodule). These are the values the script uses to check your active branches in step 3 above. It&rsquo;s a nice safety check.</p>
 <p><code>DEV_BRANCHES</code> works the same way for a development build, which is enabled through the user options.</p>
 <h2 id="user-options">User Options</h2>
 <p>Sometimes you need a little customization! That&rsquo;s where my included script user options come into play. Hopefully these options can help you out a bit.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Script Options</span>
-./hugo-deploy.sh <span style="color:#f92672">[</span>-d|-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m <span style="color:#e6db74">&#34;COMMIT_MESSAGE&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -o <span style="color:#e6db74">&#34;HUGO_OPTIONS&#34;</span> <span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Script Options</span>
+</span></span><span style="display:flex;"><span>./hugo-deploy.sh <span style="color:#f92672">[</span>-d|-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m <span style="color:#e6db74">&#34;COMMIT_MESSAGE&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -o <span style="color:#e6db74">&#34;HUGO_OPTIONS&#34;</span> <span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li><strong>-d</strong>
 &lsquo;dev&rsquo; =&gt; deploys to development branches set in DEV_BRANCHES list (default is PROD_BRANCHES)</li>
 <li><strong>-f</strong>
@@ -789,9 +789,9 @@ PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#3
 &lsquo;options&rsquo; (for Hugo build) =&gt; includes Hugo build options during deploy process (default none), all <code>hugo build</code> options are valid</li>
 <li><strong>-h</strong> =&gt; &lsquo;help&rsquo;</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Usage Example</span>
-./hugo-deploy.sh -d -f -m <span style="color:#e6db74">&#34;Deploying like a rockstar!&#34;</span> -o <span style="color:#e6db74">&#34;--cleanDestinationDir&#34;</span>
-</code></pre></div><p><strong>Fun Stuff:</strong> If you rename the script file to <code>hugo-deploy.command</code>, you can run the script with a double click! I haven&rsquo;t actually tested this, but I think it just runs without options. Try it out!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Usage Example</span>
+</span></span><span style="display:flex;"><span>./hugo-deploy.sh -d -f -m <span style="color:#e6db74">&#34;Deploying like a rockstar!&#34;</span> -o <span style="color:#e6db74">&#34;--cleanDestinationDir&#34;</span>
+</span></span></code></pre></div><p><strong>Fun Stuff:</strong> If you rename the script file to <code>hugo-deploy.command</code>, you can run the script with a double click! I haven&rsquo;t actually tested this, but I think it just runs without options. Try it out!</p>
 <h2 id="disclaimers--seeking-shell-wisdom">Disclaimers / Seeking Shell Wisdom</h2>
 <p>I ran into some issues with this script that I couldn&rsquo;t totally avoid. Please be aware of them if you try out my script.</p>
 <ul>
@@ -823,29 +823,29 @@ PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#3
 <h2 id="just-the-updates-please">Just the Updates, Please</h2>
 <p>If we don&rsquo;t intend to customize a theme at all, we can keep our workflow super simple. All we need to do is add the theme repo into our project as a submodule and periodically run a few git commands to check for updates. For the moment, let&rsquo;s pretend we haven&rsquo;t forked the theme repo and see what it would be like to clone the source directly. We&rsquo;ll see an example with our fork in the next section.</p>
 <p>Here&rsquo;s a quick refresher command for adding a submodule to our project.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
+</span></span></code></pre></div><blockquote>
 <p>You might be thinking you can simply run <code>git clone</code> instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&rsquo;t work here. Git doesn&rsquo;t like having <code>.git</code> files in a subdirectory without a <code>.gitmodules</code> component in the root. For more on that, see <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post.</a></p>
 </blockquote>
 <p>In the example above, we added our submodule by pulling the theme&rsquo;s source repo directly into our project. With the <code>git remote</code> command, we can easily verify that it&rsquo;s connected to the correct remote repo.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; cd themes/hello-friend
-&gt; git remote --verbose
-origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
-origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
-</code></pre></div><figure class="align-center "><a href="img/simple-update.jpg">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; cd themes/hello-friend
+</span></span><span style="display:flex;"><span>&gt; git remote --verbose
+</span></span><span style="display:flex;"><span>origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span></code></pre></div><figure class="align-center "><a href="img/simple-update.jpg">
     <img loading="lazy" src="img/simple-update.jpg#center"
          alt="one-way update directly from theme source"/> </a>
 </figure>
 
 <p>And there it is! With this setup, all we need to do is pull updates straight from the source. From the theme&rsquo;s directory, we run the following terminal commands.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
-&gt; git fetch origin
-&gt; git status
-<span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># pull updates and merge them automatically</span>
-&gt; git pull
-</code></pre></div><p>Since we&rsquo;re not making any theme changes in this workflow, we shouldn&rsquo;t expect any merging issues during the <code>git pull</code>. We don&rsquo;t really <em>need</em> to fetch or check the status of the repo, but it&rsquo;s always nice to see incoming changes before we bring them in.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
+</span></span><span style="display:flex;"><span>&gt; git fetch origin
+</span></span><span style="display:flex;"><span>&gt; git status
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pull updates and merge them automatically</span>
+</span></span><span style="display:flex;"><span>&gt; git pull
+</span></span></code></pre></div><p>Since we&rsquo;re not making any theme changes in this workflow, we shouldn&rsquo;t expect any merging issues during the <code>git pull</code>. We don&rsquo;t really <em>need</em> to fetch or check the status of the repo, but it&rsquo;s always nice to see incoming changes before we bring them in.</p>
 <p>And that&rsquo;s it! Getting updates every so often is no problem if we don&rsquo;t intend to make our own customizations to a theme. But hey - customization is where the fun <em>really</em> begins.</p>
 <h2 id="updates-and-theme-customization---a-parallel-branch-workflow">Updates and Theme Customization - A Parallel Branch Workflow</h2>
 <p>Here&rsquo;s the scenario - We want to add a Hugo theme, make custom changes, and still to get updates from the theme&rsquo;s original source. The method used above doesn&rsquo;t work here for a few reasons:</p>
@@ -856,20 +856,20 @@ origin  https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#
 <p>Thankfully, a more advanced git workflow would help deal with these issues. Remember <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#add-a-theme-to-our-site">how we set up a forked theme repo</a> in the last post? Now we get to take advantage of it. Crucially, the forked repo is <em>ours</em>, so we have full write access to it and don&rsquo;t need to worry about repo permissions. We can do whatever we want.</p>
 <h3 id="add-a-remote-repo">Add a Remote Repo</h3>
 <p>However, our fork doesn&rsquo;t automatically receive source updates either! Here, an additional step is needed to link our fork back to the source repo. Earlier, in the direct update workflow, we used the <code>git remote</code> command to verify that we had the correct remote repo connections. Running it in our forked theme directory, we see only the fork as our remote.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># my forked repo URLs as an example</span>
-&gt; git remote --verbose
-origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
-origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
-</code></pre></div><p>To get updates from the source repo, we need to add a <em>second</em> remote repo - yes, git can do this! We simply run this command in our working directory and check our remotes again to verify the connection.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># add a new remote repo connection</span>
-&gt; git remote add upstream https://github.com/panr/hugo-theme-hello-friend.git
-
-&gt; git remote --verbose
-origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
-origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
-upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
-upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
-</code></pre></div><p>Ta-da! Our local theme repo is now linked to both our forked repo <em>and</em> the source repo, which we called <code>upstream</code>. (This is a conventional label, but any name you choose is fine.) At this point, our setup already supports getting updates from the source, but the process is a little different than before.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># my forked repo URLs as an example</span>
+</span></span><span style="display:flex;"><span>&gt; git remote --verbose
+</span></span><span style="display:flex;"><span>origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>To get updates from the source repo, we need to add a <em>second</em> remote repo - yes, git can do this! We simply run this command in our working directory and check our remotes again to verify the connection.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># add a new remote repo connection</span>
+</span></span><span style="display:flex;"><span>&gt; git remote add upstream https://github.com/panr/hugo-theme-hello-friend.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; git remote --verbose
+</span></span><span style="display:flex;"><span>origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin  https://github.com/aormsby/F-hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Ta-da! Our local theme repo is now linked to both our forked repo <em>and</em> the source repo, which we called <code>upstream</code>. (This is a conventional label, but any name you choose is fine.) At this point, our setup already supports getting updates from the source, but the process is a little different than before.</p>
 <p>Normally, when we&rsquo;re updating directly from a single remote repo, all we need to do is <code>pull</code> the data to our local directory so that the local matches the remote. We&rsquo;ll still do that here, but we explicitly pull data from the <code>upstream</code> repo we added. We&rsquo;ll also have to make an additional <code>push</code> to our forked repo - <code>origin</code> - to update it with the new code. Here&rsquo;s how that works compared to the previous example.</p>
 <figure class="align-center "><a href="img/forked-update.jpg">
     <img loading="lazy" src="img/forked-update.jpg#center"
@@ -879,17 +879,17 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
 </figure>
 
 <p>Assuming you&rsquo;re still on your <code>master</code> branch, here are the modified commands needed to pull and push the updates.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
-&gt; git fetch upstream master
-&gt; git status
-<span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># pull updates and merge them automatically</span>
-&gt; git pull upstream master
-
-<span style="color:#75715e"># push source updates to forked repo</span>
-&gt; git push origin master
-</code></pre></div><p>With no local changes to our theme, the commands run smoothly with no errors - and we want to keep it that way! Simple is good, and an update process that doesn&rsquo;t result in merge conflicts is always nice. But how do we manage to avoid conflicts if we want to customize the theme? Simple - don&rsquo;t do your work on <code>master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># optional: fetch any updates to view changes before merging</span>
+</span></span><span style="display:flex;"><span>&gt; git fetch upstream master
+</span></span><span style="display:flex;"><span>&gt; git status
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>status output here<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pull updates and merge them automatically</span>
+</span></span><span style="display:flex;"><span>&gt; git pull upstream master
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># push source updates to forked repo</span>
+</span></span><span style="display:flex;"><span>&gt; git push origin master
+</span></span></code></pre></div><p>With no local changes to our theme, the commands run smoothly with no errors - and we want to keep it that way! Simple is good, and an update process that doesn&rsquo;t result in merge conflicts is always nice. But how do we manage to avoid conflicts if we want to customize the theme? Simple - don&rsquo;t do your work on <code>master</code>.</p>
 <h3 id="branching-customizing-and-merging-updates">Branching, Customizing, and Merging Updates</h3>
 <p>Although you technically <em>could</em> make theme customizations on the <code>master</code> branch, this increases the chances of having to resolve merge conflicts every time you try to pull an update. It&rsquo;s fine if that&rsquo;s how you want to work, but I <em>highly</em> recommend avoiding it. In my experience, it&rsquo;s often best to keep <code>master</code> sparkly clean and do your dirty work on a different branch.</p>
 <p>For example, I do my theme in a separate branch that is always kept in parallel with <code>master</code>. I&rsquo;ve named it <code>working</code>, as it&rsquo;s the branch that I <em>work</em> in. (Not exactly clever, I know.) Since it has all of my theme customizations, it&rsquo;s also the branch that I use when I build my site. Every so often, I switch back over to <code>master</code>, go through our update process, and then explicitly merge any new theme updates from <code>master</code> into <code>working</code> so that I have all the latest features in my working  branch. Visually, it&rsquo;s kind of like this.</p>
@@ -907,23 +907,23 @@ upstream   https://github.com/panr/hugo-theme-hello-friend.git <span style="colo
 </ul>
 <p>The drawbacks are much the same as I mentioned in the <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#some-drawbacks">last post</a> with the addition that now we&rsquo;d have at least one more working branch to manage. However, I&rsquo;ve found this parallel branch workflow quite nice after getting more familiar with it. Perhaps you will, too.</p>
 <p>Here are the commands we can use to get our <code>working</code> branch up and running. (You can choose a better name if you&rsquo;d like.)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># create a new branch and switch to it</span>
-&gt; git branch working
-&gt; git checkout working
-</code></pre></div><p>We make some changes, commit our work, and push to our forked repo (<a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#test-site-and-deploy">see these commands for help</a>). Time passes&hellip; and we want to get some updates on <code>master</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># switch to master branch</span>
-&gt; git checkout master
-
-<span style="color:#75715e"># quick update</span>
-&gt; git pull upstream master
-&gt; git push origin master
-</code></pre></div><p>Finally, we switch back to <code>working</code> and merge in the updates from <code>master</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># switch to working</span>
-&gt; git checkout working
-
-<span style="color:#75715e"># merge master into current branch (working)</span>
-&gt; git merge master
-</code></pre></div><p>I won&rsquo;t get into resolving a merge here, so let&rsquo;s cross our fingers and hope there are no conflicts to deal with.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># create a new branch and switch to it</span>
+</span></span><span style="display:flex;"><span>&gt; git branch working
+</span></span><span style="display:flex;"><span>&gt; git checkout working
+</span></span></code></pre></div><p>We make some changes, commit our work, and push to our forked repo (<a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/#test-site-and-deploy">see these commands for help</a>). Time passes&hellip; and we want to get some updates on <code>master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># switch to master branch</span>
+</span></span><span style="display:flex;"><span>&gt; git checkout master
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># quick update</span>
+</span></span><span style="display:flex;"><span>&gt; git pull upstream master
+</span></span><span style="display:flex;"><span>&gt; git push origin master
+</span></span></code></pre></div><p>Finally, we switch back to <code>working</code> and merge in the updates from <code>master</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># switch to working</span>
+</span></span><span style="display:flex;"><span>&gt; git checkout working
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># merge master into current branch (working)</span>
+</span></span><span style="display:flex;"><span>&gt; git merge master
+</span></span></code></pre></div><p>I won&rsquo;t get into resolving a merge here, so let&rsquo;s cross our fingers and hope there are no conflicts to deal with.</p>
 <figure class="align-center "><a href="img/git-merge-conflict.jpg">
     <img loading="lazy" src="img/git-merge-conflict.jpg#center"
          alt="git merge conflict comic"/> </a><figcaption>
@@ -970,20 +970,20 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p>In a Hugo project, most of what we see is source data - the raw files we manipulate before building our site. After Hugo builds our site, our &lsquo;ready-to-publish&rsquo; data gets output to the <code>public</code> directory of our project. By turning the <code>public</code> folder into a submodule of the main project, we can treat it as a separate entity with a separate history. Let&rsquo;s see what that process looks like.</p>
 <h2 id="install-hugo-and-create-a-project">Install Hugo and Create a Project</h2>
 <p>First things first, we need to install Hugo! We&rsquo;ll run through the key Mac commands quickly here, but if you need any more help you can always check <a href="https://gohugo.io/getting-started/quick-start/">Hugo&rsquo;s &lsquo;Quick Start&rsquo; guide</a> for more details or information about installing on Windows and Linux.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Open a terminal. Alternatively, you can VSCode&#39;s terminal - it&#39;s great!</span>
-
-<span style="color:#75715e"># 2. If you don&#39;t have brew installed --</span>
-&gt; /bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-
-<span style="color:#75715e"># 3. Install Hugo</span>
-&gt; brew install hugo
-
-<span style="color:#75715e"># 4. Move to the directory where you want to create the project.</span>
-&gt; cd <span style="color:#f92672">[</span>MY/DIRECTORY/NAME<span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># 5. Create a new Hugo project. I&#39;ll use &#34;hugo-gh&#34; as my sample name.</span>
-&gt; hugo new site <span style="color:#f92672">[</span>SITE_NAME<span style="color:#f92672">]</span>
-</code></pre></div><p>So far, we&rsquo;ve installed Hugo on our machine and created a new template project named <strong>hugo-gh</strong>. If you&rsquo;re following Hugo&rsquo;s Quick Start guide, you may be tempted to move straight on to adding a theme, running the local server, and seeing your site. We&rsquo;ll <em>absolutely</em> get to all that, but since our goal here is to use git submodules to manage the different parts of our project, it would benefit us to go through some setup steps on Github first.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1. Open a terminal. Alternatively, you can VSCode&#39;s terminal - it&#39;s great!</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. If you don&#39;t have brew installed --</span>
+</span></span><span style="display:flex;"><span>&gt; /bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Install Hugo</span>
+</span></span><span style="display:flex;"><span>&gt; brew install hugo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Move to the directory where you want to create the project.</span>
+</span></span><span style="display:flex;"><span>&gt; cd <span style="color:#f92672">[</span>MY/DIRECTORY/NAME<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Create a new Hugo project. I&#39;ll use &#34;hugo-gh&#34; as my sample name.</span>
+</span></span><span style="display:flex;"><span>&gt; hugo new site <span style="color:#f92672">[</span>SITE_NAME<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>So far, we&rsquo;ve installed Hugo on our machine and created a new template project named <strong>hugo-gh</strong>. If you&rsquo;re following Hugo&rsquo;s Quick Start guide, you may be tempted to move straight on to adding a theme, running the local server, and seeing your site. We&rsquo;ll <em>absolutely</em> get to all that, but since our goal here is to use git submodules to manage the different parts of our project, it would benefit us to go through some setup steps on Github first.</p>
 <h2 id="push-project-files-to-github">Push Project Files to Github</h2>
 <p>Let&rsquo;s get our project versioned with Github right away! We&rsquo;ll need to create two repositories on Github - one to host our source code and one to host our live site data.</p>
 <h3 id="source-code-repository">Source Code Repository</h3>
@@ -1001,25 +1001,25 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p><em><strong>Hot tip:</strong> If we create a repo <em>without</em> a README file it&rsquo;s easier to avoid accidental history conflicts when pushing a local project to a fresh repo. We can always add one later.</em></p>
 <p>When our new empty repo is ready, go back to the terminal window and input these commands to initialize our local repo and push to Github.</p>
 <p><em>(If you already have a <code>public</code> folder in your project, delete it before doing any of this to save some headaches.)</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Enter the project folder.</span>
-&gt; cd hugo-gh
-
-<span style="color:#75715e"># 2. Initialize git locally.</span>
-&gt; git init
-
-<span style="color:#75715e"># 3. Set our new Github repo as the remote for our local project</span>
-<span style="color:#75715e"># (my sample URL - https://github.com/aormsby/hugo-gh-pages-source.git)</span>
-&gt; git remote add origin https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>SOURCE_REPO_NAME<span style="color:#f92672">]</span>.git
-
-<span style="color:#75715e"># 4. Stage all files for commit.</span>
-&gt; git add .
-
-<span style="color:#75715e"># 5. Commit files.</span>
-&gt; git commit -m <span style="color:#e6db74">&#34;committing our hugo template&#34;</span>
-
-<span style="color:#75715e"># 6. Push to the remote master</span>
-&gt; git push -u origin master
-</code></pre></div><p>And there you have it! Our project source is now pushed to our Github repo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1. Enter the project folder.</span>
+</span></span><span style="display:flex;"><span>&gt; cd hugo-gh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Initialize git locally.</span>
+</span></span><span style="display:flex;"><span>&gt; git init
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Set our new Github repo as the remote for our local project</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (my sample URL - https://github.com/aormsby/hugo-gh-pages-source.git)</span>
+</span></span><span style="display:flex;"><span>&gt; git remote add origin https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>SOURCE_REPO_NAME<span style="color:#f92672">]</span>.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Stage all files for commit.</span>
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Commit files.</span>
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;committing our hugo template&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. Push to the remote master</span>
+</span></span><span style="display:flex;"><span>&gt; git push -u origin master
+</span></span></code></pre></div><p>And there you have it! Our project source is now pushed to our Github repo.</p>
 <figure class="align-center "><a href="img/source-pushed.jpg">
     <img loading="lazy" src="img/source-pushed.jpg#center"
          alt="source project pushed to Github"/> </a>
@@ -1028,27 +1028,27 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p>You could <em>absolutely</em> set up your source repo to be the host of your site using Github Pages, and you may have good reasons for doing so. That would require a different setup that you can find steps for on Hugo&rsquo;s <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#deployment-of-project-pages-from-docs-folder-on-master-branch">Host on Github</a> docs page. However, if we do this we ignore our chance to separate <code>public</code> into a separately versioned repo. To accomplish this, we have to create a second repository.</p>
 <h3 id="live-site-data-repository">Live Site Data Repository</h3>
 <p>Let&rsquo;s add our first submodule to the project! Remember, our goal is to separate the commit histories of our project source and our site build output to the <code>public</code> directory. First, we create another repo on Github for our public site data. I&rsquo;ll call mine <strong>hugo-gh-pages-public</strong>. In our local terminal, run the following command from the project root.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git</span>
-&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>PUBLIC_REPO_NAME<span style="color:#f92672">]</span>.git public
-</code></pre></div><p>Sweet! We now have a submodule initialized and loaded into our project under the <code>public</code> directory, and it&rsquo;s already connected to its remote origin. Let&rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&rsquo;s good to know the process.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Perform a site build and output to &#39;public/&#39; directory.</span>
-&gt; hugo
-
-<span style="color:#75715e"># 2-4.</span>
-&gt; cd public
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;first build&#34;</span>
-
-<span style="color:#75715e"># 5. Return to the project root.</span>
-&gt; cd ../
-
-<span style="color:#75715e"># 6-7.</span>
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;first build - update submodule reference&#34;</span>
-
-<span style="color:#75715e"># 8. Push the source project *and* the public submodule to Github together.</span>
-&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
-</code></pre></div><p>It&rsquo;s <em><strong>super important</strong></em> when we build to make sure that we commit and push <em>both</em> the public submodule and the main project. For each submodule commit, the project updates its reference to the submodule to maintain its connection to the correct commit. The <code>--recurse-submodules=on-demand</code> command pushes all of the project modules at the same time.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git</span>
+</span></span><span style="display:flex;"><span>&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>PUBLIC_REPO_NAME<span style="color:#f92672">]</span>.git public
+</span></span></code></pre></div><p>Sweet! We now have a submodule initialized and loaded into our project under the <code>public</code> directory, and it&rsquo;s already connected to its remote origin. Let&rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&rsquo;s good to know the process.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1. Perform a site build and output to &#39;public/&#39; directory.</span>
+</span></span><span style="display:flex;"><span>&gt; hugo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2-4.</span>
+</span></span><span style="display:flex;"><span>&gt; cd public
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;first build&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Return to the project root.</span>
+</span></span><span style="display:flex;"><span>&gt; cd ../
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6-7.</span>
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;first build - update submodule reference&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 8. Push the source project *and* the public submodule to Github together.</span>
+</span></span><span style="display:flex;"><span>&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</span></span></code></pre></div><p>It&rsquo;s <em><strong>super important</strong></em> when we build to make sure that we commit and push <em>both</em> the public submodule and the main project. For each submodule commit, the project updates its reference to the submodule to maintain its connection to the correct commit. The <code>--recurse-submodules=on-demand</code> command pushes all of the project modules at the same time.</p>
 <figure class="align-center "><a href="img/submodule-reference-terminal.jpg">
     <img loading="lazy" src="img/submodule-reference-terminal.jpg#center"
          alt="submodule reference in terminal using git status command"/> </a><figcaption>
@@ -1129,32 +1129,32 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <ol start="2">
 <li>Add our forked repo as a submodule in our main project&rsquo;s <code>themes</code> folder.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Add the theme submodule from the root project folder</span>
-<span style="color:#75715e"># my sample URL - https://github.com/aormsby/F-hugo-theme-hello-friend.git</span>
-&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>FORKED_THEME_REPO_NAME<span style="color:#f92672">]</span>.git themes/hello-friend
-</code></pre></div><p>Boom! Now we have our own fork of a cool theme referenced as a submodule of our Hugo project. We can make any changes we want and push them to our own repo. I&rsquo;ll get into more advanced uses of theme submodules in another post, but for now we have the basics in place.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Add the theme submodule from the root project folder</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># my sample URL - https://github.com/aormsby/F-hugo-theme-hello-friend.git</span>
+</span></span><span style="display:flex;"><span>&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>FORKED_THEME_REPO_NAME<span style="color:#f92672">]</span>.git themes/hello-friend
+</span></span></code></pre></div><p>Boom! Now we have our own fork of a cool theme referenced as a submodule of our Hugo project. We can make any changes we want and push them to our own repo. I&rsquo;ll get into more advanced uses of theme submodules in another post, but for now we have the basics in place.</p>
 <p>Things won&rsquo;t be <em>quite</em> right without tweaking a few final settings, so let&rsquo;s open the <code>config.toml</code> file in our project root so we can modify a few lines.</p>
 <ol>
 <li>Add a line so our site builds using our new theme.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;hello-friend&#34;</span>
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;hello-friend&#34;</span>
+</span></span></code></pre></div><ol start="2">
 <li>Because we&rsquo;re making a Github &lsquo;project site&rsquo; we want to change the<code>baseURL</code> to match our project URL.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">baseURL</span> = [<span style="color:#a6e22e">GITHUB_USER_NAME</span>].<span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">io</span><span style="color:#960050;background-color:#1e0010">/</span>[<span style="color:#a6e22e">PROJECT_NAME</span>]
-</code></pre></div><p>For example, mine will say <code>aormsby.github.io/hugo-gh-pages-public</code>. To understand the difference between setting up a project site and a user/organization site, see these <a href="https://pages.github.com/">Github Pages</a> and <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages">Hugo</a> docs on the matter.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = [<span style="color:#a6e22e">GITHUB_USER_NAME</span>].<span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">io</span><span style="color:#960050;background-color:#1e0010">/</span>[<span style="color:#a6e22e">PROJECT_NAME</span>]
+</span></span></code></pre></div><p>For example, mine will say <code>aormsby.github.io/hugo-gh-pages-public</code>. To understand the difference between setting up a project site and a user/organization site, see these <a href="https://pages.github.com/">Github Pages</a> and <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages">Hugo</a> docs on the matter.</p>
 <p>There are a lot more theme settings that can be adjusted in your config file, but you can explore those on your own. Let&rsquo;s deploy!</p>
 <h2 id="test-site-and-deploy">Test Site and Deploy</h2>
 <p>Running the terminal command <code>hugo server</code> in our project root spins up a local live preview of our site that can be viewed in a browser at <code>localhost:1313</code>. Run this now to check if our site is displaying anything (it should!), and then stop the process with <code>Ctrl+C</code>. Just like we did before, run the commands to build, commit, and push. <em>(Note that we didn&rsquo;t change anything in the theme, so we don&rsquo;t have to push anything in that repo.)</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; hugo
-&gt; cd public
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;build with theme&#34;</span>
-&gt; cd ../
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;build with theme - update submodule reference&#34;</span>
-&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
-</code></pre></div><p>After a few minutes, refresh the live site at <code>https://[USER_NAME].github.io/hugo-gh-pages-public</code> and check out your new site! Congratulations, you&rsquo;ve done it!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; hugo
+</span></span><span style="display:flex;"><span>&gt; cd public
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;build with theme&#34;</span>
+</span></span><span style="display:flex;"><span>&gt; cd ../
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;build with theme - update submodule reference&#34;</span>
+</span></span><span style="display:flex;"><span>&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</span></span></code></pre></div><p>After a few minutes, refresh the live site at <code>https://[USER_NAME].github.io/hugo-gh-pages-public</code> and check out your new site! Congratulations, you&rsquo;ve done it!</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li>

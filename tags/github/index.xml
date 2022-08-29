@@ -43,7 +43,7 @@
 <h3 id="fixes">Fixes</h3>
 <p>Of course there were some fixes! Nothing&rsquo;s perfect. I mentioned before that syncing from private repos was never actually working as intended, and it turned out that I was having issues setting credentials when trying to access them. So that&rsquo;s fixed! Along with that, there was a request for a GPG signing feature, which actually pushed me to discover and fix another problem &ndash; the git configuration being done by the Upstream Sync action was clashing with other actions run in the same workflow. Also fixed. Did I add GPG signing? No. But this makes it so that you can confidently <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki/GPG-Signing">add other actions</a> into your workflow to support such needs.</p>
 <h3 id="wiki">Wiki</h3>
-<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &lsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
+<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &rsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
 <h3 id="v24">v2.4</h3>
 <p>For those of you seeking minimal changes to the actions you use, I released v2.4 as a fix for the private repo issues you may have encountered previously. It also includes the <code>domain</code> input variable. While this should be good enough to get you the fixes you need, please know that I will not make any further updates to v2.</p>
 <h2 id="hugo-build-and-deploy">Hugo Build and Deploy</h2>
@@ -106,37 +106,37 @@
 <h2 id="running-the-fork-sync">Running the Fork Sync</h2>
 <p>If you&rsquo;ve never made a Github workflow before, it&rsquo;s a little bit confusing to figure out at first. (At least, it all was for me.) I recommend reading some of the <a href="https://docs.github.com/en/actions">Github Actions documentation</a> to get a better feel for how all the pieces work together.</p>
 <p>For those looking for a quick sample workflow, here&rsquo;s the one I&rsquo;m using in <a href="https://github.com/aormsby/F-hugo-theme-hello-friend">my fork of Hello Friend</a>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">on</span>:
-  <span style="color:#f92672">schedule</span>:
-    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
-    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
-
-<span style="color:#f92672">jobs</span>:
-  <span style="color:#f92672">sync_with_upstream</span>:
-    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
-    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
-
-    <span style="color:#f92672">steps</span>:
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
-      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
-      <span style="color:#f92672">with</span>:
-        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
-
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
-      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
-      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
-      <span style="color:#f92672">with</span>:
-        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
-        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
-
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
-      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
-</code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">sync_with_upstream</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
+</span></span></code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
 <h2 id="behind-the-scenes">Behind The Scenes</h2>
 <p>Just some extra dev notes if you&rsquo;re interested. 🙂</p>
 <p>Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&rsquo;s more familiar to me, and I don&rsquo;t need to run this action in any specific Docker-simulated environment.</p>
 <p>The <code>action.yaml</code> file declares all the input variables needed for the action and then runs <code>main.js</code>. At the moment, <code>main.js</code> exists only to run the shell script <code>upstream-sync.sh</code>, which is where the sync really happens. This could change in the future.</p>
-<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &lsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
+<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &rsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
 <p>Anyway, try it out! Let me know how you like it. I&rsquo;m also planning on turning my <a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/">shell deploy script</a> into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!</p>
 ]]></content:encoded>
     </item>
@@ -169,20 +169,20 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p>In a Hugo project, most of what we see is source data - the raw files we manipulate before building our site. After Hugo builds our site, our &lsquo;ready-to-publish&rsquo; data gets output to the <code>public</code> directory of our project. By turning the <code>public</code> folder into a submodule of the main project, we can treat it as a separate entity with a separate history. Let&rsquo;s see what that process looks like.</p>
 <h2 id="install-hugo-and-create-a-project">Install Hugo and Create a Project</h2>
 <p>First things first, we need to install Hugo! We&rsquo;ll run through the key Mac commands quickly here, but if you need any more help you can always check <a href="https://gohugo.io/getting-started/quick-start/">Hugo&rsquo;s &lsquo;Quick Start&rsquo; guide</a> for more details or information about installing on Windows and Linux.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Open a terminal. Alternatively, you can VSCode&#39;s terminal - it&#39;s great!</span>
-
-<span style="color:#75715e"># 2. If you don&#39;t have brew installed --</span>
-&gt; /bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-
-<span style="color:#75715e"># 3. Install Hugo</span>
-&gt; brew install hugo
-
-<span style="color:#75715e"># 4. Move to the directory where you want to create the project.</span>
-&gt; cd <span style="color:#f92672">[</span>MY/DIRECTORY/NAME<span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># 5. Create a new Hugo project. I&#39;ll use &#34;hugo-gh&#34; as my sample name.</span>
-&gt; hugo new site <span style="color:#f92672">[</span>SITE_NAME<span style="color:#f92672">]</span>
-</code></pre></div><p>So far, we&rsquo;ve installed Hugo on our machine and created a new template project named <strong>hugo-gh</strong>. If you&rsquo;re following Hugo&rsquo;s Quick Start guide, you may be tempted to move straight on to adding a theme, running the local server, and seeing your site. We&rsquo;ll <em>absolutely</em> get to all that, but since our goal here is to use git submodules to manage the different parts of our project, it would benefit us to go through some setup steps on Github first.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1. Open a terminal. Alternatively, you can VSCode&#39;s terminal - it&#39;s great!</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. If you don&#39;t have brew installed --</span>
+</span></span><span style="display:flex;"><span>&gt; /bin/bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Install Hugo</span>
+</span></span><span style="display:flex;"><span>&gt; brew install hugo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Move to the directory where you want to create the project.</span>
+</span></span><span style="display:flex;"><span>&gt; cd <span style="color:#f92672">[</span>MY/DIRECTORY/NAME<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Create a new Hugo project. I&#39;ll use &#34;hugo-gh&#34; as my sample name.</span>
+</span></span><span style="display:flex;"><span>&gt; hugo new site <span style="color:#f92672">[</span>SITE_NAME<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>So far, we&rsquo;ve installed Hugo on our machine and created a new template project named <strong>hugo-gh</strong>. If you&rsquo;re following Hugo&rsquo;s Quick Start guide, you may be tempted to move straight on to adding a theme, running the local server, and seeing your site. We&rsquo;ll <em>absolutely</em> get to all that, but since our goal here is to use git submodules to manage the different parts of our project, it would benefit us to go through some setup steps on Github first.</p>
 <h2 id="push-project-files-to-github">Push Project Files to Github</h2>
 <p>Let&rsquo;s get our project versioned with Github right away! We&rsquo;ll need to create two repositories on Github - one to host our source code and one to host our live site data.</p>
 <h3 id="source-code-repository">Source Code Repository</h3>
@@ -200,25 +200,25 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p><em><strong>Hot tip:</strong> If we create a repo <em>without</em> a README file it&rsquo;s easier to avoid accidental history conflicts when pushing a local project to a fresh repo. We can always add one later.</em></p>
 <p>When our new empty repo is ready, go back to the terminal window and input these commands to initialize our local repo and push to Github.</p>
 <p><em>(If you already have a <code>public</code> folder in your project, delete it before doing any of this to save some headaches.)</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Enter the project folder.</span>
-&gt; cd hugo-gh
-
-<span style="color:#75715e"># 2. Initialize git locally.</span>
-&gt; git init
-
-<span style="color:#75715e"># 3. Set our new Github repo as the remote for our local project</span>
-<span style="color:#75715e"># (my sample URL - https://github.com/aormsby/hugo-gh-pages-source.git)</span>
-&gt; git remote add origin https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>SOURCE_REPO_NAME<span style="color:#f92672">]</span>.git
-
-<span style="color:#75715e"># 4. Stage all files for commit.</span>
-&gt; git add .
-
-<span style="color:#75715e"># 5. Commit files.</span>
-&gt; git commit -m <span style="color:#e6db74">&#34;committing our hugo template&#34;</span>
-
-<span style="color:#75715e"># 6. Push to the remote master</span>
-&gt; git push -u origin master
-</code></pre></div><p>And there you have it! Our project source is now pushed to our Github repo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1. Enter the project folder.</span>
+</span></span><span style="display:flex;"><span>&gt; cd hugo-gh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Initialize git locally.</span>
+</span></span><span style="display:flex;"><span>&gt; git init
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Set our new Github repo as the remote for our local project</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (my sample URL - https://github.com/aormsby/hugo-gh-pages-source.git)</span>
+</span></span><span style="display:flex;"><span>&gt; git remote add origin https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>SOURCE_REPO_NAME<span style="color:#f92672">]</span>.git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Stage all files for commit.</span>
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Commit files.</span>
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;committing our hugo template&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6. Push to the remote master</span>
+</span></span><span style="display:flex;"><span>&gt; git push -u origin master
+</span></span></code></pre></div><p>And there you have it! Our project source is now pushed to our Github repo.</p>
 <figure class="align-center "><a href="img/source-pushed.jpg">
     <img loading="lazy" src="img/source-pushed.jpg#center"
          alt="source project pushed to Github"/> </a>
@@ -227,27 +227,27 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p>You could <em>absolutely</em> set up your source repo to be the host of your site using Github Pages, and you may have good reasons for doing so. That would require a different setup that you can find steps for on Hugo&rsquo;s <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#deployment-of-project-pages-from-docs-folder-on-master-branch">Host on Github</a> docs page. However, if we do this we ignore our chance to separate <code>public</code> into a separately versioned repo. To accomplish this, we have to create a second repository.</p>
 <h3 id="live-site-data-repository">Live Site Data Repository</h3>
 <p>Let&rsquo;s add our first submodule to the project! Remember, our goal is to separate the commit histories of our project source and our site build output to the <code>public</code> directory. First, we create another repo on Github for our public site data. I&rsquo;ll call mine <strong>hugo-gh-pages-public</strong>. In our local terminal, run the following command from the project root.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git</span>
-&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>PUBLIC_REPO_NAME<span style="color:#f92672">]</span>.git public
-</code></pre></div><p>Sweet! We now have a submodule initialized and loaded into our project under the <code>public</code> directory, and it&rsquo;s already connected to its remote origin. Let&rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&rsquo;s good to know the process.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 1. Perform a site build and output to &#39;public/&#39; directory.</span>
-&gt; hugo
-
-<span style="color:#75715e"># 2-4.</span>
-&gt; cd public
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;first build&#34;</span>
-
-<span style="color:#75715e"># 5. Return to the project root.</span>
-&gt; cd ../
-
-<span style="color:#75715e"># 6-7.</span>
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;first build - update submodule reference&#34;</span>
-
-<span style="color:#75715e"># 8. Push the source project *and* the public submodule to Github together.</span>
-&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
-</code></pre></div><p>It&rsquo;s <em><strong>super important</strong></em> when we build to make sure that we commit and push <em>both</em> the public submodule and the main project. For each submodule commit, the project updates its reference to the submodule to maintain its connection to the correct commit. The <code>--recurse-submodules=on-demand</code> command pushes all of the project modules at the same time.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># my sample URL - https://github.com/aormsby/hugo-gh-pages-public.git</span>
+</span></span><span style="display:flex;"><span>&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>PUBLIC_REPO_NAME<span style="color:#f92672">]</span>.git public
+</span></span></code></pre></div><p>Sweet! We now have a submodule initialized and loaded into our project under the <code>public</code> directory, and it&rsquo;s already connected to its remote origin. Let&rsquo;s do a quick site build just to put something into the remote Github repo. The commands needed are a little tedious, but it&rsquo;s good to know the process.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 1. Perform a site build and output to &#39;public/&#39; directory.</span>
+</span></span><span style="display:flex;"><span>&gt; hugo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2-4.</span>
+</span></span><span style="display:flex;"><span>&gt; cd public
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;first build&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Return to the project root.</span>
+</span></span><span style="display:flex;"><span>&gt; cd ../
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6-7.</span>
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;first build - update submodule reference&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 8. Push the source project *and* the public submodule to Github together.</span>
+</span></span><span style="display:flex;"><span>&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</span></span></code></pre></div><p>It&rsquo;s <em><strong>super important</strong></em> when we build to make sure that we commit and push <em>both</em> the public submodule and the main project. For each submodule commit, the project updates its reference to the submodule to maintain its connection to the correct commit. The <code>--recurse-submodules=on-demand</code> command pushes all of the project modules at the same time.</p>
 <figure class="align-center "><a href="img/submodule-reference-terminal.jpg">
     <img loading="lazy" src="img/submodule-reference-terminal.jpg#center"
          alt="submodule reference in terminal using git status command"/> </a><figcaption>
@@ -328,32 +328,32 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <ol start="2">
 <li>Add our forked repo as a submodule in our main project&rsquo;s <code>themes</code> folder.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Add the theme submodule from the root project folder</span>
-<span style="color:#75715e"># my sample URL - https://github.com/aormsby/F-hugo-theme-hello-friend.git</span>
-&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>FORKED_THEME_REPO_NAME<span style="color:#f92672">]</span>.git themes/hello-friend
-</code></pre></div><p>Boom! Now we have our own fork of a cool theme referenced as a submodule of our Hugo project. We can make any changes we want and push them to our own repo. I&rsquo;ll get into more advanced uses of theme submodules in another post, but for now we have the basics in place.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Add the theme submodule from the root project folder</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># my sample URL - https://github.com/aormsby/F-hugo-theme-hello-friend.git</span>
+</span></span><span style="display:flex;"><span>&gt; git submodule add https://github.com/<span style="color:#f92672">[</span>GITHUB_USERNAME<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>FORKED_THEME_REPO_NAME<span style="color:#f92672">]</span>.git themes/hello-friend
+</span></span></code></pre></div><p>Boom! Now we have our own fork of a cool theme referenced as a submodule of our Hugo project. We can make any changes we want and push them to our own repo. I&rsquo;ll get into more advanced uses of theme submodules in another post, but for now we have the basics in place.</p>
 <p>Things won&rsquo;t be <em>quite</em> right without tweaking a few final settings, so let&rsquo;s open the <code>config.toml</code> file in our project root so we can modify a few lines.</p>
 <ol>
 <li>Add a line so our site builds using our new theme.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;hello-friend&#34;</span>
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;hello-friend&#34;</span>
+</span></span></code></pre></div><ol start="2">
 <li>Because we&rsquo;re making a Github &lsquo;project site&rsquo; we want to change the<code>baseURL</code> to match our project URL.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">baseURL</span> = [<span style="color:#a6e22e">GITHUB_USER_NAME</span>].<span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">io</span><span style="color:#960050;background-color:#1e0010">/</span>[<span style="color:#a6e22e">PROJECT_NAME</span>]
-</code></pre></div><p>For example, mine will say <code>aormsby.github.io/hugo-gh-pages-public</code>. To understand the difference between setting up a project site and a user/organization site, see these <a href="https://pages.github.com/">Github Pages</a> and <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages">Hugo</a> docs on the matter.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = [<span style="color:#a6e22e">GITHUB_USER_NAME</span>].<span style="color:#a6e22e">github</span>.<span style="color:#a6e22e">io</span><span style="color:#960050;background-color:#1e0010">/</span>[<span style="color:#a6e22e">PROJECT_NAME</span>]
+</span></span></code></pre></div><p>For example, mine will say <code>aormsby.github.io/hugo-gh-pages-public</code>. To understand the difference between setting up a project site and a user/organization site, see these <a href="https://pages.github.com/">Github Pages</a> and <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#github-user-or-organization-pages">Hugo</a> docs on the matter.</p>
 <p>There are a lot more theme settings that can be adjusted in your config file, but you can explore those on your own. Let&rsquo;s deploy!</p>
 <h2 id="test-site-and-deploy">Test Site and Deploy</h2>
 <p>Running the terminal command <code>hugo server</code> in our project root spins up a local live preview of our site that can be viewed in a browser at <code>localhost:1313</code>. Run this now to check if our site is displaying anything (it should!), and then stop the process with <code>Ctrl+C</code>. Just like we did before, run the commands to build, commit, and push. <em>(Note that we didn&rsquo;t change anything in the theme, so we don&rsquo;t have to push anything in that repo.)</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; hugo
-&gt; cd public
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;build with theme&#34;</span>
-&gt; cd ../
-&gt; git add .
-&gt; git commit -m <span style="color:#e6db74">&#34;build with theme - update submodule reference&#34;</span>
-&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
-</code></pre></div><p>After a few minutes, refresh the live site at <code>https://[USER_NAME].github.io/hugo-gh-pages-public</code> and check out your new site! Congratulations, you&rsquo;ve done it!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; hugo
+</span></span><span style="display:flex;"><span>&gt; cd public
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;build with theme&#34;</span>
+</span></span><span style="display:flex;"><span>&gt; cd ../
+</span></span><span style="display:flex;"><span>&gt; git add .
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;build with theme - update submodule reference&#34;</span>
+</span></span><span style="display:flex;"><span>&gt; git push -u origin master --recurse-submodules<span style="color:#f92672">=</span>on-demand
+</span></span></code></pre></div><p>After a few minutes, refresh the live site at <code>https://[USER_NAME].github.io/hugo-gh-pages-public</code> and check out your new site! Congratulations, you&rsquo;ve done it!</p>
 <h2 id="next-steps">Next Steps</h2>
 <ul>
 <li>

@@ -43,7 +43,7 @@
 <h3 id="fixes">Fixes</h3>
 <p>Of course there were some fixes! Nothing&rsquo;s perfect. I mentioned before that syncing from private repos was never actually working as intended, and it turned out that I was having issues setting credentials when trying to access them. So that&rsquo;s fixed! Along with that, there was a request for a GPG signing feature, which actually pushed me to discover and fix another problem &ndash; the git configuration being done by the Upstream Sync action was clashing with other actions run in the same workflow. Also fixed. Did I add GPG signing? No. But this makes it so that you can confidently <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki/GPG-Signing">add other actions</a> into your workflow to support such needs.</p>
 <h3 id="wiki">Wiki</h3>
-<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &lsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
+<p>Documentation is a good thing, so I wrote a wiki. I felt there were enough &rsquo;non-standard&rsquo; sync scenarios cropping up that I needed write some help docs, and here they are &ndash; <a href="https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki">https://github.com/aormsby/Fork-Sync-With-Upstream-action/wiki</a>. They aren&rsquo;t super long, and it&rsquo;s worth reading them to get familiar with the changes as well as how to set up for your specific use case if the action doesn&rsquo;t work for you out of the box.</p>
 <h3 id="v24">v2.4</h3>
 <p>For those of you seeking minimal changes to the actions you use, I released v2.4 as a fix for the private repo issues you may have encountered previously. It also includes the <code>domain</code> input variable. While this should be good enough to get you the fixes you need, please know that I will not make any further updates to v2.</p>
 <h2 id="hugo-build-and-deploy">Hugo Build and Deploy</h2>
@@ -106,37 +106,37 @@
 <h2 id="running-the-fork-sync">Running the Fork Sync</h2>
 <p>If you&rsquo;ve never made a Github workflow before, it&rsquo;s a little bit confusing to figure out at first. (At least, it all was for me.) I recommend reading some of the <a href="https://docs.github.com/en/actions">Github Actions documentation</a> to get a better feel for how all the pieces work together.</p>
 <p>For those looking for a quick sample workflow, here&rsquo;s the one I&rsquo;m using in <a href="https://github.com/aormsby/F-hugo-theme-hello-friend">my fork of Hello Friend</a>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">on</span>:
-  <span style="color:#f92672">schedule</span>:
-    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
-    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
-
-<span style="color:#f92672">jobs</span>:
-  <span style="color:#f92672">sync_with_upstream</span>:
-    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
-    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
-
-    <span style="color:#f92672">steps</span>:
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
-      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
-      <span style="color:#f92672">with</span>:
-        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
-
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
-      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
-      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
-      <span style="color:#f92672">with</span>:
-        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
-        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
-
-    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
-      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
-</code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">sync_with_upstream</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
+</span></span></code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
 <h2 id="behind-the-scenes">Behind The Scenes</h2>
 <p>Just some extra dev notes if you&rsquo;re interested. 🙂</p>
 <p>Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&rsquo;s more familiar to me, and I don&rsquo;t need to run this action in any specific Docker-simulated environment.</p>
 <p>The <code>action.yaml</code> file declares all the input variables needed for the action and then runs <code>main.js</code>. At the moment, <code>main.js</code> exists only to run the shell script <code>upstream-sync.sh</code>, which is where the sync really happens. This could change in the future.</p>
-<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &lsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
+<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &rsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
 <p>Anyway, try it out! Let me know how you like it. I&rsquo;m also planning on turning my <a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/">shell deploy script</a> into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!</p>
 ]]></content:encoded>
     </item>
@@ -176,21 +176,21 @@
 <p>If any point in this process fails, the script exits with an error message detailing where the issue occurred. You&rsquo;ll have to fix the issue before running the script again. Thankfully, most of the issues are quick fixes. If you have to do a merge, that&rsquo;s on you!</p>
 <h2 id="settings-variables">&lsquo;Settings&rsquo; Variables</h2>
 <p>There are some &lsquo;settings&rsquo; variables at the top of the script that you may need to modify to match your project.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># BUILD/DEPLOY SETTINGS - edit as needed for your use case</span>
-
-PUB_SUBMODULE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;public&#34;</span>         <span style="color:#75715e"># name of output folder where git submodule is located</span>
-IGNORE_FILES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;. .. .git CNAME&#34;</span> <span style="color:#75715e"># space-delimited array of files to protect when &#39;fresh&#39; option is used</span>
-DEV_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dev dev&#34;</span>         <span style="color:#75715e"># development branches to build on and push to, 1-root, 2-pubmodule</span>
-PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master master&#34;</span>  <span style="color:#75715e"># production branches to build on and push to, 1-root, 2-pubmodule</span>
-</code></pre></div><p><code>PUB_SUBMODULE</code> holds the name of the folder where your public site submodule is located. The default output folder is <code>public</code>, which is where I have my submodule for the live site. If you&rsquo;ve changed your output folder in the site config, you&rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&rsquo;ve buried your output folder then set the path accordingly (e.g. <code>my/public/build</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># BUILD/DEPLOY SETTINGS - edit as needed for your use case</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PUB_SUBMODULE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;public&#34;</span>         <span style="color:#75715e"># name of output folder where git submodule is located</span>
+</span></span><span style="display:flex;"><span>IGNORE_FILES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;. .. .git CNAME&#34;</span> <span style="color:#75715e"># space-delimited array of files to protect when &#39;fresh&#39; option is used</span>
+</span></span><span style="display:flex;"><span>DEV_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dev dev&#34;</span>         <span style="color:#75715e"># development branches to build on and push to, 1-root, 2-pubmodule</span>
+</span></span><span style="display:flex;"><span>PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master master&#34;</span>  <span style="color:#75715e"># production branches to build on and push to, 1-root, 2-pubmodule</span>
+</span></span></code></pre></div><p><code>PUB_SUBMODULE</code> holds the name of the folder where your public site submodule is located. The default output folder is <code>public</code>, which is where I have my submodule for the live site. If you&rsquo;ve changed your output folder in the site config, you&rsquo;ll need to update this to match it. The variable value is relative to the root directory, so if you&rsquo;ve buried your output folder then set the path accordingly (e.g. <code>my/public/build</code>).</p>
 <p><code>IGNORE_FILES</code> is used with the &lsquo;fresh&rsquo; option (see below). It acts as an array of filenames that will <em>not</em> be deleted from the output folder if you select the &lsquo;fresh&rsquo; option. It&rsquo;s mostly to protect non-Hugo files.</p>
 <p><code>PROD_BRANCHES</code> are the two production branches on which you intend to build and push your site data. The first branch name matches the preferred deploy branch for your <strong>site source data</strong> (in your root directory), and the second branch name matches the preferred deploy branch for <strong>your live site</strong> (the supposed submodule). These are the values the script uses to check your active branches in step 3 above. It&rsquo;s a nice safety check.</p>
 <p><code>DEV_BRANCHES</code> works the same way for a development build, which is enabled through the user options.</p>
 <h2 id="user-options">User Options</h2>
 <p>Sometimes you need a little customization! That&rsquo;s where my included script user options come into play. Hopefully these options can help you out a bit.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Script Options</span>
-./hugo-deploy.sh <span style="color:#f92672">[</span>-d|-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m <span style="color:#e6db74">&#34;COMMIT_MESSAGE&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -o <span style="color:#e6db74">&#34;HUGO_OPTIONS&#34;</span> <span style="color:#f92672">]</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Script Options</span>
+</span></span><span style="display:flex;"><span>./hugo-deploy.sh <span style="color:#f92672">[</span>-d|-f<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -m <span style="color:#e6db74">&#34;COMMIT_MESSAGE&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -o <span style="color:#e6db74">&#34;HUGO_OPTIONS&#34;</span> <span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
 <li><strong>-d</strong>
 &lsquo;dev&rsquo; =&gt; deploys to development branches set in DEV_BRANCHES list (default is PROD_BRANCHES)</li>
 <li><strong>-f</strong>
@@ -201,9 +201,9 @@ PROD_BRANCHES<span style="color:#f92672">=</span><span style="color:#e6db74">&#3
 &lsquo;options&rsquo; (for Hugo build) =&gt; includes Hugo build options during deploy process (default none), all <code>hugo build</code> options are valid</li>
 <li><strong>-h</strong> =&gt; &lsquo;help&rsquo;</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Usage Example</span>
-./hugo-deploy.sh -d -f -m <span style="color:#e6db74">&#34;Deploying like a rockstar!&#34;</span> -o <span style="color:#e6db74">&#34;--cleanDestinationDir&#34;</span>
-</code></pre></div><p><strong>Fun Stuff:</strong> If you rename the script file to <code>hugo-deploy.command</code>, you can run the script with a double click! I haven&rsquo;t actually tested this, but I think it just runs without options. Try it out!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Usage Example</span>
+</span></span><span style="display:flex;"><span>./hugo-deploy.sh -d -f -m <span style="color:#e6db74">&#34;Deploying like a rockstar!&#34;</span> -o <span style="color:#e6db74">&#34;--cleanDestinationDir&#34;</span>
+</span></span></code></pre></div><p><strong>Fun Stuff:</strong> If you rename the script file to <code>hugo-deploy.command</code>, you can run the script with a double click! I haven&rsquo;t actually tested this, but I think it just runs without options. Try it out!</p>
 <h2 id="disclaimers--seeking-shell-wisdom">Disclaimers / Seeking Shell Wisdom</h2>
 <p>I ran into some issues with this script that I couldn&rsquo;t totally avoid. Please be aware of them if you try out my script.</p>
 <ul>
