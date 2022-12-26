@@ -41,12 +41,12 @@
 <li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day9RopeBridge.kt">Day 9 - Rope Bridge</a></li>
 <li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day10CathodeRayTube.kt">Day 10 - Cathode-Ray Tube</a></li>
 <li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day11MonkeyInTheMiddle.kt">Day 11 - Monkey In The Middle</a></li>
-<li>Day 12</li>
-<li>Day 13</li>
-<li>Day 14</li>
-<li>Day 15</li>
-<li>Day 16</li>
-<li>Day 17</li>
+<li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day12HillClimbingAlgorithm.kt">Day 12 - Hill Climbing Algorithm</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day13DistressSignal.kt">Day 13 - Distress Signal</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day14RegolithReservoir.kt">Day 14 - Regolith Reservoir</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day15BeaconExclusionZone.kt">Day 15 - Beacon Exclusion Zone</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day16ProboscideaVolcanium.kt">Day 16 - Proboscidea Volcanium</a></li>
+<li><a href="https://github.com/aormsby/advent-of-code-2022/blob/main/src/main/kotlin/solutions/Day17PyroclasticFlow.kt">Day 17 - Pyroclastic Flow</a></li>
 <li>Day 18</li>
 <li>Day 19</li>
 <li>Day 20</li>
