@@ -9,7 +9,84 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 28 Nov 2022 12:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Feb 2023 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Per-App Language Preferences in Android 13</title>
+      <link>https://www.adamormsby.com/posts/016-android-13-localization-per-app-language-preferences/</link>
+      <pubDate>Mon, 06 Feb 2023 06:00:00 -0600</pubDate>
+      
+      <guid>https://www.adamormsby.com/posts/016-android-13-localization-per-app-language-preferences/</guid>
+      <description>Finally, some localization updates for Android! Android 13 was released in the summer of 2022, and it has &lt;em&gt;a ton&lt;/em&gt; of cool new stuff to work with. Today, I&amp;rsquo;ll share a small piece I&amp;rsquo;m passionate about - per-app language settings.</description>
+      <content:encoded><![CDATA[<p>Finally, some localization updates for Android! Android 13 was released in the summer of 2022, and it has <em>a ton</em> of cool new stuff to work with. Today, I&rsquo;ll share a small piece I&rsquo;m passionate about - per-app language settings.</p>
+<p>Up until now, the active locale of a device was based solely on the device&rsquo;s system-wide language settings. Supporting any kind of in-app option required building custom language pickers and managing user settings in our app&rsquo;s preference cache. This has been somewhat improved with per-app language settings, and I&rsquo;m hoping we continue to see more support in this area. Localization can play a huge part in product acceptance and market expansion, and the less custom stuff we have to build, the less we have to maintain down the line.</p>
+<p>I had planned to write this post as more of an intro to configuring per-app language settings because I find the documentation to be a bit chaotic and hard to follow. But as I was gathering materials for that work, I found that the Android devs beat me to it! Not only have they blogged about it, but they&rsquo;ve also added more info to the developer docs since the initial release - though I have to say, it&rsquo;s still hard to follow with all the warnings and in-page links and&hellip; maybe just start with the blog post that I linked below.</p>
+<p>So instead of that post, what I&rsquo;ll do for you instead is give a short overview of the API updates - what&rsquo;s provided and what isn&rsquo;t - share some sample code, and talk a bit about what I think is missing from all this.</p>
+<h2 id="recommended-android-resources">Recommended Android Resources</h2>
+<p>If you want to get more familiar with the new feature before reading on, here are the Android developer resources I recommend you look at:</p>
+<ul>
+<li><a href="https://android-developers.googleblog.com/2022/11/per-app-language-preferences-part-1.html">Android Developers Blog - Per-App Language Preferences - Part 1</a> - basically, the post I sat down to write!</li>
+<li><a href="https://developer.android.com/guide/topics/resources/app-languages">Android Docs - Per-App Language Preferences</a> - messy, but good info if you&rsquo;re patient</li>
+</ul>
+<p>And here are two great videos sadly buried in the docs - one an overview of the per-app setting, and one a great intro into internationalization on Android.</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/DUKnNWwcNvo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/Tq7TSUzAGm8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<h2 id="api-feature-overview">API Feature Overview</h2>
+<h3 id="whats-improved">What&rsquo;s improved?</h3>
+<h4 id="application-language-settings-can-now-be-system-managed">Application language settings can now be system-managed</h4>
+<p>This is big! After configuring per-app language settings, we can delegate managing a user&rsquo;s language settings to Android&rsquo;s system processes and stop worrying about managing language preferences ourselves. Unless you have special needs, you can throw out your custom-built system - you don&rsquo;t need to maintain it anymore! Let the App Info page handle it for you.</p>
+<figure class="align-center "><a href="img/app-language-settings.png">
+    <img loading="lazy" src="img/app-language-settings.png#center"
+         alt="Android per app language settings"/> </a>
+</figure>
+
+<h4 id="android-now-provides-purpose-built-classes-to-manage-active-locales">Android now provides purpose-built classes to manage active locales</h4>
+<p>Static functions provided by the <code>AppCompatDelegate</code> and <code>LocaleManagerCompat</code> classes are now available to get, set, and store application locales, and between the two of them, you get access to all application- and system-level locale information you need. No more messing about with Java&rsquo;s <code>Locale</code> class and forgetting to also update your active resource configuration - keep things simple with Android&rsquo;s API.</p>
+<h4 id="all-of-this-is-backward-compatible">All of this is backward compatible</h4>
+<p>If you use all the new classes and rely on the system to do the work, you can configure applications built for older versions of Android to also have most of the functionality of these features. Users won&rsquo;t get the language selection option on your App Info page (oh well), but because you&rsquo;ve configured the storage in your Manifest, you can use <code>AppCompatDelegate</code> to set and get locale info your users may have selected through a language picker or some other method.</p>
+<p>This is particularly nice because it shows that Android is working to provide the per-app language experience to as many people as it can. I&rsquo;m not sure how far back the compatibility goes, but I expect this could impact a lot of projects.</p>
+<h3 id="whats-missing">What&rsquo;s missing?</h3>
+<h4 id="theres-still-no-in-app-language-picker">There&rsquo;s still no in-app language picker</h4>
+<p>I sort of understand this one. Every app is different, and there&rsquo;s no good way to provide a language picker that everyone will want to use. We&rsquo;d probably still see a bunch of custom implementations anyway. Honestly, I&rsquo;m not convinced in-app language changes are something Android ever really intended to support - at least not without jumping through hoops. Even official Android documentation pushed developers to use the system-level locale and do full restarts to reload with a new language. And the per-app settings are great, but they&rsquo;re still managed at a system level. I don&rsquo;t know if a language picker is on their radar. You&rsquo;ll still be building your own, thank you very much.</p>
+<p>All this being said, you can absolutely navigate from your app directly to its system-managed language settings! It may not provide an ideal user experience, but the option is there. LinkedIn did it, which lines up with their track record on UX&hellip; but sometimes laziness can be good. I kind of like it.</p>
+<figure class="align-center "><a href="img/linkedin-language-flow">
+    <img loading="lazy" src="img/linkedin-language-flow.png#center"
+         alt="LinkedIne Android per app language flow"/> </a>
+</figure>
+
+<h4 id="configuration-is-pretty-clean-but-also-theres-potentially-a-lot-of-it">Configuration is pretty clean&hellip; but also there&rsquo;s potentially a lot of it</h4>
+<p>Initial configuration is not too bad - add the correct Compat libraries, create a locale XML file, update your manifest for backward compatibility, and add new API code to your app where needed. But how do you populate a language picker? None of those files generate in-app files for you to use, and I haven&rsquo;t yet seen a function to retrieve all available app locales at runtime. You&rsquo;ll need at least one other file for your language list, and maybe you&rsquo;ll need duplicate lists to display language names for different locales. You get it all in and publish.</p>
+<p>Now, you want to add a language to your application. Good luck remember all the files you need to add it to. It may not sound like much, but it&rsquo;s like updating a single string in ten places. Will you remember to update them all? And will you notice if you don&rsquo;t? Again, I love this feature. I&rsquo;m just not a fan of how clunky it may end up being to use.</p>
+<p>(I&rsquo;ve built <a href="https://github.com/aormsby/android-locale-resource-generator">a little plugin</a> that may help with some aspects of this, though! More on that in my next post.)</p>
+<h4 id="this-feature-feels-incomplete">This feature feels incomplete</h4>
+<p>The documentation for the feature was crammed onto a single page, it&rsquo;s filled with caveats about <a href="https://developer.android.com/guide/topics/resources/app-languages#known-issues">confusing known issues</a>, and there don&rsquo;t seem to be any finalized, stable libraries for us to import into our projects with confidence. I mean, who wants to use the questionable <code>Appcompat 1.6.0-beta01</code> or higher? Is it safe? Are we going to have to update when something stable arrives? No idea.</p>
+<p>Listen - I&rsquo;m still excited about this feature, and you should be, too! But I&rsquo;m also keeping an eye out for updates.</p>
+<h2 id="sample-project">Sample Project</h2>
+<p>As promised, I have a sample project for you! I updated my <code>l10n_samples</code> project with support for per-app language preferences, and I added a page with a super simple language picker. You can change the language to watch the app update in real time. Bonus - since the new locale changer updates the whole app, you no longer need to update the system language to test out the other samples. (Knew I&rsquo;d get that in there eventually!)</p>
+
+
+
+
+<form action=https://github.com/aormsby/android-l10n-samples target="_blank">
+    <button class="button" style="margin: 16px 0px;" type="submit">View  &#39;Android Localization Samples&#39;  on Github</button>
+</form>
+
+<figure class="align-center "><a href="img/locale-changer-sample.gif">
+    <img loading="lazy" src="img/locale-changer-sample.gif#center"
+         alt="Gif showing sample locale changer" height="800px"/> </a>
+</figure>
+
+<p>Thanks for reading, and I hope you got something useful out of my love for internationalization. I would <em>love</em> to answer questions and chat about this new feature, so please comment with anything you have, and we can nerd out about all this together. Happy coding!</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Advent of Code 2022 - Kotlin</title>
       <link>https://www.adamormsby.com/posts/015-aoc-2022/</link>
@@ -912,6 +989,9 @@
 <h2 id="overview">Overview</h2>
 <p>In today&rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &lsquo;But my theme works fine!&rsquo; you say. &lsquo;Why would I ever need to update it?&rsquo; Well, when you download or clone a Hugo theme from its hosted git repository, you&rsquo;re getting its latest version <em>at that point in time.</em> So even if the theme&rsquo;s creator pushes updates to the code - with fixes, new features, and outside pull requests - you&rsquo;ll still be stuck using the version you downloaded before. While this is fine in some cases, many of us want the newest updates so we can take advantage of a stronger, improved theme.</p>
 <p>The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. If you followed my previous tutorial on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">adding a theme to your Hugo site as a git submodule</a>, you already have a functional Hugo site with a (forked) theme included. Starting there, let&rsquo;s see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</p>
+<blockquote>
+<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p>
+</blockquote>
 <h2 id="just-the-updates-please">Just the Updates, Please</h2>
 <p>If we don&rsquo;t intend to customize a theme at all, we can keep our workflow super simple. All we need to do is add the theme repo into our project as a submodule and periodically run a few git commands to check for updates. For the moment, let&rsquo;s pretend we haven&rsquo;t forked the theme repo and see what it would be like to clone the source directly. We&rsquo;ll see an example with our fork in the next section.</p>
 <p>Here&rsquo;s a quick refresher command for adding a submodule to our project.</p>
@@ -1197,6 +1277,9 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 </ul>
 <h2 id="add-a-theme-to-our-site">Add a Theme to Our Site</h2>
 <p>Wait, we&rsquo;re not finished just yet! Remember how our site doesn&rsquo;t display anything except an error message right now? We need some templates to get things up and running. The easiest way to get some is to add one of the many <a href="https://themes.gohugo.io/">Hugo themes</a> to our project. Since it was the first theme I used, I&rsquo;ll use the <a href="https://themes.gohugo.io/hugo-theme-hello-friend/">Hello Friend theme</a> in my example.</p>
+<blockquote>
+<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p>
+</blockquote>
 <p>Many guides for adding a theme - including Hugo&rsquo;s own docs - just tell you to clone the theme repo or download and copy it into your project&rsquo;s <code>themes</code> directory. But hey, <em>our</em> theme today is <em>submodules</em>, so I propose that we add a theme to our project as a <em>submodule</em> since doing so would give us some nice dev powers over the theme.</p>
 <figure class="align-center "><a href="img/submodules-diagram-with-theme.jpg">
     <img loading="lazy" src="img/submodules-diagram-with-theme.jpg#center"
