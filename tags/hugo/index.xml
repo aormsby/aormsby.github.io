@@ -5,6 +5,7 @@
     <link>https://www.adamormsby.com/tags/hugo/</link>
     <description>Recent content in hugo on Adam Ormsby</description>
     <image>
+      <title>Adam Ormsby</title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
@@ -103,7 +104,10 @@
 
 
 <form action=https://github.com/aormsby/hugo-shortcodes target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View   on Github</p>
+    </button>
 </form>
 
 <p>Just as a sample, here are the shortcodes I&rsquo;ve added so far &ndash;</p>
@@ -114,7 +118,10 @@
 
 
 <form action=https://github.com/aormsby/hugo-shortcodes target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View   on Github</p>
+    </button>
 </form>
 </p>
 <h2 id="buy-me-a-coffee">Buy Me a Coffee</h2>
@@ -381,7 +388,10 @@
 
 
 <form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View   on Github</p>
+    </button>
 </form>
 
 <p>The changes I made to this action really kicked off a whole new approach to how I write shell-based tools. The first few versions had all the code together in a single script, but as the project grew I found it was getting harder to keep track of the state of certain things. To deal with this, I split each piece of the action into its own small script and now call each step from a master script.</p>
@@ -408,7 +418,10 @@
 
 
 <form action=https://github.com/aormsby/hugo-deploy-to-pages target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View   on Github</p>
+    </button>
 </form>
 
 <p>On to the second action! Hugo Build and Deploy hasn&rsquo;t had such a great showing in the past as its functionality was a bit flaky - but that&rsquo;s going to change! If you&rsquo;re seeing this post now, it means the action did its job building and publishing my site&rsquo;s updates. Inspired by my changes to Upstream Sync, I also split all of the action steps into their own scripts. It really allowed me to figure out what was going wrong with this action as well as update it to follow a more modern continuous delivery pattern when publishing. While I really don&rsquo;t expect the action to need many updates, I don&rsquo;t expect it to cause trouble anymore, either.</p>

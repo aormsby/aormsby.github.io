@@ -5,6 +5,7 @@
     <link>https://www.adamormsby.com/tags/localization/</link>
     <description>Recent content in localization on Adam Ormsby</description>
     <image>
+      <title>Adam Ormsby</title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
@@ -75,7 +76,10 @@
 
 
 <form action=https://github.com/aormsby/android-l10n-samples target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View  &#39;Android Localization Samples&#39;  on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View  &#39;Android Localization Samples&#39;  on Github</p>
+    </button>
 </form>
 
 <figure class="align-center "><a href="img/locale-changer-sample.gif">
@@ -100,7 +104,10 @@
 
 
 <form action=https://github.com/aormsby/android-l10n-samples target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View  &#39;Android Localization Samples&#39;  on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View  &#39;Android Localization Samples&#39;  on Github</p>
+    </button>
 </form>
 
 <p>Today, I want to look at <em><strong>date formatting</strong></em> for Android applications. When you want to display a date in your app, you have to keep in mind that your customers in different locales will expect dates to look the way they&rsquo;re used to seeing them. But while there are a lot of date formatting options on Android, they aren&rsquo;t all robust enough to &lsquo;just work&rsquo; the way you need them to.</p>

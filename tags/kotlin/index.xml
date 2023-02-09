@@ -5,6 +5,7 @@
     <link>https://www.adamormsby.com/tags/kotlin/</link>
     <description>Recent content in kotlin on Adam Ormsby</description>
     <image>
+      <title>Adam Ormsby</title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
@@ -26,7 +27,10 @@
 
 
 <form action=https://github.com/aormsby/advent-Of-code-2022 target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View   on Github</p>
+    </button>
 </form>
 
 <ul>
@@ -75,7 +79,10 @@
 
 
 <form action=https://github.com/aormsby/advent-Of-code-2021 target="_blank">
-    <button class="button" style="margin: 16px 0px;" type="submit">View   on Github</button>
+    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
+        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
+        <p style="margin: 0;">View   on Github</p>
+    </button>
 </form>
 
 <ul>
