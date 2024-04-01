@@ -10,12 +10,13 @@
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 06 Feb 2023 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Feb 2023 06:00:00 -0600</lastBuildDate>
+    <atom:link href="https://www.adamormsby.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Per-App Language Preferences in Android 13</title>
       <link>https://www.adamormsby.com/posts/016-android-13-localization-per-app-language-preferences/</link>
       <pubDate>Mon, 06 Feb 2023 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/016-android-13-localization-per-app-language-preferences/</guid>
       <description>Finally, some localization updates for Android! Android 13 was released in the summer of 2022, and it has &lt;em&gt;a ton&lt;/em&gt; of cool new stuff to work with. Today, I&amp;rsquo;ll share a small piece I&amp;rsquo;m passionate about - per-app language settings.</description>
       <content:encoded><![CDATA[<p>Finally, some localization updates for Android! Android 13 was released in the summer of 2022, and it has <em>a ton</em> of cool new stuff to work with. Today, I&rsquo;ll share a small piece I&rsquo;m passionate about - per-app language settings.</p>
@@ -90,17 +91,15 @@
 <p>Thanks for reading, and I hope you got something useful out of my love for internationalization. I would <em>love</em> to answer questions and chat about this new feature, so please comment with anything you have, and we can nerd out about all this together. Happy coding!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Advent of Code 2022 - Kotlin</title>
       <link>https://www.adamormsby.com/posts/015-aoc-2022/</link>
       <pubDate>Mon, 28 Nov 2022 12:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/015-aoc-2022/</guid>
       <description>What will this year&amp;rsquo;s theme be???</description>
       <content:encoded><![CDATA[<p>It&rsquo;s that time of year again! 25 days of mind-bending code challenges brought to you by <a href="https://adventofcode.com/2022">Advent of Code 2022!</a> Last year I ended up getting <em>most</em> of the way through, but who knows this year? I&rsquo;m a hell of a lot busier (read: employed) this time around, and I do have a backlog of posts from this year that I want to get out there for you. Or maybe for me. Whoever they benefit, really.</p>
 <p>But I actually did some prep work this year! I built a little <code>Solution</code> wrapper class to manage printing my outputs and tracking execution time, and I created files for all 25 days ahead of time - just need to update their titles as I unlock the challenges. And the best thing about having done this challenge before is that I had some data models and functions I could steal from! Last year, I put most of my efforts into building an input reader and some 2D and 3D coordinate objects with some nice computation functions included. No need to reinvent the wheel - they&rsquo;re coming along for the ride!</p>
-<p>As usual, I&rsquo;ll fill up the list below with links to my solutions, maybe once a week so I don&rsquo;t have to keep updating all the time. Feel like sharing your AoC projects? toss a link in the comments! Happy holidays, y&rsquo;all. 🎄 🎅 🎄 🎅 🎄</p>
+<p>As usual, I&rsquo;ll fill up the list below with links to my solutions, maybe once a week so I don&rsquo;t have to keep updating all the time. Feel like sharing your AoC projects? toss a link in the comments! Happy holidays, y&rsquo;all. &#x1f384; &#x1f385; &#x1f384; &#x1f385; &#x1f384;</p>
 <h2 id="advent-of-code-2022---kotlin-solutions">Advent of Code 2022 - Kotlin Solutions</h2>
 
 
@@ -142,15 +141,13 @@
 </ul>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>WilyKit: The MacBook That Became Wall Art</title>
       <link>https://www.adamormsby.com/posts/014-old-laptop-disassembly/</link>
       <pubDate>Mon, 29 Aug 2022 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/014-old-laptop-disassembly/</guid>
       <description>After 8 years of service, my 2013 MacBook Air finally died last year. I had always planned on keeping the lid somehow, so I took it apart and turned it into wall art.</description>
-      <content:encoded><![CDATA[<p>Computers get old and die just like us. Parts fail. They become obsolete. You drop them a few too many times. It happens to <a href="https://i.ytimg.com/vi/j_WpEYAAmi8/maxresdefault.jpg">the best of us.</a> And while there are many ways to dispose of your computer - like <a href="https://www.epa.gov/recycle/electronics-donation-and-recycling">donation and recycling</a> - it can sometimes feel like letting go of a friend. I felt that way about WilyKit, so I turned it into wall art. 🙂</p>
+      <content:encoded><![CDATA[<p>Computers get old and die just like us. Parts fail. They become obsolete. You drop them a few too many times. It happens to <a href="https://i.ytimg.com/vi/j_WpEYAAmi8/maxresdefault.jpg">the best of us.</a> And while there are many ways to dispose of your computer - like <a href="https://www.epa.gov/recycle/electronics-donation-and-recycling">donation and recycling</a> - it can sometimes feel like letting go of a friend. I felt that way about WilyKit, so I turned it into wall art. &#x1f642;</p>
 <p>After 8 years of service, my 2013 MacBook Air finally died last year. Simple hard drive failure, <a href="https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Mid+2013+Solid-State+Drive+Replacement/15181">totally fixable for a hundred bucks.</a> But I needed a more powerful computer to help with my work, so I just bought a new one instead.</p>
 <p>I had always planned on keeping the lid somehow, no matter how many times its dinged-up edges caught onto my bags, my clothes, and even my skin when they were feeling extra bloodthirsty. It was just so full of memories! I took that laptop around the world, wrote stories with it, learned to code on it, dropped it on its corners until it wouldn&rsquo;t shut right, and stickered it full with the signposts of my youth. This was my companion, and I couldn&rsquo;t just give it away.</p>
 <figure class="align-center "><a href="img/wilykit.jpg">
@@ -185,12 +182,10 @@
 
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Localization - Formatting Dates on Android</title>
       <link>https://www.adamormsby.com/posts/013-android-localization-formatting-dates/</link>
       <pubDate>Mon, 28 Mar 2022 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/013-android-localization-formatting-dates/</guid>
       <description>Hey everybody, let&amp;rsquo;s talk localization! Today, I want to look at date formatting for Android applications. When you want to display a date in your app, you have to keep in mind that your customers in different locales will expect dates to look the way they&amp;rsquo;re used to seeing them. But while there are a lot of date formatting options on Android, they aren&amp;rsquo;t all robust enough to &amp;lsquo;just work&amp;rsquo; the way you need them to. I&amp;rsquo;ll show you a how to get you exactly the format you want every time.</description>
       <content:encoded><![CDATA[<p>Hey everybody, let&rsquo;s talk localization! It&rsquo;s a passion of mine that I&rsquo;d like to spend more time on, and I want to share some tips and tricks I&rsquo;ve picked up in my work. Hopefully, this is only the first of many localization posts to come. Keep an eye out for more in the future!</p>
@@ -239,10 +234,10 @@
 <p><a href="https://developer.android.com/reference/android/text/format/DateUtils">DateUtils</a> is the absolute <em>bomb</em> for date formatting on Android. It&rsquo;s flexible, robust, and aboslutely <em>is</em> sensitive to your customer&rsquo;s active locale. In fact, you&rsquo;re not even allowed to specify the locale being used when you format with DateUtils, and for the large majority of common date formatting needs, this is absolutely what you want. You want the system to handle most things for you, and DateUtils does this well.</p>
 <p>The flexibility in using DateUtils comes from its bitmask formatting flags. They allow you to specify <em>exactly</em> which date or time components you want to appear in your formatted date value, but instead of showing up in the order you choose (like with the string from before), they act as simple on/off switches independent of order or locale. Here&rsquo;s an example.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(
-</span></span><span style="display:flex;"><span>  DateUtils.formatDateTime(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">DateUtils</span>.formatDateTime(
 </span></span><span style="display:flex;"><span>    context,    <span style="color:#75715e">// needs a Context
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    myDate,     <span style="color:#75715e">// the Date object to format
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    DateUtils.FORMAT_SHOW_DATE  <span style="color:#75715e">// the format flag for showind &#39;date&#39; (includes year)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE  <span style="color:#75715e">// the format flag for showind &#39;date&#39; (includes year)
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  )
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
@@ -260,7 +255,7 @@
 </ul>
 <p>And that&rsquo;s it! No explicit format strings, no translated format resources, no locale problems! It <em>just works.</em></p>
 <p>Let&rsquo;s see how you can use the bit flags to remove the year now.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NO_YEAR
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NO_YEAR
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">/* output:
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">en_US -&gt; September 25
@@ -273,26 +268,26 @@
 <p>Want to supercharge your use of DateUtils? Use it in some Kotlin extension functions! Here are some fantastic samples from the Github project linked at the top of this post. These are ready for use in your project today!</p>
 <p>Show only the time:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTime(context: Context): String =
-</span></span><span style="display:flex;"><span>    DateUtils.formatDateTime(context, time, DateUtils.FORMAT_SHOW_TIME)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">DateUtils</span>.formatDateTime(context, time, <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_TIME)
 </span></span></code></pre></div><p>Show date with year, numeric and abbreviation options:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asDateWithYear(
 </span></span><span style="display:flex;"><span>    context: Context,
 </span></span><span style="display:flex;"><span>    numeric: Boolean = <span style="color:#66d9ef">false</span>,
 </span></span><span style="display:flex;"><span>    abbreviated: Boolean = <span style="color:#66d9ef">false</span>
 </span></span><span style="display:flex;"><span>): String {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = DateUtils.FORMAT_SHOW_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NUMERIC_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_ABBREV_MONTH
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">DateUtils</span>.formatDateTime(context, time, formatFlags)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Dynamically show the time (if date is today) or the date (if date is not today):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTimeOrRecentDate(): String =
-</span></span><span style="display:flex;"><span>    DateUtils.formatSameDayTime(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">DateUtils</span>.formatSameDayTime(
 </span></span><span style="display:flex;"><span>        time,
 </span></span><span style="display:flex;"><span>        Date().time,
-</span></span><span style="display:flex;"><span>        DateFormat.LONG,
-</span></span><span style="display:flex;"><span>        DateFormat.SHORT
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">DateFormat</span>.LONG,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">DateFormat</span>.SHORT
 </span></span><span style="display:flex;"><span>    ).toString()
 </span></span></code></pre></div><p>And something <em>super</em> flexible!</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.flexFormatted(
@@ -306,26 +301,24 @@
 </span></span><span style="display:flex;"><span>    abbreviated: Boolean = <span style="color:#66d9ef">false</span>,
 </span></span><span style="display:flex;"><span>): String {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// starts blank
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (showWeekday) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_WEEKDAY
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showMonth) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showMonthDay) formatFlags = formatFlags or DateUtils.FORMAT_NO_MONTH_DAY
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showYear) formatFlags = formatFlags or DateUtils.FORMAT_NO_YEAR
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showTime) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_TIME
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH or DateUtils.FORMAT_ABBREV_WEEKDAY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (showWeekday) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_WEEKDAY
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showMonth) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showMonthDay) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NO_MONTH_DAY
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showYear) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NO_YEAR
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showTime) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_TIME
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NUMERIC_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_ABBREV_MONTH or <span style="color:#a6e22e">DateUtils</span>.FORMAT_ABBREV_WEEKDAY
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">DateUtils</span>.formatDateTime(context, time, formatFlags)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
 <p>Thanks for reading! I hope this little trip into the world of localization was as fun for you as it was for me. Please - ask questions, give opinions, and share your ideas in the comments! I&rsquo;d love to swap date formatting stories with you. Cheers!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Using Hugo Modules Instead of Git Submodules</title>
       <link>https://www.adamormsby.com/posts/012-hugo-modules/</link>
       <pubDate>Mon, 13 Dec 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/012-hugo-modules/</guid>
       <description>Hey there, folks! I know I&amp;rsquo;m a little late to this party, but it&amp;rsquo;s time I talked about working with Hugo Modules.</description>
       <content:encoded><![CDATA[<p>Hey there, folks! I know I&rsquo;m a little late to this party, but it&rsquo;s time I talked about working with Hugo Modules. Sometime last year I wrote a post on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a>, but let&rsquo;s be honest - that&rsquo;s a lot of work. Setting up git submodules and managing them over time can be a headache, especially for larger projects, and that kind of configuration just brings in a lot of overhead you may not want to deal with long term. For a more manageable project, I now recommend Hugo modules.</p>
@@ -400,16 +393,14 @@
 <p>I hope this shows you that Hugo modules are pretty fantastic to work with and how much nicer they are than git submodules. If I&rsquo;d known that a year ago, maybe I never would have written about git submodules! No matter. We&rsquo;re here now, and that&rsquo;s what counts! Happy coding!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Advent of Code 2021 - Kotlin</title>
       <link>https://www.adamormsby.com/posts/011-aoc-2021/</link>
       <pubDate>Sun, 28 Nov 2021 12:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/011-aoc-2021/</guid>
       <description>Two days to Advent of Code 2021! Get your IDEs ready!</description>
       <content:encoded><![CDATA[<p>Yo, what up devs??? <a href="https://adventofcode.com/">Advent of Code 2021</a> is knocking at your door! I&rsquo;m super excited to take part in these wonderful long-form code challenges again this year, and I hope you join me for the ride. My weapon of choice this year is Kotlin! (Interested in 2020 Kotlin solutions? <a href="https://kotlinlang.org/docs/advent-of-code.html">These are cool.</a>)</p>
-<p>See that list down there? I&rsquo;ll fill it up with solutions as the days go by. But I&rsquo;d love to see how you solve your problems, too! Add links in the comments if you feel like sharing. Merry Christmas! 🎄 🎅 🎄 🎅 🎄</p>
+<p>See that list down there? I&rsquo;ll fill it up with solutions as the days go by. But I&rsquo;d love to see how you solve your problems, too! Add links in the comments if you feel like sharing. Merry Christmas! &#x1f384; &#x1f385; &#x1f384; &#x1f385; &#x1f384;</p>
 <h2 id="advent-of-code-2021---kotlin-solutions">Advent of Code 2021 - Kotlin Solutions</h2>
 <p>If you spot a helper you aren&rsquo;t familiar with, it&rsquo;s because I wrote some Utils that I share across the project for use in multiple challenges. Please steal them!</p>
 
@@ -452,16 +443,14 @@
 </ul>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Advent of Code 2020 - Python</title>
       <link>https://www.adamormsby.com/posts/010-aoc-2020/</link>
       <pubDate>Mon, 22 Nov 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/010-aoc-2020/</guid>
       <description>Advent of Code is almost here! Read on for my Python solutions from 2020.</description>
       <content:encoded><![CDATA[<p><a href="https://adventofcode.com/">Advent of Code</a> is almost here! For the uninitiated, Advent of Code is a December-long code challenge with awesome new puzzles to solve every day from December 1st to 25th. The puzzles are <em>hard.</em> But that&rsquo;s what makes them so fun!</p>
-<p>You might be asking yourself &ndash; What&rsquo;s so great about a month of code challenges? Aren&rsquo;t most code challenges usually kind of dumb and boring? Yes. Absolutely. Most bite-size code challenges are basically someone online writing a problem they think is clever, but instead it has no basis in reality and doesn&rsquo;t make you think critically about anything. (I do not have a high opinion of most code challenges. 💩)</p>
+<p>You might be asking yourself &ndash; What&rsquo;s so great about a month of code challenges? Aren&rsquo;t most code challenges usually kind of dumb and boring? Yes. Absolutely. Most bite-size code challenges are basically someone online writing a problem they think is clever, but instead it has no basis in reality and doesn&rsquo;t make you think critically about anything. (I do not have a high opinion of most code challenges. &#x1f4a9;)</p>
 <p>Advent of Code is different! The problems are more long-form, are great at educating about real-world concepts, and they make you think - really <em>think</em> - about your implementations, especially when brute-forcing something in your program would result in an hours-long runtime just to get your solution. There were several times last year I thought I&rsquo;d solved a problem only to have to rewrite my code from scratch - mostly when part 2 of the problem asked for something I didn&rsquo;t expect. It&rsquo;s super enjoyable, and I highly recommend you join everyone online this year and give it a shot.</p>
 <p>I participated in my first AoC last year, and I had an absolute blast! I sort of taught myself Python while doing the challenges, which may have added significant difficulty, but I think I did alright in the end. Here are my dubious solutions if you&rsquo;re curious. Hope you join me for this year!</p>
 <h2 id="advent-of-code-2020---some-python-solutions">Advent of Code 2020 - Some Python Solutions</h2>
@@ -506,12 +495,10 @@
 <p>Got busy last year. Maybe I&rsquo;ll finish these someday!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Hugo Shortcodes Module</title>
       <link>https://www.adamormsby.com/posts/009-hugo-shortcodes-module/</link>
       <pubDate>Mon, 15 Nov 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/009-hugo-shortcodes-module/</guid>
       <description>I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module.</description>
       <content:encoded><![CDATA[<p>Hey, small announcement! I started an open-source project for collecting user-created Hugo shortcodes, and you can add all of them to your Hugo site as a Hugo module. I filled the starter repo with some of the shortcodes I&rsquo;ve made for my own site, and I&rsquo;d love for it to become a place where everybody can share theirs with everyone. Theme-agnostic shortcodes are best, of course, but I really have no guidelines for additions right now. Let&rsquo;s see where it goes!</p>
@@ -788,12 +775,10 @@
 </p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Github Actions - Updated!</title>
       <link>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</link>
       <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</guid>
       <description>I&amp;rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</description>
       <content:encoded><![CDATA[<p>Wow, what a year! I mean, 2021 still hasn&rsquo;t been my favorite, but it&rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</p>
@@ -857,15 +842,13 @@
 <p>Trying to get proper merges when using shallow clones during checkout has quite a problem. Thankfully, it doesn&rsquo;t prevent the action from working, but it does mean you have checkout with fetch-depth: &lsquo;0&rsquo; and pull the entire commit history when that may not be desirable behavior. See <a href="https://github.com/aormsby/hugo-deploy-to-pages/wiki/Git-Shallow-Clone-Challenge">Git Shallow Clone Challenge</a> for details, and maybe you can help.</p>
 <h2 id="reach-out">Reach Out</h2>
 <p>I&rsquo;m super thrilled to have some regular users of both of these actions, and I do my best to check in on their health every so often. If you have any questions, issues, or suggestions, I invite you to reach out by commenting here or opening an issue directly on these repositories.</p>
-<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. 🙂</p>
+<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. &#x1f642;</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Github Action: Fork Sync With Upstream</title>
       <link>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</link>
       <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</guid>
       <description>These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. Let&amp;rsquo;s see what it does!</description>
       <content:encoded><![CDATA[
@@ -921,19 +904,17 @@
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
 </span></span></code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
 <h2 id="behind-the-scenes">Behind The Scenes</h2>
-<p>Just some extra dev notes if you&rsquo;re interested. 🙂</p>
+<p>Just some extra dev notes if you&rsquo;re interested. &#x1f642;</p>
 <p>Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&rsquo;s more familiar to me, and I don&rsquo;t need to run this action in any specific Docker-simulated environment.</p>
 <p>The <code>action.yaml</code> file declares all the input variables needed for the action and then runs <code>main.js</code>. At the moment, <code>main.js</code> exists only to run the shell script <code>upstream-sync.sh</code>, which is where the sync really happens. This could change in the future.</p>
 <p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &rsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
 <p>Anyway, try it out! Let me know how you like it. I&rsquo;m also planning on turning my <a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/">shell deploy script</a> into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Build and Deploy: A Shell Script for Hugo Sites</title>
       <link>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</link>
       <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
       <description>I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!</description>
       <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
@@ -1004,16 +985,14 @@
 </ul>
 <h2 id="the-full-script">The Full Script</h2>
 <p><a href="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh">View on Github</a></p>
-<script type="application/javascript" src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
+<script src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
 
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Hugo Themes - Making Modifications while Keeping the Source Up-To-Date</title>
       <link>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</link>
       <pubDate>Tue, 19 May 2020 18:30:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</guid>
       <description>In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. We&amp;rsquo;ll see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</description>
       <content:encoded><![CDATA[<p><em>This is a continuation of a previous post - <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a> I will reference some things we did there, so be sure to check it out if you&rsquo;re confused about something.</em></p>
@@ -1144,12 +1123,10 @@
 <p>Until next time! ~</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>How to Set Up a Hugo Site on Github Pages - with Git Submodules!</title>
       <link>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</link>
       <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
       <description>This blog was made with Hugo, hosted on Github Pages, and harnesses the power of git submodules to separate source code from live site data. This tutorial shows you how I got all these systems to work together nicely and how you can use these tools to take more control of your site.</description>
       <content:encoded><![CDATA[<h2 id="overview">Overview</h2>
@@ -1376,15 +1353,13 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p>Thanks for reading! ~</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 3</title>
       <link>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-3/</link>
       <pubDate>Sat, 02 Sep 2017 00:00:00 +0000</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-3/</guid>
       <description>At first I didn’t realize it was a mountain. All I knew was that I had ridden out past the edge of a small town to a place where the road suddenly changed. It curved back and forth, meandering upward through forested hills, becoming steeper and more narrow as I rode on. Time passed, and the shoulders of the road disappeared.</description>
-      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
+      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> :slight_smile:</p>
 <p><a href="/posts/000/adam-roams-cycling-vinales/part-1/">Part 1</a> | <a href="/posts/000/adam-roams-cycling-vinales/part-2/">Part 2</a> | <strong>Part 3</strong></p>
 <hr>
 <h2 id="the-mountain-of-madness---crossing-thresholds">The Mountain of Madness - Crossing Thresholds</h2>
@@ -1443,15 +1418,13 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 2</title>
       <link>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-2/</link>
       <pubDate>Thu, 31 Aug 2017 00:00:00 +0000</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-2/</guid>
       <description>I stopped at around 7 PM that first night to search for a place to stay. With the hammock and sleeping bag stuffed deep inside my pack I had dreamed of camping in the countryside and experiencing a night under the stars in Cuba. Sadly, that dream was crushed by the sheer amount of private farmland that bordered the highway for the entire ride, and I didn&amp;rsquo;t want to get in trouble for camping on private land or government property.</description>
-      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
+      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> :slight_smile:</p>
 <p><a href="/posts/000/adam-roams-cycling-vinales/part-1/">Part 1</a> | <strong>Part 2</strong> | <a href="/posts/000/adam-roams-cycling-vinales/part-3/">Part 3</a></p>
 <hr>
 <h2 id="spending-the-night-in-a-casa-particular-or-maybe-just-an-apartment">Spending the Night in a Casa Particular (Or Maybe Just an Apartment)</h2>
@@ -1535,15 +1508,13 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p><em>Concluded in <a href="/posts/000/adam-roams-cycling-vinales/part-3/">Part 3</a>!</em></p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>The Road to Viñales - A Tale of Cycling in Cuba - Part 1</title>
       <link>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-1/</link>
       <pubDate>Tue, 29 Aug 2017 00:00:00 +0000</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/adam-roams-cycling-vinales/part-1/</guid>
       <description>As I lay on the side of the road, the afternoon sun bearing down on me and threatening to steal away my consciousness, I could hear the throaty rumble of a motor headed my way. I barely registered the rusty blue taxi that passed little more than arm’s length in front of me, leaving a cloud of lead-laden exhaust in its wake. Exhaustion spread through me like a virus, and I sat still in the silence.</description>
-      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> 🙂</p>
+      <content:encoded><![CDATA[<p><em><strong>Author&rsquo;s Note:</strong> This story was written on a blog that I began along with my travels a few years ago. The trip greatly fueled my desire to travel which eventually led to living as an expat. For both sentimental and archival purposes, I decided to include this story as the first set of posts on my new site. I hope you enjoy it.</em> :slight_smile:</p>
 <p><strong>Part 1</strong> | <a href="/posts/000/adam-roams-cycling-vinales/part-2/">Part 2</a> | <a href="/posts/000/adam-roams-cycling-vinales/part-3/">Part 3</a></p>
 <hr>
 <p>As I lay on the side of the road, the afternoon sun bearing down on me and threatening to steal away my consciousness, I could hear the throaty rumble of a motor headed my way. I barely registered the rusty blue taxi that passed little more than arm’s length in front of me, leaving a cloud of lead-laden exhaust in its wake. Exhaustion spread through me like a virus, and I sat still in the silence.</p>
@@ -1686,12 +1657,10 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p><em>Continued in <a href="/posts/000/adam-roams-cycling-vinales/part-2/">Part 2</a>!</em></p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Privacy Policy for I Am - Multilingual Motivation</title>
       <link>https://www.adamormsby.com/i-am-privacy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://www.adamormsby.com/i-am-privacy/</guid>
       <description>** PRIVACY POLICY
 Last updated March 31, 2024
@@ -1753,16 +1722,12 @@ word-break: break-word !important;
 **</strong></p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Projects</title>
       <link>https://www.adamormsby.com/projects/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://www.adamormsby.com/projects/</guid>
       <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
     </item>
-    
   </channel>
 </rss>

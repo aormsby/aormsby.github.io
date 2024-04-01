@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>hardware on </title>
+    <title>Hardware on </title>
     <link>https://www.adamormsby.com/tags/hardware/</link>
-    <description>Recent content in hardware on </description>
+    <description>Recent content in Hardware on </description>
     <image>
       <title></title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 29 Aug 2022 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/hardware/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 29 Aug 2022 06:00:00 -0600</lastBuildDate>
+    <atom:link href="https://www.adamormsby.com/tags/hardware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WilyKit: The MacBook That Became Wall Art</title>
       <link>https://www.adamormsby.com/posts/014-old-laptop-disassembly/</link>
       <pubDate>Mon, 29 Aug 2022 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/014-old-laptop-disassembly/</guid>
       <description>After 8 years of service, my 2013 MacBook Air finally died last year. I had always planned on keeping the lid somehow, so I took it apart and turned it into wall art.</description>
-      <content:encoded><![CDATA[<p>Computers get old and die just like us. Parts fail. They become obsolete. You drop them a few too many times. It happens to <a href="https://i.ytimg.com/vi/j_WpEYAAmi8/maxresdefault.jpg">the best of us.</a> And while there are many ways to dispose of your computer - like <a href="https://www.epa.gov/recycle/electronics-donation-and-recycling">donation and recycling</a> - it can sometimes feel like letting go of a friend. I felt that way about WilyKit, so I turned it into wall art. 🙂</p>
+      <content:encoded><![CDATA[<p>Computers get old and die just like us. Parts fail. They become obsolete. You drop them a few too many times. It happens to <a href="https://i.ytimg.com/vi/j_WpEYAAmi8/maxresdefault.jpg">the best of us.</a> And while there are many ways to dispose of your computer - like <a href="https://www.epa.gov/recycle/electronics-donation-and-recycling">donation and recycling</a> - it can sometimes feel like letting go of a friend. I felt that way about WilyKit, so I turned it into wall art. &#x1f642;</p>
 <p>After 8 years of service, my 2013 MacBook Air finally died last year. Simple hard drive failure, <a href="https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Mid+2013+Solid-State+Drive+Replacement/15181">totally fixable for a hundred bucks.</a> But I needed a more powerful computer to help with my work, so I just bought a new one instead.</p>
 <p>I had always planned on keeping the lid somehow, no matter how many times its dinged-up edges caught onto my bags, my clothes, and even my skin when they were feeling extra bloodthirsty. It was just so full of memories! I took that laptop around the world, wrote stories with it, learned to code on it, dropped it on its corners until it wouldn&rsquo;t shut right, and stickered it full with the signposts of my youth. This was my companion, and I couldn&rsquo;t just give it away.</p>
 <figure class="align-center "><a href="img/wilykit.jpg">
@@ -53,6 +54,5 @@
 
 ]]></content:encoded>
     </item>
-    
   </channel>
 </rss>

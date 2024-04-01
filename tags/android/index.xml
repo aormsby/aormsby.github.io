@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>android on </title>
+    <title>Android on </title>
     <link>https://www.adamormsby.com/tags/android/</link>
-    <description>Recent content in android on </description>
+    <description>Recent content in Android on </description>
     <image>
       <title></title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 06 Feb 2023 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Feb 2023 06:00:00 -0600</lastBuildDate>
+    <atom:link href="https://www.adamormsby.com/tags/android/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Per-App Language Preferences in Android 13</title>
       <link>https://www.adamormsby.com/posts/016-android-13-localization-per-app-language-preferences/</link>
       <pubDate>Mon, 06 Feb 2023 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/016-android-13-localization-per-app-language-preferences/</guid>
       <description>Finally, some localization updates for Android! Android 13 was released in the summer of 2022, and it has &lt;em&gt;a ton&lt;/em&gt; of cool new stuff to work with. Today, I&amp;rsquo;ll share a small piece I&amp;rsquo;m passionate about - per-app language settings.</description>
       <content:encoded><![CDATA[<p>Finally, some localization updates for Android! Android 13 was released in the summer of 2022, and it has <em>a ton</em> of cool new stuff to work with. Today, I&rsquo;ll share a small piece I&rsquo;m passionate about - per-app language settings.</p>
@@ -90,12 +91,10 @@
 <p>Thanks for reading, and I hope you got something useful out of my love for internationalization. I would <em>love</em> to answer questions and chat about this new feature, so please comment with anything you have, and we can nerd out about all this together. Happy coding!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Localization - Formatting Dates on Android</title>
       <link>https://www.adamormsby.com/posts/013-android-localization-formatting-dates/</link>
       <pubDate>Mon, 28 Mar 2022 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/013-android-localization-formatting-dates/</guid>
       <description>Hey everybody, let&amp;rsquo;s talk localization! Today, I want to look at date formatting for Android applications. When you want to display a date in your app, you have to keep in mind that your customers in different locales will expect dates to look the way they&amp;rsquo;re used to seeing them. But while there are a lot of date formatting options on Android, they aren&amp;rsquo;t all robust enough to &amp;lsquo;just work&amp;rsquo; the way you need them to. I&amp;rsquo;ll show you a how to get you exactly the format you want every time.</description>
       <content:encoded><![CDATA[<p>Hey everybody, let&rsquo;s talk localization! It&rsquo;s a passion of mine that I&rsquo;d like to spend more time on, and I want to share some tips and tricks I&rsquo;ve picked up in my work. Hopefully, this is only the first of many localization posts to come. Keep an eye out for more in the future!</p>
@@ -144,10 +143,10 @@
 <p><a href="https://developer.android.com/reference/android/text/format/DateUtils">DateUtils</a> is the absolute <em>bomb</em> for date formatting on Android. It&rsquo;s flexible, robust, and aboslutely <em>is</em> sensitive to your customer&rsquo;s active locale. In fact, you&rsquo;re not even allowed to specify the locale being used when you format with DateUtils, and for the large majority of common date formatting needs, this is absolutely what you want. You want the system to handle most things for you, and DateUtils does this well.</p>
 <p>The flexibility in using DateUtils comes from its bitmask formatting flags. They allow you to specify <em>exactly</em> which date or time components you want to appear in your formatted date value, but instead of showing up in the order you choose (like with the string from before), they act as simple on/off switches independent of order or locale. Here&rsquo;s an example.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(
-</span></span><span style="display:flex;"><span>  DateUtils.formatDateTime(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">DateUtils</span>.formatDateTime(
 </span></span><span style="display:flex;"><span>    context,    <span style="color:#75715e">// needs a Context
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    myDate,     <span style="color:#75715e">// the Date object to format
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    DateUtils.FORMAT_SHOW_DATE  <span style="color:#75715e">// the format flag for showind &#39;date&#39; (includes year)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE  <span style="color:#75715e">// the format flag for showind &#39;date&#39; (includes year)
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  )
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
@@ -165,7 +164,7 @@
 </ul>
 <p>And that&rsquo;s it! No explicit format strings, no translated format resources, no locale problems! It <em>just works.</em></p>
 <p>Let&rsquo;s see how you can use the bit flags to remove the year now.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NO_YEAR
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NO_YEAR
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">/* output:
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">en_US -&gt; September 25
@@ -178,26 +177,26 @@
 <p>Want to supercharge your use of DateUtils? Use it in some Kotlin extension functions! Here are some fantastic samples from the Github project linked at the top of this post. These are ready for use in your project today!</p>
 <p>Show only the time:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTime(context: Context): String =
-</span></span><span style="display:flex;"><span>    DateUtils.formatDateTime(context, time, DateUtils.FORMAT_SHOW_TIME)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">DateUtils</span>.formatDateTime(context, time, <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_TIME)
 </span></span></code></pre></div><p>Show date with year, numeric and abbreviation options:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asDateWithYear(
 </span></span><span style="display:flex;"><span>    context: Context,
 </span></span><span style="display:flex;"><span>    numeric: Boolean = <span style="color:#66d9ef">false</span>,
 </span></span><span style="display:flex;"><span>    abbreviated: Boolean = <span style="color:#66d9ef">false</span>
 </span></span><span style="display:flex;"><span>): String {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = DateUtils.FORMAT_SHOW_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NUMERIC_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_ABBREV_MONTH
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">DateUtils</span>.formatDateTime(context, time, formatFlags)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Dynamically show the time (if date is today) or the date (if date is not today):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.asTimeOrRecentDate(): String =
-</span></span><span style="display:flex;"><span>    DateUtils.formatSameDayTime(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">DateUtils</span>.formatSameDayTime(
 </span></span><span style="display:flex;"><span>        time,
 </span></span><span style="display:flex;"><span>        Date().time,
-</span></span><span style="display:flex;"><span>        DateFormat.LONG,
-</span></span><span style="display:flex;"><span>        DateFormat.SHORT
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">DateFormat</span>.LONG,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">DateFormat</span>.SHORT
 </span></span><span style="display:flex;"><span>    ).toString()
 </span></span></code></pre></div><p>And something <em>super</em> flexible!</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">Date</span>.flexFormatted(
@@ -211,20 +210,19 @@
 </span></span><span style="display:flex;"><span>    abbreviated: Boolean = <span style="color:#66d9ef">false</span>,
 </span></span><span style="display:flex;"><span>): String {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> formatFlags = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// starts blank
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (showWeekday) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_WEEKDAY
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showMonth) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showMonthDay) formatFlags = formatFlags or DateUtils.FORMAT_NO_MONTH_DAY
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showYear) formatFlags = formatFlags or DateUtils.FORMAT_NO_YEAR
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showTime) formatFlags = formatFlags or DateUtils.FORMAT_SHOW_TIME
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or DateUtils.FORMAT_NUMERIC_DATE
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or DateUtils.FORMAT_ABBREV_MONTH or DateUtils.FORMAT_ABBREV_WEEKDAY
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (showWeekday) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_WEEKDAY
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showMonth) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showMonthDay) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NO_MONTH_DAY
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!showYear) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NO_YEAR
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (showTime) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_SHOW_TIME
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (numeric) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_NUMERIC_DATE
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (abbreviated) formatFlags = formatFlags or <span style="color:#a6e22e">DateUtils</span>.FORMAT_ABBREV_MONTH or <span style="color:#a6e22e">DateUtils</span>.FORMAT_ABBREV_WEEKDAY
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> DateUtils.formatDateTime(context, time, formatFlags)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">DateUtils</span>.formatDateTime(context, time, formatFlags)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
 <p>Thanks for reading! I hope this little trip into the world of localization was as fun for you as it was for me. Please - ask questions, give opinions, and share your ideas in the comments! I&rsquo;d love to swap date formatting stories with you. Cheers!</p>
 ]]></content:encoded>
     </item>
-    
   </channel>
 </rss>

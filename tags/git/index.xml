@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>git on </title>
+    <title>Git on </title>
     <link>https://www.adamormsby.com/tags/git/</link>
-    <description>Recent content in git on </description>
+    <description>Recent content in Git on </description>
     <image>
       <title></title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 13 Dec 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 13 Dec 2021 06:00:00 -0600</lastBuildDate>
+    <atom:link href="https://www.adamormsby.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Hugo Modules Instead of Git Submodules</title>
       <link>https://www.adamormsby.com/posts/012-hugo-modules/</link>
       <pubDate>Mon, 13 Dec 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/012-hugo-modules/</guid>
       <description>Hey there, folks! I know I&amp;rsquo;m a little late to this party, but it&amp;rsquo;s time I talked about working with Hugo Modules.</description>
       <content:encoded><![CDATA[<p>Hey there, folks! I know I&rsquo;m a little late to this party, but it&rsquo;s time I talked about working with Hugo Modules. Sometime last year I wrote a post on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a>, but let&rsquo;s be honest - that&rsquo;s a lot of work. Setting up git submodules and managing them over time can be a headache, especially for larger projects, and that kind of configuration just brings in a lot of overhead you may not want to deal with long term. For a more manageable project, I now recommend Hugo modules.</p>
@@ -90,12 +91,10 @@
 <p>I hope this shows you that Hugo modules are pretty fantastic to work with and how much nicer they are than git submodules. If I&rsquo;d known that a year ago, maybe I never would have written about git submodules! No matter. We&rsquo;re here now, and that&rsquo;s what counts! Happy coding!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Github Actions - Updated!</title>
       <link>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</link>
       <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</guid>
       <description>I&amp;rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</description>
       <content:encoded><![CDATA[<p>Wow, what a year! I mean, 2021 still hasn&rsquo;t been my favorite, but it&rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</p>
@@ -159,15 +158,13 @@
 <p>Trying to get proper merges when using shallow clones during checkout has quite a problem. Thankfully, it doesn&rsquo;t prevent the action from working, but it does mean you have checkout with fetch-depth: &lsquo;0&rsquo; and pull the entire commit history when that may not be desirable behavior. See <a href="https://github.com/aormsby/hugo-deploy-to-pages/wiki/Git-Shallow-Clone-Challenge">Git Shallow Clone Challenge</a> for details, and maybe you can help.</p>
 <h2 id="reach-out">Reach Out</h2>
 <p>I&rsquo;m super thrilled to have some regular users of both of these actions, and I do my best to check in on their health every so often. If you have any questions, issues, or suggestions, I invite you to reach out by commenting here or opening an issue directly on these repositories.</p>
-<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. 🙂</p>
+<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. &#x1f642;</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Build and Deploy: A Shell Script for Hugo Sites</title>
       <link>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</link>
       <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
       <description>I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!</description>
       <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
@@ -238,16 +235,14 @@
 </ul>
 <h2 id="the-full-script">The Full Script</h2>
 <p><a href="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh">View on Github</a></p>
-<script type="application/javascript" src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
+<script src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
 
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Hugo Themes - Making Modifications while Keeping the Source Up-To-Date</title>
       <link>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</link>
       <pubDate>Tue, 19 May 2020 18:30:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/</guid>
       <description>In today&amp;rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. We&amp;rsquo;ll see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</description>
       <content:encoded><![CDATA[<p><em>This is a continuation of a previous post - <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">How to Set Up a Hugo Site on Github Pages - with Git Submodules!</a> I will reference some things we did there, so be sure to check it out if you&rsquo;re confused about something.</em></p>
@@ -378,12 +373,10 @@
 <p>Until next time! ~</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>How to Set Up a Hugo Site on Github Pages - with Git Submodules!</title>
       <link>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</link>
       <pubDate>Tue, 17 Mar 2020 22:30:00 +0700</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/</guid>
       <description>This blog was made with Hugo, hosted on Github Pages, and harnesses the power of git submodules to separate source code from live site data. This tutorial shows you how I got all these systems to work together nicely and how you can use these tools to take more control of your site.</description>
       <content:encoded><![CDATA[<h2 id="overview">Overview</h2>
@@ -610,6 +603,5 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <p>Thanks for reading! ~</p>
 ]]></content:encoded>
     </item>
-    
   </channel>
 </rss>

@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>python on </title>
+    <title>Python on </title>
     <link>https://www.adamormsby.com/tags/python/</link>
-    <description>Recent content in python on </description>
+    <description>Recent content in Python on </description>
     <image>
       <title></title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 22 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 22 Nov 2021 06:00:00 -0600</lastBuildDate>
+    <atom:link href="https://www.adamormsby.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Advent of Code 2020 - Python</title>
       <link>https://www.adamormsby.com/posts/010-aoc-2020/</link>
       <pubDate>Mon, 22 Nov 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/010-aoc-2020/</guid>
       <description>Advent of Code is almost here! Read on for my Python solutions from 2020.</description>
       <content:encoded><![CDATA[<p><a href="https://adventofcode.com/">Advent of Code</a> is almost here! For the uninitiated, Advent of Code is a December-long code challenge with awesome new puzzles to solve every day from December 1st to 25th. The puzzles are <em>hard.</em> But that&rsquo;s what makes them so fun!</p>
-<p>You might be asking yourself &ndash; What&rsquo;s so great about a month of code challenges? Aren&rsquo;t most code challenges usually kind of dumb and boring? Yes. Absolutely. Most bite-size code challenges are basically someone online writing a problem they think is clever, but instead it has no basis in reality and doesn&rsquo;t make you think critically about anything. (I do not have a high opinion of most code challenges. 💩)</p>
+<p>You might be asking yourself &ndash; What&rsquo;s so great about a month of code challenges? Aren&rsquo;t most code challenges usually kind of dumb and boring? Yes. Absolutely. Most bite-size code challenges are basically someone online writing a problem they think is clever, but instead it has no basis in reality and doesn&rsquo;t make you think critically about anything. (I do not have a high opinion of most code challenges. &#x1f4a9;)</p>
 <p>Advent of Code is different! The problems are more long-form, are great at educating about real-world concepts, and they make you think - really <em>think</em> - about your implementations, especially when brute-forcing something in your program would result in an hours-long runtime just to get your solution. There were several times last year I thought I&rsquo;d solved a problem only to have to rewrite my code from scratch - mostly when part 2 of the problem asked for something I didn&rsquo;t expect. It&rsquo;s super enjoyable, and I highly recommend you join everyone online this year and give it a shot.</p>
 <p>I participated in my first AoC last year, and I had an absolute blast! I sort of taught myself Python while doing the challenges, which may have added significant difficulty, but I think I did alright in the end. Here are my dubious solutions if you&rsquo;re curious. Hope you join me for this year!</p>
 <h2 id="advent-of-code-2020---some-python-solutions">Advent of Code 2020 - Some Python Solutions</h2>
@@ -64,6 +65,5 @@
 <p>Got busy last year. Maybe I&rsquo;ll finish these someday!</p>
 ]]></content:encoded>
     </item>
-    
   </channel>
 </rss>

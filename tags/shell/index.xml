@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>shell on </title>
+    <title>Shell on </title>
     <link>https://www.adamormsby.com/tags/shell/</link>
-    <description>Recent content in shell on </description>
+    <description>Recent content in Shell on </description>
     <image>
       <title></title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 21 Jun 2020 23:30:00 -0500</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sun, 21 Jun 2020 23:30:00 -0500</lastBuildDate>
+    <atom:link href="https://www.adamormsby.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Build and Deploy: A Shell Script for Hugo Sites</title>
       <link>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</link>
       <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
       <description>I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!</description>
       <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
@@ -86,10 +87,9 @@
 </ul>
 <h2 id="the-full-script">The Full Script</h2>
 <p><a href="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh">View on Github</a></p>
-<script type="application/javascript" src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
+<script src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
 
 ]]></content:encoded>
     </item>
-    
   </channel>
 </rss>

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>automation on </title>
+    <title>Automation on </title>
     <link>https://www.adamormsby.com/tags/automation/</link>
-    <description>Recent content in automation on </description>
+    <description>Recent content in Automation on </description>
     <image>
       <title></title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate><atom:link href="https://www.adamormsby.com/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate>
+    <atom:link href="https://www.adamormsby.com/tags/automation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github Actions - Updated!</title>
       <link>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</link>
       <pubDate>Mon, 08 Nov 2021 06:00:00 -0600</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/008-fork-and-deploy-updates/</guid>
       <description>I&amp;rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</description>
       <content:encoded><![CDATA[<p>Wow, what a year! I mean, 2021 still hasn&rsquo;t been my favorite, but it&rsquo;s been a hell of a lot better than last year. Much more productive, anyway. I&rsquo;ve made some serious updates to my two Github Actions available on the Marketplace, and I want to share with you what changes were made and why I decided to make them.</p>
@@ -79,15 +80,13 @@
 <p>Trying to get proper merges when using shallow clones during checkout has quite a problem. Thankfully, it doesn&rsquo;t prevent the action from working, but it does mean you have checkout with fetch-depth: &lsquo;0&rsquo; and pull the entire commit history when that may not be desirable behavior. See <a href="https://github.com/aormsby/hugo-deploy-to-pages/wiki/Git-Shallow-Clone-Challenge">Git Shallow Clone Challenge</a> for details, and maybe you can help.</p>
 <h2 id="reach-out">Reach Out</h2>
 <p>I&rsquo;m super thrilled to have some regular users of both of these actions, and I do my best to check in on their health every so often. If you have any questions, issues, or suggestions, I invite you to reach out by commenting here or opening an issue directly on these repositories.</p>
-<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. 🙂</p>
+<p>In the meantime, what have you been up to? Tell me about it in the comments! Share a link, and I&rsquo;ll read all about it. &#x1f642;</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Github Action: Fork Sync With Upstream</title>
       <link>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</link>
       <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</guid>
       <description>These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. Let&amp;rsquo;s see what it does!</description>
       <content:encoded><![CDATA[
@@ -143,19 +142,17 @@
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
 </span></span></code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
 <h2 id="behind-the-scenes">Behind The Scenes</h2>
-<p>Just some extra dev notes if you&rsquo;re interested. 🙂</p>
+<p>Just some extra dev notes if you&rsquo;re interested. &#x1f642;</p>
 <p>Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&rsquo;s more familiar to me, and I don&rsquo;t need to run this action in any specific Docker-simulated environment.</p>
 <p>The <code>action.yaml</code> file declares all the input variables needed for the action and then runs <code>main.js</code>. At the moment, <code>main.js</code> exists only to run the shell script <code>upstream-sync.sh</code>, which is where the sync really happens. This could change in the future.</p>
 <p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &rsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
 <p>Anyway, try it out! Let me know how you like it. I&rsquo;m also planning on turning my <a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/">shell deploy script</a> into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Build and Deploy: A Shell Script for Hugo Sites</title>
       <link>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</link>
       <pubDate>Sun, 21 Jun 2020 23:30:00 -0500</pubDate>
-      
       <guid>https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/</guid>
       <description>I don&amp;rsquo;t know about you, but I &lt;em&gt;love&lt;/em&gt; writing code that automates my work. I finally had the chance to do just that, and now I&amp;rsquo;m the proud owner of a shell script that builds and deploys my Hugo site without any extra help from me - and it even works with my git submodule setup!</description>
       <content:encoded><![CDATA[<h2 id="shell-scripts-are-awesome">Shell Scripts are Awesome</h2>
@@ -226,10 +223,9 @@
 </ul>
 <h2 id="the-full-script">The Full Script</h2>
 <p><a href="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c#file-hugo-deploy-sh">View on Github</a></p>
-<script type="application/javascript" src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
+<script src="https://gist.github.com/aormsby/fac42fa04f8afa2157109b85684edc0c.js"></script>
 
 ]]></content:encoded>
     </item>
-    
   </channel>
 </rss>
