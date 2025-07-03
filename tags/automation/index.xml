@@ -9,7 +9,7 @@
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>en</language>
     <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate>
     <atom:link href="https://www.adamormsby.com/tags/automation/index.xml" rel="self" type="application/rss+xml" />
@@ -163,8 +163,7 @@
 <p><a href="#the-full-script">full script at end</a></p>
 <h2 id="deploy-script-functionality">Deploy Script Functionality</h2>
 <blockquote>
-<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p>
-</blockquote>
+<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p></blockquote>
 <h3 id="order-of-operations">Order of Operations</h3>
 <p>From start to finish, here&rsquo;s what the script does.</p>
 <ol>

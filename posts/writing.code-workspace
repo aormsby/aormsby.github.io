@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.cursorStyle": "underline",
+		"workbench.colorTheme": "Abyss",
+		"editor.selectionHighlight": false,
+		"editor.occurrencesHighlight": "off",
+		"editor.renderLineHighlight": "none",
+	}
+}

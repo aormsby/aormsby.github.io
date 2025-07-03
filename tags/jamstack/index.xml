@@ -9,7 +9,7 @@
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>en</language>
     <lastBuildDate>Sun, 21 Jun 2020 23:30:00 -0500</lastBuildDate>
     <atom:link href="https://www.adamormsby.com/tags/jamstack/index.xml" rel="self" type="application/rss+xml" />
@@ -27,8 +27,7 @@
 <p><a href="#the-full-script">full script at end</a></p>
 <h2 id="deploy-script-functionality">Deploy Script Functionality</h2>
 <blockquote>
-<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p>
-</blockquote>
+<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p></blockquote>
 <h3 id="order-of-operations">Order of Operations</h3>
 <p>From start to finish, here&rsquo;s what the script does.</p>
 <ol>
@@ -102,15 +101,13 @@
 <p>In today&rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &lsquo;But my theme works fine!&rsquo; you say. &lsquo;Why would I ever need to update it?&rsquo; Well, when you download or clone a Hugo theme from its hosted git repository, you&rsquo;re getting its latest version <em>at that point in time.</em> So even if the theme&rsquo;s creator pushes updates to the code - with fixes, new features, and outside pull requests - you&rsquo;ll still be stuck using the version you downloaded before. While this is fine in some cases, many of us want the newest updates so we can take advantage of a stronger, improved theme.</p>
 <p>The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. If you followed my previous tutorial on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">adding a theme to your Hugo site as a git submodule</a>, you already have a functional Hugo site with a (forked) theme included. Starting there, let&rsquo;s see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</p>
 <blockquote>
-<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p>
-</blockquote>
+<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p></blockquote>
 <h2 id="just-the-updates-please">Just the Updates, Please</h2>
 <p>If we don&rsquo;t intend to customize a theme at all, we can keep our workflow super simple. All we need to do is add the theme repo into our project as a submodule and periodically run a few git commands to check for updates. For the moment, let&rsquo;s pretend we haven&rsquo;t forked the theme repo and see what it would be like to clone the source directly. We&rsquo;ll see an example with our fork in the next section.</p>
 <p>Here&rsquo;s a quick refresher command for adding a submodule to our project.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
 </span></span></code></pre></div><blockquote>
-<p>You might be thinking you can simply run <code>git clone</code> instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&rsquo;t work here. Git doesn&rsquo;t like having <code>.git</code> files in a subdirectory without a <code>.gitmodules</code> component in the root. For more on that, see <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post.</a></p>
-</blockquote>
+<p>You might be thinking you can simply run <code>git clone</code> instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&rsquo;t work here. Git doesn&rsquo;t like having <code>.git</code> files in a subdirectory without a <code>.gitmodules</code> component in the root. For more on that, see <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post.</a></p></blockquote>
 <p>In the example above, we added our submodule by pulling the theme&rsquo;s source repo directly into our project. With the <code>git remote</code> command, we can easily verify that it&rsquo;s connected to the correct remote repo.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; cd themes/hello-friend
 </span></span><span style="display:flex;"><span>&gt; git remote --verbose
@@ -388,8 +385,7 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <h2 id="add-a-theme-to-our-site">Add a Theme to Our Site</h2>
 <p>Wait, we&rsquo;re not finished just yet! Remember how our site doesn&rsquo;t display anything except an error message right now? We need some templates to get things up and running. The easiest way to get some is to add one of the many <a href="https://themes.gohugo.io/">Hugo themes</a> to our project. Since it was the first theme I used, I&rsquo;ll use the <a href="https://themes.gohugo.io/hugo-theme-hello-friend/">Hello Friend theme</a> in my example.</p>
 <blockquote>
-<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p>
-</blockquote>
+<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p></blockquote>
 <p>Many guides for adding a theme - including Hugo&rsquo;s own docs - just tell you to clone the theme repo or download and copy it into your project&rsquo;s <code>themes</code> directory. But hey, <em>our</em> theme today is <em>submodules</em>, so I propose that we add a theme to our project as a <em>submodule</em> since doing so would give us some nice dev powers over the theme.</p>
 <figure class="align-center "><a href="img/submodules-diagram-with-theme.jpg">
     <img loading="lazy" src="img/submodules-diagram-with-theme.jpg#center"

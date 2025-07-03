@@ -9,7 +9,7 @@
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>en</language>
     <lastBuildDate>Mon, 06 Feb 2023 06:00:00 -0600</lastBuildDate>
     <atom:link href="https://www.adamormsby.com/posts/index.xml" rel="self" type="application/rss+xml" />
@@ -30,15 +30,13 @@
 <li><a href="https://developer.android.com/guide/topics/resources/app-languages">Android Docs - Per-App Language Preferences</a> - messy, but good info if you&rsquo;re patient</li>
 </ul>
 <p>And here are two great videos sadly buried in the docs - one an overview of the per-app setting, and one a great intro into internationalization on Android.</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/DUKnNWwcNvo?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://www.youtube.com/embed/DUKnNWwcNvo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
-</div>
-
-
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://www.youtube.com/embed/Tq7TSUzAGm8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
-</div>
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/Tq7TSUzAGm8?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
 
 <h2 id="api-feature-overview">API Feature Overview</h2>
 <h3 id="whats-improved">What&rsquo;s improved?</h3>
@@ -148,7 +146,7 @@
       <guid>https://www.adamormsby.com/posts/014-old-laptop-disassembly/</guid>
       <description>After 8 years of service, my 2013 MacBook Air finally died last year. I had always planned on keeping the lid somehow, so I took it apart and turned it into wall art.</description>
       <content:encoded><![CDATA[<p>Computers get old and die just like us. Parts fail. They become obsolete. You drop them a few too many times. It happens to <a href="https://i.ytimg.com/vi/j_WpEYAAmi8/maxresdefault.jpg">the best of us.</a> And while there are many ways to dispose of your computer - like <a href="https://www.epa.gov/recycle/electronics-donation-and-recycling">donation and recycling</a> - it can sometimes feel like letting go of a friend. I felt that way about WilyKit, so I turned it into wall art. &#x1f642;</p>
-<p>After 8 years of service, my 2013 MacBook Air finally died last year. Simple hard drive failure, <a href="https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Mid+2013+Solid-State+Drive+Replacement/15181">totally fixable for a hundred bucks.</a> But I needed a more powerful computer to help with my work, so I just bought a new one instead.</p>
+<p>After 8 years of service, my 2013 MacBook Air finally died last year. Simple hard drive failure, <a href="https://www.ifixit.com/Guide/MacBook&#43;Air&#43;13-Inch&#43;Mid&#43;2013&#43;Solid-State&#43;Drive&#43;Replacement/15181">totally fixable for a hundred bucks.</a> But I needed a more powerful computer to help with my work, so I just bought a new one instead.</p>
 <p>I had always planned on keeping the lid somehow, no matter how many times its dinged-up edges caught onto my bags, my clothes, and even my skin when they were feeling extra bloodthirsty. It was just so full of memories! I took that laptop around the world, wrote stories with it, learned to code on it, dropped it on its corners until it wouldn&rsquo;t shut right, and stickered it full with the signposts of my youth. This was my companion, and I couldn&rsquo;t just give it away.</p>
 <figure class="align-center "><a href="img/wilykit.jpg">
     <img loading="lazy" src="img/wilykit.jpg#center"
@@ -157,7 +155,7 @@
         </figcaption>
 </figure>
 
-<p>Finally, after a year of busyness, I performed the surgery. <a href="https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Mid+2013+Display+Assembly+Replacement/15407">Removing the upper display</a> was quite easy, but after that I was on my own. Though most of the remaining work boiled down to peeling away the layers, the screen material can get pretty nasty when it cracks! I probably should have worn long sleeves, goggles, and a mask to be extra careful with the &rsquo;exploding&rsquo; glass particles, but it was manageable. Gloves helped a lot. What would&rsquo;ve helped more is if I hadn&rsquo;t cracked the glass&hellip; but it was a fun project overall.</p>
+<p>Finally, after a year of busyness, I performed the surgery. <a href="https://www.ifixit.com/Guide/MacBook&#43;Air&#43;13-Inch&#43;Mid&#43;2013&#43;Display&#43;Assembly&#43;Replacement/15407">Removing the upper display</a> was quite easy, but after that I was on my own. Though most of the remaining work boiled down to peeling away the layers, the screen material can get pretty nasty when it cracks! I probably should have worn long sleeves, goggles, and a mask to be extra careful with the &rsquo;exploding&rsquo; glass particles, but it was manageable. Gloves helped a lot. What would&rsquo;ve helped more is if I hadn&rsquo;t cracked the glass&hellip; but it was a fun project overall.</p>
 <p>Bit by bit, I removed the bezel, many layers of screen, the hinge, and copious amounts of adhesive tape used to keep it all together&hellip; and voilà! An aluminum memory, all my own.</p>
 <p>This computer had a life. And a death. Her name was WilyKit, and she can live on my wall forever.</p>
 <figure class="align-center "><a href="img/display-off.jpg">
@@ -925,8 +923,7 @@
 <p><a href="#the-full-script">full script at end</a></p>
 <h2 id="deploy-script-functionality">Deploy Script Functionality</h2>
 <blockquote>
-<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p>
-</blockquote>
+<p>Be sure to place this script in your <strong>site&rsquo;s root directory</strong> if you intend to use it. It&rsquo;s built with my git submodule setup in mind. But I don&rsquo;t think it would be too hard to modify it for something different.</p></blockquote>
 <h3 id="order-of-operations">Order of Operations</h3>
 <p>From start to finish, here&rsquo;s what the script does.</p>
 <ol>
@@ -1000,15 +997,13 @@
 <p>In today&rsquo;s post, I want to take a look at how we can keep our Hugo themes up-to-date. &lsquo;But my theme works fine!&rsquo; you say. &lsquo;Why would I ever need to update it?&rsquo; Well, when you download or clone a Hugo theme from its hosted git repository, you&rsquo;re getting its latest version <em>at that point in time.</em> So even if the theme&rsquo;s creator pushes updates to the code - with fixes, new features, and outside pull requests - you&rsquo;ll still be stuck using the version you downloaded before. While this is fine in some cases, many of us want the newest updates so we can take advantage of a stronger, improved theme.</p>
 <p>The key to this process is using git submodules to track and pull updates to a theme with just a few quick commands. If you followed my previous tutorial on <a href="https://www.adamormsby.com/posts/000/how-to-set-up-a-hugo-site-on-github-pages-with-submodules/">adding a theme to your Hugo site as a git submodule</a>, you already have a functional Hugo site with a (forked) theme included. Starting there, let&rsquo;s see how to connect our theme to its remote source repo, which git commands we need to update it, and even how to safely make our own custom changes to the theme while keeping it in line with the source.</p>
 <blockquote>
-<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p>
-</blockquote>
+<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p></blockquote>
 <h2 id="just-the-updates-please">Just the Updates, Please</h2>
 <p>If we don&rsquo;t intend to customize a theme at all, we can keep our workflow super simple. All we need to do is add the theme repo into our project as a submodule and periodically run a few git commands to check for updates. For the moment, let&rsquo;s pretend we haven&rsquo;t forked the theme repo and see what it would be like to clone the source directly. We&rsquo;ll see an example with our fork in the next section.</p>
 <p>Here&rsquo;s a quick refresher command for adding a submodule to our project.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; git submodule add https://github.com/panr/hugo-theme-hello-friend.git themes/hello-friend
 </span></span></code></pre></div><blockquote>
-<p>You might be thinking you can simply run <code>git clone</code> instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&rsquo;t work here. Git doesn&rsquo;t like having <code>.git</code> files in a subdirectory without a <code>.gitmodules</code> component in the root. For more on that, see <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post.</a></p>
-</blockquote>
+<p>You might be thinking you can simply run <code>git clone</code> instead of adding the theme as a submodule, but our site is already set up as a git repo so that doesn&rsquo;t work here. Git doesn&rsquo;t like having <code>.git</code> files in a subdirectory without a <code>.gitmodules</code> component in the root. For more on that, see <a href="https://wespeter.com/posts/avoiding-git-problems-when-installing-a-theme-to-hugo/">this &lsquo;simple dev&rsquo; post.</a></p></blockquote>
 <p>In the example above, we added our submodule by pulling the theme&rsquo;s source repo directly into our project. With the <code>git remote</code> command, we can easily verify that it&rsquo;s connected to the correct remote repo.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; cd themes/hello-friend
 </span></span><span style="display:flex;"><span>&gt; git remote --verbose
@@ -1286,8 +1281,7 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <h2 id="add-a-theme-to-our-site">Add a Theme to Our Site</h2>
 <p>Wait, we&rsquo;re not finished just yet! Remember how our site doesn&rsquo;t display anything except an error message right now? We need some templates to get things up and running. The easiest way to get some is to add one of the many <a href="https://themes.gohugo.io/">Hugo themes</a> to our project. Since it was the first theme I used, I&rsquo;ll use the <a href="https://themes.gohugo.io/hugo-theme-hello-friend/">Hello Friend theme</a> in my example.</p>
 <blockquote>
-<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p>
-</blockquote>
+<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p></blockquote>
 <p>Many guides for adding a theme - including Hugo&rsquo;s own docs - just tell you to clone the theme repo or download and copy it into your project&rsquo;s <code>themes</code> directory. But hey, <em>our</em> theme today is <em>submodules</em>, so I propose that we add a theme to our project as a <em>submodule</em> since doing so would give us some nice dev powers over the theme.</p>
 <figure class="align-center "><a href="img/submodules-diagram-with-theme.jpg">
     <img loading="lazy" src="img/submodules-diagram-with-theme.jpg#center"

@@ -9,7 +9,7 @@
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>en</language>
     <lastBuildDate>Mon, 06 Feb 2023 06:00:00 -0600</lastBuildDate>
     <atom:link href="https://www.adamormsby.com/tags/android/index.xml" rel="self" type="application/rss+xml" />
@@ -30,15 +30,13 @@
 <li><a href="https://developer.android.com/guide/topics/resources/app-languages">Android Docs - Per-App Language Preferences</a> - messy, but good info if you&rsquo;re patient</li>
 </ul>
 <p>And here are two great videos sadly buried in the docs - one an overview of the per-app setting, and one a great intro into internationalization on Android.</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/DUKnNWwcNvo?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://www.youtube.com/embed/DUKnNWwcNvo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
-</div>
-
-
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://www.youtube.com/embed/Tq7TSUzAGm8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
-</div>
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/Tq7TSUzAGm8?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
 
 <h2 id="api-feature-overview">API Feature Overview</h2>
 <h3 id="whats-improved">What&rsquo;s improved?</h3>

@@ -9,7 +9,7 @@
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>en</language>
     <lastBuildDate>Mon, 08 Nov 2021 06:00:00 -0600</lastBuildDate>
     <atom:link href="https://www.adamormsby.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
@@ -312,8 +312,7 @@ I&rsquo;ll talk a little about branching inside our submodules later on. To keep
 <h2 id="add-a-theme-to-our-site">Add a Theme to Our Site</h2>
 <p>Wait, we&rsquo;re not finished just yet! Remember how our site doesn&rsquo;t display anything except an error message right now? We need some templates to get things up and running. The easiest way to get some is to add one of the many <a href="https://themes.gohugo.io/">Hugo themes</a> to our project. Since it was the first theme I used, I&rsquo;ll use the <a href="https://themes.gohugo.io/hugo-theme-hello-friend/">Hello Friend theme</a> in my example.</p>
 <blockquote>
-<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p>
-</blockquote>
+<p>Author&rsquo;s Note: If you need submodules, keep on reading! But you might consider using Hugo modules instead. I have another post on those. See what works best for you! (<a href="https://www.adamormsby.com/posts/012-hugo-modules/">my post</a>)</p></blockquote>
 <p>Many guides for adding a theme - including Hugo&rsquo;s own docs - just tell you to clone the theme repo or download and copy it into your project&rsquo;s <code>themes</code> directory. But hey, <em>our</em> theme today is <em>submodules</em>, so I propose that we add a theme to our project as a <em>submodule</em> since doing so would give us some nice dev powers over the theme.</p>
 <figure class="align-center "><a href="img/submodules-diagram-with-theme.jpg">
     <img loading="lazy" src="img/submodules-diagram-with-theme.jpg#center"
