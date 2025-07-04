@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Open Source on </title>
+    <title>Open Source on Adam Ormsby</title>
     <link>https://www.adamormsby.com/tags/open-source/</link>
-    <description>Recent content in Open Source on </description>
+    <description>Recent content in Open Source on Adam Ormsby</description>
     <image>
-      <title></title>
+      <title>Adam Ormsby</title>
       <url>https://www.adamormsby.com/site-img/rssIcon.png</url>
       <link>https://www.adamormsby.com/site-img/rssIcon.png</link>
     </image>
@@ -19,65 +19,6 @@
       <pubDate>Fri, 14 Aug 2020 20:00:00 -0500</pubDate>
       <guid>https://www.adamormsby.com/posts/000/fork-sync-with-upstream/</guid>
       <description>These days, automation is key to saving time and minimizing errors. But if you&amp;rsquo;ve never worked with automation, it&amp;rsquo;s good to start small. This was exactly my thought when I made my first Github Action. Let&amp;rsquo;s see what it does!</description>
-      <content:encoded><![CDATA[
-
-
-
-<form action=https://github.com/aormsby/Fork-Sync-With-Upstream-action target="_blank">
-    <button class="button" style="margin: 18px 0px; padding: 12px; display: flex; align-items: center; justify-content: flex-start;" type="submit">
-        <img src="/octocat-filled.svg" alt="Github logo" width="32px" style="margin: 0px 12px 0px 0px;" />
-        <p style="margin: 0;">View   on Github</p>
-    </button>
-</form>
-
-<p>These days, automation is key to saving time and minimizing errors. But if you&rsquo;ve never worked with automation, it&rsquo;s good to start small. This was exactly my thought when I made my first Github Action. It&rsquo;s available now on the Github Marketplace if you want to try it out - <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>. Let&rsquo;s see what it does!</p>
-<h2 id="how-it-works">How It Works</h2>
-<p>Remember my post on <a href="https://www.adamormsby.com/posts/000/hugo-themes-making-modifications/">making modifications to a Hugo theme</a>? We forked a theme repository and saw how to make custom modifications to our local version of it. Whenever we wanted to pull updates from the source repo, we ran a bunch of git commands to pull new commits from the upstream repo and then push them to our fork. Syncing with commands like that is all well and good, but let&rsquo;s save ourselves a little time by automating that process.</p>
-<p>The Fork Sync With Upstream action takes care of all those updates for us without any work on our part. At its core, the action is a shell script that runs on a Github server and automatically does the following:</p>
-<ul>
-<li>Checkout your fork (needed for the sync process)</li>
-<li>Set the upstream repo to pull updates from</li>
-<li>Check if there are any new commits to sync (and print the commit information)</li>
-<li>Pull from the upstream repo</li>
-<li>Push to the target branch of the target repo</li>
-</ul>
-<p>Just add my action to a Github workflow file in your repo, and <em>voila!</em> All that update work you were doing manually is now automated!</p>
-<h2 id="running-the-fork-sync">Running the Fork Sync</h2>
-<p>If you&rsquo;ve never made a Github workflow before, it&rsquo;s a little bit confusing to figure out at first. (At least, it all was for me.) I recommend reading some of the <a href="https://docs.github.com/en/actions">Github Actions documentation</a> to get a better feel for how all the pieces work together.</p>
-<p>For those looking for a quick sample workflow, here&rsquo;s the one I&rsquo;m using in <a href="https://github.com/aormsby/F-hugo-theme-hello-friend">my fork of Hello Friend</a>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schedule</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">cron</span>:  <span style="color:#e6db74">&#39;0 7 * * 1,4&#39;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># scheduled at 07:00 every Monday and Thursday</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">sync_with_upstream</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Sync master with upstream latest</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout master</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">master</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Pull upstream changes</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">id</span>: <span style="color:#ae81ff">sync</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">aormsby/Fork-Sync-With-Upstream-action@v1</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_repository</span>: <span style="color:#ae81ff">panr/hugo-theme-hello-friend</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">upstream_branch</span>: <span style="color:#ae81ff">master</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Timestamp</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">date</span>
-</span></span></code></pre></div><p>This may not be the only Action built for syncing with a remote, but it certainly has a better README than many of the other ones I&rsquo;ve seen! For more details on using input variables and options, visit the official Marketplace page for <a href="https://github.com/marketplace/actions/upstream-sync">Fork Sync With Upstream</a>.</p>
-<h2 id="behind-the-scenes">Behind The Scenes</h2>
-<p>Just some extra dev notes if you&rsquo;re interested. &#x1f642;</p>
-<p>Github Actions currently have to be created as Docker container actions or JavaScript actions. I went with JavaScript because it&rsquo;s more familiar to me, and I don&rsquo;t need to run this action in any specific Docker-simulated environment.</p>
-<p>The <code>action.yaml</code> file declares all the input variables needed for the action and then runs <code>main.js</code>. At the moment, <code>main.js</code> exists only to run the shell script <code>upstream-sync.sh</code>, which is where the sync really happens. This could change in the future.</p>
-<p>I used both <code>@actions/core</code> and <code>@actions/exec</code> from the <a href="https://github.com/actions/toolkit">Github Actions Toolkit</a> to simplify the functionality in <code>main.js</code>. The shell script is called by <code>exec</code>, which I think of as an &rsquo;easy&rsquo; version of the <code>exec</code> function in node.js. Some of the actions and tools that Github has made are really quite useful.</p>
-<p>Anyway, try it out! Let me know how you like it. I&rsquo;m also planning on turning my <a href="https://www.adamormsby.com/posts/000/hugo-shell-deploy-script/">shell deploy script</a> into an action, so be on the lookout for that. And if you like my work, please consider buying me a coffee. Cheers!</p>
-]]></content:encoded>
     </item>
   </channel>
 </rss>
